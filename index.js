@@ -177,7 +177,7 @@ class playerLike {
 }
 
 let gameData = {
-  mapData: ciqlJson.open("maps/freight.json").data,
+  mapData: ciqlJson.open("maps/dunes.json").data,
   teamNumbers: { "blue": 0, "red": 0 },
   roundsWonScore: {"blue": 0, "red": 0},
   currentRoundScore: { "blue": 0, "red": 0 },
@@ -818,9 +818,9 @@ function newConnection(socket) {
                         if(gameData.players[gameData.users[i]].body == collisions[0].bodyA) {
                           gameData.players[gameData.users[i]].health -= gameData.players[socket.id].guns[gameData.players[socket.id].state.activeWeaponIndex].damage;
                           if (gameData.players[gameData.users[i]].health < 1) {      
-                            gameData.players[gameData.users[i]].health = 0;
-                            //Body.setPosition(gameData.players[gameData.users[i]].body, gameData.players[gameData.users[i]].state.spawnpoint);
-                            Composite.remove(world, gameData.players[gameData.users[i]].body);
+                            gameData.players[gameData.users[i]].health = 100;
+                            Body.setPosition(gameData.players[gameData.users[i]].body, gameData.players[gameData.users[i]].state.spawnpoint);
+                            //Composite.remove(world, gameData.players[gameData.users[i]].body);
                             gameData.players[gameData.users[i]].keys = [];
                             gameData.currentRoundScore[gameData.players[socket.id].team]+=5;
                             gameData.players[gameData.users[i]].state.mag[0] = gameData.players[gameData.users[i]].guns[0].magSize;
@@ -852,9 +852,9 @@ function newConnection(socket) {
                         if (gameData.players[gameData.users[i]].team != gameData.players[socket.id].team) {
                           gameData.players[gameData.users[i]].health -= gameData.players[socket.id].guns[gameData.players[socket.id].state.activeWeaponIndex].damage;
                           if (gameData.players[gameData.users[i]].health < 1) {      
-                            gameData.players[gameData.users[i]].health = 0;
-                            //Body.setPosition(gameData.players[gameData.users[i]].body, gameData.players[gameData.users[i]].state.spawnpoint);
-                            Composite.remove(world, gameData.players[gameData.users[i]].body);
+                            gameData.players[gameData.users[i]].health = 100;
+                            Body.setPosition(gameData.players[gameData.users[i]].body, gameData.players[gameData.users[i]].state.spawnpoint);
+                            //Composite.remove(world, gameData.players[gameData.users[i]].body);
                             gameData.players[gameData.users[i]].keys = [];
                             gameData.currentRoundScore[gameData.players[socket.id].team]+=5;
                             gameData.players[gameData.users[i]].state.mag[0] = gameData.players[gameData.users[i]].guns[0].magSize;
@@ -880,9 +880,9 @@ function newConnection(socket) {
                       if (gameData.players[gameData.users[i]].team != gameData.players[socket.id].team) {
                         gameData.players[gameData.users[i]].health -= gameData.players[socket.id].guns[gameData.players[socket.id].state.activeWeaponIndex].damage;
                         if (gameData.players[gameData.users[i]].health < 1) {
-                          gameData.players[gameData.users[i]].health = 0;
-                          //Body.setPosition(gameData.players[gameData.users[i]].body, gameData.players[gameData.users[i]].state.spawnpoint);
-                          Composite.remove(world, gameData.players[gameData.users[i]].body);
+                          gameData.players[gameData.users[i]].health = 100;
+                          Body.setPosition(gameData.players[gameData.users[i]].body, gameData.players[gameData.users[i]].state.spawnpoint);
+                          //Composite.remove(world, gameData.players[gameData.users[i]].body);
                           gameData.players[gameData.users[i]].keys = [];
                           gameData.currentRoundScore[gameData.players[socket.id].team]+=5;
                           gameData.players[gameData.users[i]].state.mag[0] = gameData.players[gameData.users[i]].guns[0].magSize;

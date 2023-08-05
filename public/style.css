@@ -95,7 +95,7 @@ button:hover {
   position: absolute;
   height: calc(3.5vw + 3.5vh);
   left: calc(1vw + 1vh);
-  transform: skew(14deg);
+  transform: skew(14deg) scaleX(-1);
   -webkit-user-drag: none;
   filter: opacity(0.01) drop-shadow(0 0 0 #333333) drop-shadow(0 0 0 #333333) drop-shadow(0 0 0 #333333) drop-shadow(0 0 0 #333333) drop-shadow(0 0 0 #333333) drop-shadow(0 0 0 #333333) drop-shadow(0 0 0 #333333) drop-shadow(0 0 0 #333333) drop-shadow(0 0 0 #333333) drop-shadow(0 0 0 #333333) drop-shadow(0 0 0 #333333) drop-shadow(0 0 0 #333333) drop-shadow(0 0 0 #333333) drop-shadow(0 0 0 #333333);
   filter: none;
