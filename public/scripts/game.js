@@ -74,9 +74,9 @@ function setup() {
       resizeCanvas(windowWidth, windowHeight);
       background("#333333");
       updateGunHUD(gameData);
-      document.getElementById("healthbar").style.width = ((windowWidth * 0.1) * (gameData.players[permanentID].health / 100)) + ((windowHeight * 0.1) * (gameData.players[permanentID].health / 100)) + "px";
-      document.getElementById("healthbar-opposite").style.width = ((windowWidth * 0.1) * -((data.players[permanentID].health / 100) - 1)) + ((windowHeight * 0.1) * -((data.players[permanentID].health / 100) - 1)) + "px";
-      document.getElementById("healthbar-opposite").style.right = "calc(16.5vw + 16.5vh - " + ((windowWidth * 0.1) * (-((data.players[permanentID].health / 100) - 1)) + ((windowHeight * 0.1) * -((data.players[permanentID].health / 100) - 1))) + "px)" ;
+      document.getElementById("healthbar").style.width = ((windowWidth * 0.1) * (gameData.players[socket.id].health / 100)) + ((windowHeight * 0.1) * (gameData.players[socket.id].health / 100)) + "px";
+      document.getElementById("healthbar-opposite").style.width = ((windowWidth * 0.1) * -((data.players[socket.id].health / 100) - 1)) + ((windowHeight * 0.1) * -((data.players[socket.id].health / 100) - 1)) + "px";
+      document.getElementById("healthbar-opposite").style.right = "calc(16.5vw + 16.5vh - " + ((windowWidth * 0.1) * (-((data.players[socket.id].health / 100) - 1)) + ((windowHeight * 0.1) * -((data.players[socket.id].health / 100) - 1))) + "px)" ;
       document.getElementById("healthbar-text").innerHTML = '<img src="/assets/misc/health-icon.svg" style="width: calc(1.2vw + 1.2vh); margin-top: calc(0.4vw + 0.4vh); margin-right: calc(0.4vw + 0.4vh);"></img>';
     }
   );
@@ -109,39 +109,39 @@ function setup() {
     assetsLoaded[data.mapData.config["ground-image"]] = loadImage(data.mapData.config["ground-image"]);
     assetsAreLoaded = true;
     queuedCameraLocation = {
-      x: gameData.players[permanentID].state.position.x,
-      y: gameData.players[permanentID].state.position.y,
-      z: 2200 + gameData.players[permanentID].guns[gameData.players[permanentID].state.activeWeaponIndex].view,
-      targetX: gameData.players[permanentID].state.position.x,
-      targetY: gameData.players[permanentID].state.position.y,
+      x: gameData.players[socket.id].state.position.x,
+      y: gameData.players[socket.id].state.position.y,
+      z: 2200 + gameData.players[socket.id].guns[gameData.players[socket.id].state.activeWeaponIndex].view,
+      targetX: gameData.players[socket.id].state.position.x,
+      targetY: gameData.players[socket.id].state.position.y,
       targetZ: 0
     };
     loop();
     document.getElementById("main-menu").style.display = "none";
     document.getElementById("hud").style.display = "block";
-    document.getElementById("main").src = data.players[permanentID].guns[0].images.lootSRC;
-    document.getElementById("pistol").src = data.players[permanentID].guns[1].images.lootSRC;
-    document.getElementById("melee").src = data.players[permanentID].guns[2].images.lootSRC;
-    if(gameData.players[permanentID].guns[gameData.players[permanentID].state.activeWeaponIndex].type == "melee") {
+    document.getElementById("main").src = data.players[socket.id].guns[0].images.lootSRC;
+    document.getElementById("pistol").src = data.players[socket.id].guns[1].images.lootSRC;
+    document.getElementById("melee").src = data.players[socket.id].guns[2].images.lootSRC;
+    if(gameData.players[socket.id].guns[gameData.players[socket.id].state.activeWeaponIndex].type == "melee") {
       document.getElementById("ammocount").innerHTML = '∞';
     } else {
-      document.getElementById("ammocount").innerHTML = data.players[permanentID].state.mag[data.players[permanentID].state.activeWeaponIndex] + " <smol> I " + data.players[permanentID].guns[data.players[permanentID].state.activeWeaponIndex].magSize + '</smol> <img src="/assets/misc/bullet-icon.svg" style="width: calc(0.2vw + 0.2vh);"></img>';
+      document.getElementById("ammocount").innerHTML = data.players[socket.id].state.mag[data.players[socket.id].state.activeWeaponIndex] + " <smol> I " + data.players[socket.id].guns[data.players[socket.id].state.activeWeaponIndex].magSize + '</smol> <img src="/assets/misc/bullet-icon.svg" style="width: calc(0.2vw + 0.2vh);"></img>';
     }
-    document.getElementById("healthbar").style.width = ((windowWidth * 0.1) * (gameData.players[permanentID].health / 100)) + ((windowHeight * 0.1) * (gameData.players[permanentID].health / 100)) + "px";
-    document.getElementById("healthbar-opposite").style.width = ((windowWidth * 0.1) * -((data.players[permanentID].health / 100) - 1)) + ((windowHeight * 0.1) * -((data.players[permanentID].health / 100) - 1)) + "px";
-    document.getElementById("healthbar-opposite").style.right = "calc(16.5vw + 16.5vh - " + ((windowWidth * 0.1) * (-((data.players[permanentID].health / 100) - 1)) + ((windowHeight * 0.1) * -((data.players[permanentID].health / 100) - 1))) + "px)" ;
+    document.getElementById("healthbar").style.width = ((windowWidth * 0.1) * (gameData.players[socket.id].health / 100)) + ((windowHeight * 0.1) * (gameData.players[socket.id].health / 100)) + "px";
+    document.getElementById("healthbar-opposite").style.width = ((windowWidth * 0.1) * -((data.players[socket.id].health / 100) - 1)) + ((windowHeight * 0.1) * -((data.players[socket.id].health / 100) - 1)) + "px";
+    document.getElementById("healthbar-opposite").style.right = "calc(16.5vw + 16.5vh - " + ((windowWidth * 0.1) * (-((data.players[socket.id].health / 100) - 1)) + ((windowHeight * 0.1) * -((data.players[socket.id].health / 100) - 1))) + "px)" ;
     document.getElementById("healthbar-text").innerHTML = '<img src="/assets/misc/health-icon.svg" style="width: calc(1.2vw + 1.2vh); margin-top: calc(0.4vw + 0.4vh); margin-right: calc(0.4vw + 0.4vh);"></img>';
     document.getElementById("defaultCanvas0").style.display = "block";
     document.getElementById("mapname").textContent = "Map: " + gameData.mapData.config["map-name"];
     document.getElementById("fps").textContent = "FPS: " + round(frameRate());
-    document.getElementById("pingcount").textContent = "Ping: " + gameData.players[permanentID].state.ping;
-    updateObjects = setInterval(function() { if(debug) { document.getElementById("object-count").textContent = objectRenderCount + gameData.bullets.length + gameData.particles.length + gameData.users.length + " objects being rendered"; objectRenderCount = 0; document.getElementById("fps").textContent = "FPS: " + round(frameRate());     document.getElementById("pingcount").textContent = "Ping: " + gameData.players[permanentID].state.ping; } }, 600);
+    document.getElementById("pingcount").textContent = "Ping: " + gameData.players[socket.id].state.ping;
+    updateObjects = setInterval(function() { if(debug) { document.getElementById("object-count").textContent = objectRenderCount + gameData.bullets.length + gameData.particles.length + gameData.users.length + " objects being rendered"; objectRenderCount = 0; document.getElementById("fps").textContent = "FPS: " + round(frameRate());     document.getElementById("pingcount").textContent = "Ping: " + gameData.players[socket.id].state.ping; } }, 600);
     ping = setInterval(function() {
       const start = Date.now();
     
       socket.emit("ping", {time: start});
     }, 1000);
-    switch(gameData.players[permanentID].team) {
+    switch(gameData.players[socket.id].team) {
       case "blue":
         document.getElementById("blue-score").textContent = gameData.currentRoundScore.blue;
         document.getElementById("red-score").textContent = gameData.currentRoundScore.red;
@@ -162,11 +162,11 @@ function setup() {
     gameData.users = data.users;
     gameData.currentRoundScore = data.currentRoundScore;
     gameData.certificate = data.certificate;
-    if(gameData.players[permanentID].health > 0) {
-      queuedCameraLocation.x = gameData.players[permanentID].state.position.x;
-      queuedCameraLocation.y = gameData.players[permanentID].state.position.y;
-      queuedCameraLocation.targetX = gameData.players[permanentID].state.position.x;
-      queuedCameraLocation.targetY = gameData.players[permanentID].state.position.y;  
+    if(gameData.players[socket.id].health > 0) {
+      queuedCameraLocation.x = gameData.players[socket.id].state.position.x;
+      queuedCameraLocation.y = gameData.players[socket.id].state.position.y;
+      queuedCameraLocation.targetX = gameData.players[socket.id].state.position.x;
+      queuedCameraLocation.targetY = gameData.players[socket.id].state.position.y;  
     }
   });
 
@@ -175,18 +175,18 @@ function setup() {
   });
 
   socket.on("ui-change", data => {
-    if(data.players[permanentID]) {
-      if(data.players[permanentID].guns[data.players[permanentID].state.activeWeaponIndex].type == "melee") {
+    if(data.players[socket.id]) {
+      if(data.players[socket.id].guns[data.players[socket.id].state.activeWeaponIndex].type == "melee") {
         document.getElementById("ammocount").innerHTML = '∞';
       } else {
-        document.getElementById("ammocount").innerHTML = data.players[permanentID].state.mag[data.players[permanentID].state.activeWeaponIndex] + " <smol> I " + data.players[permanentID].guns[data.players[permanentID].state.activeWeaponIndex].magSize + '</smol> <img src="/assets/misc/bullet-icon.svg" style="width: calc(0.2vw + 0.2vh);"></img>';
+        document.getElementById("ammocount").innerHTML = data.players[socket.id].state.mag[data.players[socket.id].state.activeWeaponIndex] + " <smol> I " + data.players[socket.id].guns[data.players[socket.id].state.activeWeaponIndex].magSize + '</smol> <img src="/assets/misc/bullet-icon.svg" style="width: calc(0.2vw + 0.2vh);"></img>';
       }
-      document.getElementById("healthbar").style.width = ((windowWidth * 0.1) * (data.players[permanentID].health / 100)) + ((windowHeight * 0.1) * (data.players[permanentID].health / 100)) + "px";
-      document.getElementById("healthbar-opposite").style.width = ((windowWidth * 0.1) * -((data.players[permanentID].health / 100) - 1)) + ((windowHeight * 0.1) * -((data.players[permanentID].health / 100) - 1)) + "px";
-      document.getElementById("healthbar-opposite").style.right = "calc(16.5vw + 16.5vh - " + ((windowWidth * 0.1) * (-((data.players[permanentID].health / 100) - 1)) + ((windowHeight * 0.1) * -((data.players[permanentID].health / 100) - 1))) + "px)" ;
-      document.getElementById("reloadcolumn").style.height = ((width * 0.085) * (data.players[permanentID].state.reloadProgress / data.players[permanentID].guns[data.players[permanentID].state.activeWeaponIndex].reloadLength)) + ((height * 0.085) * (data.players[permanentID].state.reloadProgress / data.players[permanentID].guns[data.players[permanentID].state.activeWeaponIndex].reloadLength)) + "px";
-      document.getElementById("reloadcolumn").style.right = ((width * 0.155) * (data.players[permanentID].state.reloadProgress / data.players[permanentID].guns[data.players[permanentID].state.activeWeaponIndex].reloadLength)) + ((height * 0.155) * (data.players[permanentID].state.reloadProgress / data.players[permanentID].guns[data.players[permanentID].state.activeWeaponIndex].reloadLength)) - ((data.players[permanentID].state.reloadProgress - data.players[permanentID].guns[data.players[permanentID].state.activeWeaponIndex].reloadLength) * (width / (data.players[permanentID].guns[data.players[permanentID].state.activeWeaponIndex].reloadLength * 6.025) + height / (data.players[permanentID].guns[data.players[permanentID].state.activeWeaponIndex].reloadLength * 6.025))) + "px";
-      switch(data.players[permanentID].team) {
+      document.getElementById("healthbar").style.width = ((windowWidth * 0.1) * (data.players[socket.id].health / 100)) + ((windowHeight * 0.1) * (data.players[socket.id].health / 100)) + "px";
+      document.getElementById("healthbar-opposite").style.width = ((windowWidth * 0.1) * -((data.players[socket.id].health / 100) - 1)) + ((windowHeight * 0.1) * -((data.players[socket.id].health / 100) - 1)) + "px";
+      document.getElementById("healthbar-opposite").style.right = "calc(16.5vw + 16.5vh - " + ((windowWidth * 0.1) * (-((data.players[socket.id].health / 100) - 1)) + ((windowHeight * 0.1) * -((data.players[socket.id].health / 100) - 1))) + "px)" ;
+      document.getElementById("reloadcolumn").style.height = ((width * 0.085) * (data.players[socket.id].state.reloadProgress / data.players[socket.id].guns[data.players[socket.id].state.activeWeaponIndex].reloadLength)) + ((height * 0.085) * (data.players[socket.id].state.reloadProgress / data.players[socket.id].guns[data.players[socket.id].state.activeWeaponIndex].reloadLength)) + "px";
+      document.getElementById("reloadcolumn").style.right = ((width * 0.155) * (data.players[socket.id].state.reloadProgress / data.players[socket.id].guns[data.players[socket.id].state.activeWeaponIndex].reloadLength)) + ((height * 0.155) * (data.players[socket.id].state.reloadProgress / data.players[socket.id].guns[data.players[socket.id].state.activeWeaponIndex].reloadLength)) - ((data.players[socket.id].state.reloadProgress - data.players[socket.id].guns[data.players[socket.id].state.activeWeaponIndex].reloadLength) * (width / (data.players[socket.id].guns[data.players[socket.id].state.activeWeaponIndex].reloadLength * 6.025) + height / (data.players[socket.id].guns[data.players[socket.id].state.activeWeaponIndex].reloadLength * 6.025))) + "px";
+      switch(data.players[socket.id].team) {
         case "blue":
           document.getElementById("blue-score").textContent = data.currentRoundScore["blue"];
           document.getElementById("red-score").textContent = data.currentRoundScore["red"];
