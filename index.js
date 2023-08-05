@@ -6,6 +6,8 @@
 
 // PRESTO
 
+require('dotenv').config();
+
 const ciqlJson = require("ciql-json");
 
 const express = require("express");
