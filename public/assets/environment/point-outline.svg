@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="600mm"
+   height="600mm"
+   viewBox="0 0 600 600"
+   version="1.1"
+   id="svg1099"
+   inkscape:version="1.3 (0e150ed, 2023-07-21)"
+   sodipodi:docname="point-outline.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1101"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="0.12385782"
+     inkscape:cx="1542.0908"
+     inkscape:cy="1416.9473"
+     inkscape:window-width="1312"
+     inkscape:window-height="784"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer1"
+     inkscape:showpageshadow="2"
+     inkscape:deskcolor="#d1d1d1" />
+  <defs
+     id="defs1096">
+    <filter
+       inkscape:collect="always"
+       style="color-interpolation-filters:sRGB"
+       id="filter1"
+       x="-0.0280005"
+       y="-0.0280005"
+       width="1.056001"
+       height="1.056001">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="0.59523808"
+         id="feGaussianBlur1" />
+    </filter>
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:23.81;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:23.81,71.43000191;stroke-dashoffset:11.90495041;stroke-opacity:0.60000002;filter:url(#filter1)"
+       id="rect13079"
+       width="476.19046"
+       height="476.19046"
+       x="61.90477"
+       y="61.90477"
+       ry="0" />
+  </g>
+</svg>
