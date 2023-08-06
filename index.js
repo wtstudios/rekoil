@@ -578,7 +578,6 @@ function updatePlayer(player, delay) {
   });
 
   player.state.isMoving = w || a || s || d;
-  console.log(player.body.force);
 }
 
 function updateParticles(delay) {
