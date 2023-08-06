@@ -23,9 +23,9 @@
      inkscape:pagecheckerboard="0"
      inkscape:document-units="mm"
      showgrid="false"
-     inkscape:zoom="0.3372665"
-     inkscape:cx="358.76673"
-     inkscape:cy="496.6399"
+     inkscape:zoom="0.45168558"
+     inkscape:cx="-150.5472"
+     inkscape:cy="417.3257"
      inkscape:window-width="1312"
      inkscape:window-height="724"
      inkscape:window-x="0"
@@ -59,7 +59,7 @@
          y="59.043758" />
       <path
          style="fill:#333333;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
-         d="m 54.76874,59.04376 2e-5,1 h 49.99999 v -1 l -9.99999,-20 h -30 z"
+         d="m 54.76874,59.04376 2e-5,5.000001 h 49.99999 V 59.04376 l -9.99999,-20 h -30 z"
          id="path1"
          sodipodi:nodetypes="ccccccc" />
       <path

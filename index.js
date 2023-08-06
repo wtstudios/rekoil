@@ -22,7 +22,7 @@ app.use(express.static("public"));
 
 console.log("Server online");
 
-const socket = require("socket.io");
+const socket = require("socket.io")(http, {'pingInterval': 2000, 'pingTimeout': 60000});;
 
 const io = socket(server);
 
