@@ -76,7 +76,7 @@ function setup() {
       if(gameData) {
         updateGunHUD(gameData);
         document.getElementById("healthbar").style.width = ((windowWidth * 0.1) * (gameData.players[socket.id].health / 100)) + ((windowHeight * 0.1) * (gameData.players[socket.id].health / 100)) + "px";
-        document.getElementById("healthbar-opposite").style.width = ((windowWidth * 0.1) * -((data.players[socket.id].health / 100) - 1)) + ((windowHeight * 0.1) * -((gameData.players[socket.id].health / 100) - 1)) + "px";
+        document.getElementById("healthbar-opposite").style.width = ((windowWidth * 0.1) * -((gameData.players[socket.id].health / 100) - 1)) + ((windowHeight * 0.1) * -((gameData.players[socket.id].health / 100) - 1)) + "px";
         document.getElementById("healthbar-opposite").style.right = "calc(16.5vw + 16.5vh - " + ((windowWidth * 0.1) * (-((data.players[socket.id].health / 100) - 1)) + ((windowHeight * 0.1) * -((data.players[socket.id].health / 100) - 1))) + "px)" ;
         document.getElementById("healthbar-text").innerHTML = '<img src="/assets/misc/health-icon.svg" style="width: calc(1.2vw + 1.2vh); margin-top: calc(0.4vw + 0.4vh); margin-right: calc(0.4vw + 0.4vh);"></img>';
       }
