@@ -161,7 +161,8 @@ class playerLike {
     activeWeaponIndex: 0,
     hasStarted: false,
     objectRenderList: [],
-    ping: 0
+    ping: 0,
+    force: {}
   };
 
   constructor(body, angle, guns, health, view, team, platform) {
@@ -175,6 +176,7 @@ class playerLike {
     this.state.isMoving = false;
     this.platform = platform;
     this.state.position = body.position;
+    this.state.force = this.#body.force;
   }
   destroy() {
     this.#body = void 0;
@@ -182,7 +184,7 @@ class playerLike {
 }
 
 let gameData = {
-  mapData: ciqlJson.open("maps/dunes.json").data,
+  mapData: ciqlJson.open("maps/freight.json").data,
   teamNumbers: { "blue": 0, "red": 0 },
   roundsWonScore: {"blue": 0, "red": 0},
   currentRoundScore: { "blue": 0, "red": 0 },
@@ -262,7 +264,7 @@ let gameData = {
       ),
       new weapon(
         {
-          name: "Knife | Classic",
+          name: "Bayonet | Classic",
           type: "melee",
           view: 0,
           fireDelay: 10,
@@ -275,7 +277,7 @@ let gameData = {
             radius: 200
           },
           handPositions: [{ x: -65, y: -120 }, { x: 65, y: -120 }],
-          images: { topdownSRC: "/assets/weapons/knife_default_topdown.svg", lootSRC: "/assets/weapons/knife_default_loot.svg", offset: { x: 15, y: -260 } },
+          images: { topdownSRC: "/assets/weapons/bayonet_topdown.svg", lootSRC: "/assets/weapons/bayonet_loot.svg", offset: { x: 15, y: -270 } },
           reloadLength: 0,
           roundsPerReload: "all",
           playerDensity: 0.015,
@@ -377,7 +379,7 @@ let gameData = {
             radius: 200
           },
           handPositions: [{ x: -65, y: -120 }, { x: 65, y: -120 }],
-          images: { topdownSRC: "/assets/weapons/knife_default_topdown.svg", lootSRC: "/assets/weapons/knife_default_loot.svg", offset: { x: 15, y: -260 } },
+          images: { topdownSRC: "/assets/weapons/knife_topdown.svg", lootSRC: "/assets/weapons/knife_loot.svg", offset: { x: 15, y: -260 } },
           reloadLength: 0,
           roundsPerReload: "all",
           playerDensity: 0.015,
@@ -478,7 +480,7 @@ let gameData = {
             radius: 200
           },
           handPositions: [{ x: -65, y: -120 }, { x: 65, y: -120 }],
-          images: { topdownSRC: "/assets/weapons/knife_default_topdown.svg", lootSRC: "/assets/weapons/knife_default_loot.svg", offset: { x: 15, y: -260 } },
+          images: { topdownSRC: "/assets/weapons/knife_topdown.svg", lootSRC: "/assets/weapons/knife_loot.svg", offset: { x: 15, y: -260 } },
           reloadLength: 0,
           roundsPerReload: "all",
           playerDensity: 0.015,
@@ -576,6 +578,7 @@ function updatePlayer(player, delay) {
   });
 
   player.state.isMoving = w || a || s || d;
+  console.log(player.body.force);
 }
 
 function updateParticles(delay) {

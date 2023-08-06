@@ -259,19 +259,31 @@ function animatePlayers() {
   if (assetsAreLoaded) {
     for (let i = 0; i < gameData.users.length; i++) {
       let player = gameData.players[gameData.users[i]];
-      const w = !!player.keys[83],
+      let w, a, s, d;
+      w = a = s = d = false;
+      if(player.state.force.y < 0) {
+        w = true;
+      } else if(player.state.force.y > 0) {
+        s = true;
+      }
+      if(player.state.force.x < 0) {
+        a = true;
+      } else if(player.state.force.x > 0) {
+        d = true;
+      }
+      /*const w = !!player.keys[83],
         a = !!player.keys[65],
         s = !!player.keys[87],
-        d = !!player.keys[68],
-        base = 8.48528137423857;
+        d = !!player.keys[68],*/
+      const base = 8.48528137423857;
 
-      player.state.position.x += +(a ^ d) && (((w ^ s) ? Math.SQRT1_2 : 1) * [-1, 1][+d] * base * 0.5);
-      player.state.position.y += +(w ^ s) && (((a ^ d) ? Math.SQRT1_2 : 1) * [-1, 1][+w] * base * 0.5);
+      player.state.position.x += +(a ^ d) && (((w ^ s) ? Math.SQRT1_2 : 1) * [-1, 1][+d] * base * 2);
+      player.state.position.y += +(w ^ s) && (((a ^ d) ? Math.SQRT1_2 : 1) * [-1, 1][+w] * base * 2);
       if(gameData.users[i] == socket.id && gameData.players[socket.id].health > 0) {
-        queuedCameraLocation.x += +(a ^ d) && (((w ^ s) ? Math.SQRT1_2 : 1) * [-1, 1][+d] * base * 0.5);
-        queuedCameraLocation.y += +(w ^ s) && (((a ^ d) ? Math.SQRT1_2 : 1) * [-1, 1][+w] * base * 0.5);
-        queuedCameraLocation.targetX += +(a ^ d) && (((w ^ s) ? Math.SQRT1_2 : 1) * [-1, 1][+d] * base * 0.5);
-        queuedCameraLocation.targetY += +(w ^ s) && (((a ^ d) ? Math.SQRT1_2 : 1) * [-1, 1][+w] * base * 0.5);
+        queuedCameraLocation.x += +(a ^ d) && (((w ^ s) ? Math.SQRT1_2 : 1) * [-1, 1][+d] * base * 2);
+        queuedCameraLocation.y += +(w ^ s) && (((a ^ d) ? Math.SQRT1_2 : 1) * [-1, 1][+w] * base * 2);
+        queuedCameraLocation.targetX += +(a ^ d) && (((w ^ s) ? Math.SQRT1_2 : 1) * [-1, 1][+d] * base * 2);
+        queuedCameraLocation.targetY += +(w ^ s) && (((a ^ d) ? Math.SQRT1_2 : 1) * [-1, 1][+w] * base * 2);
       }
     }
   }
