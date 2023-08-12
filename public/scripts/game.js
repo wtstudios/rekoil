@@ -24,7 +24,7 @@ let socket,
   sourceSansPro,
   ping;
 
-socket = io.connect("rekoil-hp-use.onrender.com");
+socket = io.connect(window.location.host);
 
 function keyReleased() {
   if(assetsAreLoaded) {
