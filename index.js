@@ -26,10 +26,10 @@ const socket = require("socket.io");
 
 const io = socket(server, {
   cors: {
-    origin: "rekoil-hp-usw.onrender.com",
-    origin: "rekoil-hp-use.onrender.com",
-    origin: "rekoil-hp-eu.onrender.com",
-    origin: "rekoil-hp-as.onrender.com"
+    origin: "https://rekoil-hp-usw.onrender.com",
+    origin: "https://rekoil-hp-use.onrender.com",
+    origin: "https://rekoil-hp-eu.onrender.com",
+    origin: "https://rekoil-hp-as.onrender.com"
   }
 });
 
