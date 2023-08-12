@@ -24,7 +24,14 @@ console.log("Server online");
 
 const socket = require("socket.io");
 
-const io = socket(server);
+const io = socket(server, {
+  cors: {
+    origin: "rekoil-hp-usw.onrender.com",
+    origin: "rekoil-hp-use.onrender.com",
+    origin: "rekoil-hp-eu.onrender.com",
+    origin: "rekoil-hp-as.onrender.com"
+  }
+});
 
 const Matter = require("matter-js");
 
