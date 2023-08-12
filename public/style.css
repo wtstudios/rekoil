@@ -79,6 +79,7 @@ button:hover {
   transform: skew(-14deg);
   z-index: 1;
   transition: linear 0.1s;
+
 }
 
 .ammocount-backing {
@@ -89,6 +90,7 @@ button:hover {
   right: calc(-2vw - 2vh);
   transform: skew(-14deg);
   z-index: 1;
+
 }
 
 .gun {
@@ -109,6 +111,7 @@ button:hover {
   height: calc(2.5vw + 2.5vh);
   transform: skew(-14deg);
   z-index: 1;
+
 }
 
 .select-weapon {

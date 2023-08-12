@@ -10,7 +10,7 @@ window.addEventListener("resize", () => {
 window.addEventListener("contextmenu", e => e.preventDefault());
 
 function requestConnectToGame() {
-  let platform = "";
+  let platform;
   if (navigator.userAgent.match(/Android/i)
   || navigator.userAgent.match(/webOS/i)
   || navigator.userAgent.match(/iPhone/i)
@@ -92,7 +92,6 @@ function displayParticles() {
 }
 
 function displayObstacles() {
-  objectRenderCount = 0;
   const player = gameData.players[socket.id];
   for (let i = 0; i < player.state.objectRenderList.length; i++) {
     const obstacleData = gameData.mapData.obstacles[player.state.objectRenderList[i]];
@@ -105,7 +104,11 @@ function displayObstacles() {
       rotate(-obstacleData["display-data"]["offset"].angle -obstacleData["body-data"].options.angle / Math.PI * 180);
       switch(obstacleData["body-data"].type) {
         case "rectangle":
-          rect(-obstacleData["display-data"]["offset"].x, -obstacleData["display-data"]["offset"].y, obstacleData["body-data"].dimensions.width, obstacleData["body-data"].dimensions.height);
+          if(obstacleData["body-data"].options.chamfer) {
+            rect(-obstacleData["display-data"]["offset"].x, -obstacleData["display-data"]["offset"].y, obstacleData["body-data"].dimensions.width, obstacleData["body-data"].dimensions.height, 1000);
+          } else {
+            rect(-obstacleData["display-data"]["offset"].x, -obstacleData["display-data"]["offset"].y, obstacleData["body-data"].dimensions.width, obstacleData["body-data"].dimensions.height);
+          }
           break;
         case "circle":
           ellipse(-obstacleData["display-data"]["offset"].x, -obstacleData["display-data"]["offset"].y,  obstacleData["body-data"].radius * 2,  obstacleData["body-data"].radius * 2);
@@ -113,7 +116,6 @@ function displayObstacles() {
       }
     }
     pop();
-    objectRenderCount++;
   }
 }
 
@@ -194,11 +196,21 @@ function displayPlayers() {
       if(debug) {
         fill(0, 255, 0, 100);
         ellipse(0, 0, 240, 240);
+        if(playerData.state.isMoving) {
+          if(gameData.users[i] == socket.id) {
+            rotate(-atan2(mouseY - height / 2, mouseX - width / 2) + 90);
+          } else {
+            rotate(-playerData.state.angle - 90);
+          }
+          if(!!playerData.state.force.y) {
+            image(assetsLoaded["/assets/misc/arrow.svg"], 0, 0, 30, playerData.state.force.y * 15);
+          }
+          if(!!playerData.state.force.x) {
+            rotate(-90);
+            image(assetsLoaded["/assets/misc/arrow.svg"], 0, 0, 30, playerData.state.force.x * 15);          
+          }
+        }
       }
-      /*textAlign(CENTER);
-      fill("#333333");
-      translate(0, 0);
-      text(playerData.platform, 0, -200);*/
       pop();
     }
   }
@@ -261,9 +273,9 @@ function animatePlayers() {
       let player = gameData.players[gameData.users[i]];
       let w, a, s, d;
       w = a = s = d = false;
-      if(player.state.force.y < 0) {
+      if(player.state.force.y > 0) {
         w = true;
-      } else if(player.state.force.y > 0) {
+      } else if(player.state.force.y < 0) {
         s = true;
       }
       if(player.state.force.x < 0) {
@@ -277,16 +289,14 @@ function animatePlayers() {
         d = !!player.keys[68],*/
       const base = 8.48528137423857;
 
-      player.state.position.x += +(a ^ d) && (((w ^ s) ? Math.SQRT1_2 : 1) * [-1, 1][+d] * base * 2);
-      player.state.position.y += +(w ^ s) && (((a ^ d) ? Math.SQRT1_2 : 1) * [-1, 1][+w] * base * 2);
+      player.state.position.x += +(a ^ d) && (((w ^ s) ? Math.SQRT1_2 : 1) * [-1, 1][+d] * base * 0.6);
+      player.state.position.y += +(w ^ s) && (((a ^ d) ? Math.SQRT1_2 : 1) * [-1, 1][+w] * base * 0.6);
       if(gameData.users[i] == socket.id && gameData.players[socket.id].health > 0) {
-        queuedCameraLocation.x += +(a ^ d) && (((w ^ s) ? Math.SQRT1_2 : 1) * [-1, 1][+d] * base * 2);
-        queuedCameraLocation.y += +(w ^ s) && (((a ^ d) ? Math.SQRT1_2 : 1) * [-1, 1][+w] * base * 2);
-        queuedCameraLocation.targetX += +(a ^ d) && (((w ^ s) ? Math.SQRT1_2 : 1) * [-1, 1][+d] * base * 2);
-        queuedCameraLocation.targetY += +(w ^ s) && (((a ^ d) ? Math.SQRT1_2 : 1) * [-1, 1][+w] * base * 2);
+        queuedCameraLocation.x += +(a ^ d) && (((w ^ s) ? Math.SQRT1_2 : 1) * [-1, 1][+d] * base * 0.6);
+        queuedCameraLocation.y += +(w ^ s) && (((a ^ d) ? Math.SQRT1_2 : 1) * [-1, 1][+w] * base * 0.6);
+        queuedCameraLocation.targetX += +(a ^ d) && (((w ^ s) ? Math.SQRT1_2 : 1) * [-1, 1][+d] * base * 0.6);
+        queuedCameraLocation.targetY += +(w ^ s) && (((a ^ d) ? Math.SQRT1_2 : 1) * [-1, 1][+w] * base * 0.6);
       }
     }
   }
 }
-
-

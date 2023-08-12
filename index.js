@@ -85,6 +85,7 @@ class weapon {
   damageArea;
   recoilImpulse;
   lifeTime;
+  sounds;
 
   constructor(data) {
     this.name = data.name;
@@ -113,6 +114,7 @@ class weapon {
     this.images = data.images;
     this.playerDensity = data.playerDensity;
     this.recoilImpulse = data.recoilImpulse;
+    this.sounds = data.sounds;
   }
 }
 
@@ -162,7 +164,7 @@ class playerLike {
     hasStarted: false,
     objectRenderList: [],
     ping: 0,
-    force: {}
+    force: {x: 0, y: 0}
   };
 
   constructor(body, angle, guns, health, view, team, platform) {
@@ -176,7 +178,6 @@ class playerLike {
     this.state.isMoving = false;
     this.platform = platform;
     this.state.position = body.position;
-    this.state.force = this.#body.force;
   }
   destroy() {
     this.#body = void 0;
@@ -184,7 +185,7 @@ class playerLike {
 }
 
 let gameData = {
-  mapData: ciqlJson.open("maps/freight.json").data,
+  mapData: ciqlJson.open("maps/dunes.json").data,
   teamNumbers: { "blue": 0, "red": 0 },
   roundsWonScore: {"blue": 0, "red": 0},
   currentRoundScore: { "blue": 0, "red": 0 },
@@ -196,6 +197,7 @@ let gameData = {
   usersOnline: 0,
   users: [],
   certificate: "",
+  queuedSounds: [],
   loadouts: {
     "scar": [
       new weapon(
@@ -204,8 +206,11 @@ let gameData = {
           type: "rifle",
           magSize: 20,
           view: 0,
-          fireDelay: 4,
-          spread: 5,
+          fireDelay: 5,
+          spread: {
+            standing: 3,
+            moving: 9
+          },
           damage: 18,
           bulletsPerShot: 1,
           handPositions: [{ x: -25, y: -270 }, { x: 25, y: -120 }],
@@ -213,6 +218,10 @@ let gameData = {
           reloadLength: 80,
           roundsPerReload: "all",
           playerDensity: 0.02,
+          sounds: {
+            fire: "/assets/audio/guns/scar_fire.mp3",
+            reload: "/assets/audio/guns/scar_reload.mp3"
+          },
           recoilImpulse: [
             {
               x: 0,
@@ -237,14 +246,21 @@ let gameData = {
           magSize: 12,
           view: 0,
           fireDelay: 9,
-          spread: 3,
+          spread: {
+            standing: 1.5,
+            moving: 8
+          },
           damage: 21,
           bulletsPerShot: 1,
           handPositions: [{ x: -30, y: -115 }, { x: 25, y: -120 }],
           images: { topdownSRC: "/assets/weapons/509_topdown.svg", lootSRC: "/assets/weapons/509_loot.svg", offset: { x: 0, y: -335 } },
-          reloadLength: 50,
+          reloadLength: 70,
           roundsPerReload: "all",
-          playerDensity: 0.018,
+          playerDensity: 0.018,          
+          sounds: {
+            fire: "/assets/audio/guns/509_fire.mp3",
+            reload: "/assets/audio/guns/509_reload.mp3"
+          },
           recoilImpulse: [
             {
               x: 0,
@@ -280,7 +296,11 @@ let gameData = {
           images: { topdownSRC: "/assets/weapons/bayonet_topdown.svg", lootSRC: "/assets/weapons/bayonet_loot.svg", offset: { x: 15, y: -270 } },
           reloadLength: 0,
           roundsPerReload: "all",
-          playerDensity: 0.015,
+          playerDensity: 0.017,          
+          sounds: {
+            fire: "/assets/audio/guns/melee_fire.mp3",
+            reload: "/assets/audio/guns/509_reload.mp3"
+          },
           recoilImpulse: [
             {
               x: -10,
@@ -306,15 +326,22 @@ let gameData = {
           type: "rifle",
           magSize: 5,
           view: 1200,
-          fireDelay: 35,
-          spread: 1,
+          fireDelay: 50,
+          spread: {
+            standing: 0.5,
+            moving: 15
+          },
           damage: 70,
           bulletsPerShot: 1,
           handPositions: [{ x: -25, y: -300 }, { x: 25, y: -120 }],
           images: { topdownSRC: "/assets/weapons/ballista_topdown.svg", lootSRC: "/assets/weapons/ballista_loot.svg", offset: { x: 0, y: -390 } },
           reloadLength: 100,
           roundsPerReload: "all",
-          playerDensity: 0.022,
+          playerDensity: 0.022,          
+          sounds: {
+            fire: "/assets/audio/guns/ballista_fire.mp3",
+            reload: "/assets/audio/guns/ballista_reload.mp3"
+          },
           recoilImpulse: [
             {
               x: 0,
@@ -339,14 +366,21 @@ let gameData = {
           magSize: 12,
           view: 0,
           fireDelay: 9,
-          spread: 3,
+          spread: {
+            standing: 1.5,
+            moving: 8
+          },
           damage: 21,
           bulletsPerShot: 1,
           handPositions: [{ x: -30, y: -115 }, { x: 25, y: -120 }],
           images: { topdownSRC: "/assets/weapons/509_topdown.svg", lootSRC: "/assets/weapons/509_loot.svg", offset: { x: 0, y: -335 } },
-          reloadLength: 50,
+          reloadLength: 70,
           roundsPerReload: "all",
-          playerDensity: 0.018,
+          playerDensity: 0.018,          
+          sounds: {
+            fire: "/assets/audio/guns/509_fire.mp3",
+            reload: "/assets/audio/guns/509_reload.mp3"
+          },
           recoilImpulse: [
             {
               x: 0,
@@ -382,7 +416,11 @@ let gameData = {
           images: { topdownSRC: "/assets/weapons/knife_topdown.svg", lootSRC: "/assets/weapons/knife_loot.svg", offset: { x: 15, y: -260 } },
           reloadLength: 0,
           roundsPerReload: "all",
-          playerDensity: 0.015,
+          playerDensity: 0.017,          
+          sounds: {
+            fire: "/assets/audio/guns/melee_fire.mp3",
+            reload: "/assets/audio/guns/509_reload.mp3"
+          },
           recoilImpulse: [
             {
               x: -10,
@@ -408,15 +446,22 @@ let gameData = {
           type: "shotgun",
           magSize: 7,
           view: 0,
-          fireDelay: 25,
-          spread: 17,
+          fireDelay: 40,
+          spread: {
+            standing: 17,
+            moving: 21
+          },
           damage: 13,
           bulletsPerShot: 7,
           handPositions: [{ x: -25, y: -255 }, { x: 25, y: -120 }],
           images: { topdownSRC: "/assets/weapons/slp_topdown.svg", lootSRC: "/assets/weapons/slp_loot.svg", offset: { x: 0, y: -320 } },
-          reloadLength: 40,
+          reloadLength: 45,
           roundsPerReload: 1,
-          playerDensity: 0.02,
+          playerDensity: 0.02,          
+          sounds: {
+            fire: "/assets/audio/guns/slp_fire.mp3",
+            reload: "/assets/audio/guns/slp_reload.mp3"
+          },
           recoilImpulse: [
             {
               x: 0,
@@ -440,14 +485,21 @@ let gameData = {
           magSize: 12,
           view: 0,
           fireDelay: 9,
-          spread: 3,
+          spread: {
+            standing: 1.5,
+            moving: 8
+          },
           damage: 21,
           bulletsPerShot: 1,
           handPositions: [{ x: -30, y: -115 }, { x: 25, y: -120 }],
           images: { topdownSRC: "/assets/weapons/509_topdown.svg", lootSRC: "/assets/weapons/509_loot.svg", offset: { x: 0, y: -335 } },
-          reloadLength: 50,
+          reloadLength: 70,
           roundsPerReload: "all",
-          playerDensity: 0.018,
+          playerDensity: 0.018,          
+          sounds: {
+            fire: "/assets/audio/guns/509_fire.mp3",
+            reload: "/assets/audio/guns/509_reload.mp3"
+          },
           recoilImpulse: [
             {
               x: 0,
@@ -483,7 +535,11 @@ let gameData = {
           images: { topdownSRC: "/assets/weapons/knife_topdown.svg", lootSRC: "/assets/weapons/knife_loot.svg", offset: { x: 15, y: -260 } },
           reloadLength: 0,
           roundsPerReload: "all",
-          playerDensity: 0.015,
+          playerDensity: 0.017,          
+          sounds: {
+            fire: "/assets/audio/guns/melee_fire.mp3",
+            reload: "/assets/audio/guns/509_reload.mp3"
+          },
           recoilImpulse: [
             {
               x: -10,
@@ -563,7 +619,17 @@ updatePoint = setInterval(function() {
 }, 2000);
 
 function updatePlayer(player, delay) {
-  Body.setVelocity(player.body, { x: 0, y: 0 });
+  const deacceleration = 1.4;
+  if(player.body.velocity.x < 0) {
+    Body.setVelocity(player.body, { x: Math.ceil((player.body.velocity.x / deacceleration)), y: player.body.velocity.y });
+  } else if(player.body.velocity.x > 0) {
+    Body.setVelocity(player.body, { x: Math.floor((player.body.velocity.x / deacceleration)), y: player.body.velocity.y });
+  }
+  if(player.body.velocity.y < 0) {
+    Body.setVelocity(player.body, { x: player.body.velocity.x, y: Math.ceil((player.body.velocity.y / deacceleration)) });
+  } else if(player.body.velocity.y > 0) {
+    Body.setVelocity(player.body, { x: player.body.velocity.x, y: Math.floor((player.body.velocity.y / deacceleration)) });
+  }
 
   const w = !!player.keys[83],
     a = !!player.keys[65],
@@ -573,11 +639,12 @@ function updatePlayer(player, delay) {
     base = player.body.circleRadius / (10 * Math.SQRT2);
 
   Body.applyForce(body, body.position, {
-    x: +(a ^ d) && (((w ^ s) ? Math.SQRT1_2 : 1) * [-1, 1][+d] * base * 6.5) * delay,
-    y: +(w ^ s) && (((a ^ d) ? Math.SQRT1_2 : 1) * [-1, 1][+w] * base * 6.5) * delay
+    x: +(a ^ d) && (((w ^ s) ? Math.SQRT1_2 : 1) * [-1, 1][+d] * base * 6.5),
+    y: +(w ^ s) && (((a ^ d) ? Math.SQRT1_2 : 1) * [-1, 1][+w] * base * 6.5)
   });
 
-  player.state.isMoving = w || a || s || d;
+  player.state.isMoving = !!Math.round(body.velocity.x) || !!Math.round(body.velocity.y);
+  player.state.force = {x: body.velocity.x, y: body.velocity.y};
 }
 
 function updateParticles(delay) {
@@ -614,17 +681,6 @@ function updateGame() {
       if (player.state.recoilTimer > 0) {
         player.state.recoilTimer -= 1 / 7 * tickDelay;
       }
-      io.to(gameData.users[x]).emit("world-update", {
-        players: gameData.players,
-        bullets: gameData.bullets,
-        particles: gameData.particles,
-        usersOnline: gameData.usersOnline,
-        users: gameData.users,
-        point: gameData.point,
-        currentRoundScore: gameData.currentRoundScore,
-        certificate: gameData.certificate
-      });
-      updatePlayer(player, tickDelay);
       if(player.state.isReloading) {
         if(player.state.reloadProgress >= player.guns[player.state.activeWeaponIndex].reloadLength) {
           if(player.guns[player.state.activeWeaponIndex].roundsPerReload == "all") {
@@ -634,14 +690,29 @@ function updateGame() {
             player.state.mag[player.state.activeWeaponIndex] += player.guns[player.state.activeWeaponIndex].roundsPerReload;
             if(player.state.mag[player.state.activeWeaponIndex] >= player.guns[player.state.activeWeaponIndex].magSize) {
               player.state.isReloading = false;
+            } else {
+              gameData.queuedSounds.push({path: player.guns[player.state.activeWeaponIndex].sounds.reload, origin: player.state.position});
             }
           }
           player.state.reloadProgress = 0;
+          player.state.fireTimer = player.guns[player.state.activeWeaponIndex].fireDelay - 5;
         } else {
           player.state.reloadProgress+=tickDelay;
         }
         io.to(gameData.users[x]).emit("ui-change", { players: gameData.players, currentRoundScore: gameData.currentRoundScore });
       }
+      io.to(gameData.users[x]).emit("world-update", {
+        players: gameData.players,
+        bullets: gameData.bullets,
+        particles: gameData.particles,
+        usersOnline: gameData.usersOnline,
+        users: gameData.users,
+        point: gameData.point,
+        currentRoundScore: gameData.currentRoundScore,
+        certificate: gameData.certificate,
+        queuedSounds: gameData.queuedSounds
+      });
+      updatePlayer(player, tickDelay);
     }
     for (let k = 0; k < gameData.bullets.length; k++) {
       gameData.bullets[k].timeLeft -= Math.round(tickDelay * 3);
@@ -656,6 +727,7 @@ function updateGame() {
     }
     messageLoad = [];
     updateParticles(tickDelay);
+    gameData.queuedSounds = [];
   }
 }
 
@@ -700,7 +772,7 @@ function newConnection(socket) {
           Bodies.circle(spawnpoint.x, spawnpoint.y, 120, {
             friction: 0,
             restitution: 0,
-            inertia: 0,
+            inertia: -0.1,
             density: 0.015,
             tag: spawnpoint.team
           }),
@@ -746,7 +818,7 @@ function newConnection(socket) {
               io.to(socket.id).emit("gun-ui-change", {players: gameData.players});
               player.state.fireTimer = 1000;
               player.state.hasStarted = true;
-              Body.setDensity(player.body, player.guns[player.state.activeWeaponIndex].playerDensity);
+              Body.setDensity(player.body, player.guns[player.state.activeWeaponIndex].playerDensity * 2.5);
               io.to(socket.id).emit("ui-change", { players: gameData.players, currentRoundScore: gameData.currentRoundScore});
             }
           }
@@ -759,8 +831,9 @@ function newConnection(socket) {
               if(player.state.hasStarted) {
                 player.keys = data.keys;
     
-                if(player.keys[82] && player.state.mag[player.state.activeWeaponIndex] < player.guns[player.state.activeWeaponIndex].magSize) {
+                if(player.keys[82] && player.state.mag[player.state.activeWeaponIndex] < player.guns[player.state.activeWeaponIndex].magSize && !player.state.isReloading) {
                   player.state.isReloading = true;
+                  gameData.queuedSounds.push({path: player.guns[player.state.activeWeaponIndex].sounds.reload, origin: player.state.position});
                 }
               }
             }
@@ -776,9 +849,10 @@ function newConnection(socket) {
                 player.state.isReloading = false;
                 player.state.reloadProgress = 0;
                 player.state.recoilTimer = 0;
-                Body.setDensity(player.body, player.guns[player.state.activeWeaponIndex].playerDensity);
-                if(player.state.mag[data.index] < 1) {
+                Body.setDensity(player.body, player.guns[player.state.activeWeaponIndex].playerDensity * 2.5);
+                if(player.state.mag[data.index] < 1 && !player.state.isReloading) {
                   player.state.isReloading = true;
+                  gameData.queuedSounds.push({path: player.guns[player.state.activeWeaponIndex].sounds.reload, origin: player.state.position});
                 }
               }
               io.to(socket.id).emit("gun-ui-change", {players: gameData.players});
@@ -802,9 +876,14 @@ function newConnection(socket) {
           //try {
             const player = gameData.players[socket.id];
             const position = { x: player.state.position.x, y: player.state.position.y };
-            const randomAngleOffset = (Math.random() - 0.5) * player.guns[player.state.activeWeaponIndex].spread;
+            let randomAngleOffset = (Math.random() - 0.5) * player.guns[player.state.activeWeaponIndex].spread.standing;
+            let activeWeaponSpread = player.guns[player.state.activeWeaponIndex].spread.standing;
+            if(player.state.isMoving) {
+              randomAngleOffset = (Math.random() - 0.5) * player.guns[player.state.activeWeaponIndex].spread.moving;
+              activeWeaponSpread = player.guns[player.state.activeWeaponIndex].spread.moving;
+            }
             const bulletLength = gameData.mapData.config["map-dimensions"].width + gameData.mapData.config["map-dimensions"].height;
-            if (player.state.fireTimer > player.guns[player.state.activeWeaponIndex].fireDelay && player.state.mag[player.state.activeWeaponIndex] > 0 && player.state.hasStarted && player.health > 0) {
+            if (player.state.fireTimer > player.guns[player.state.activeWeaponIndex].fireDelay && player.state.mag[player.state.activeWeaponIndex] > 0 && player.state.hasStarted && player.health > 0 && !player.state.isReloading) {
               if(player.guns[player.state.activeWeaponIndex].type == "melee") {
                 const angle = player.state.angle * Math.PI / 180 - Math.PI;
                 let playerBodies = [];
@@ -841,12 +920,11 @@ function newConnection(socket) {
                 }
               } else {
                 player.state.mag[player.state.activeWeaponIndex]--;
-                player.state.isReloading = false;
                 player.state.reloadProgress = 0;
                 gameData.particles.push(new particle({x: player.state.position.x + Math.cos((player.state.angle * Math.PI / 180) + Math.PI) * 165, y: player.state.position.y + Math.sin((player.state.angle * Math.PI / 180) + Math.PI) * 155}, player.state.angle * Math.PI / 180 + (Math.random() - 0.5) / 2 - Math.PI / 2, player.state.angle * Math.PI / 180 + (Math.random() - 0.5) / 2 - Math.PI / 2, "none", 200, "/assets/weapons/cartridge.svg", 100, "cartridge"));
                 if (player.guns[player.state.activeWeaponIndex].bulletsPerShot > 1) {
                   for (let j = 0; j < player.guns[player.state.activeWeaponIndex].bulletsPerShot; j++) {
-                    let angle = ((player.state.angle + (player.guns[player.state.activeWeaponIndex].spread / player.guns[player.state.activeWeaponIndex].bulletsPerShot) * (j - Math.floor(player.guns[player.state.activeWeaponIndex].bulletsPerShot / 2))) + (Math.random() - 0.5) * player.guns[player.state.activeWeaponIndex].spread / 30) * Math.PI / 180 - Math.PI;
+                    let angle = ((player.state.angle + (activeWeaponSpread / player.guns[player.state.activeWeaponIndex].bulletsPerShot) * (j - Math.floor(player.guns[player.state.activeWeaponIndex].bulletsPerShot / 2))) + (Math.random() - 0.5) * activeWeaponSpread / 30) * Math.PI / 180 - Math.PI;
                     let ray = functions.raycast(Composite.allBodies(world), position, { x: player.state.position.x + Math.cos(angle) * bulletLength, y: player.state.position.y + Math.sin(angle) * bulletLength }, true);
                     let finish = ray[1].point;
                     if(ray[1].body.tag != "none") {
@@ -871,7 +949,7 @@ function newConnection(socket) {
                         }
                       }
                     }
-                    gameData.bullets.push(new bullet({ start: player.state.position, finish: finish }, player.team, player.state.angle + (player.guns[player.state.activeWeaponIndex].spread / player.guns[player.state.activeWeaponIndex].bulletsPerShot) * (j - Math.floor(player.guns[player.state.activeWeaponIndex].bulletsPerShot / 2)), player.guns[player.state.activeWeaponIndex].lifeTime));
+                    gameData.bullets.push(new bullet({ start: player.state.position, finish: finish }, player.team, player.state.angle + (activeWeaponSpread / player.guns[player.state.activeWeaponIndex].bulletsPerShot) * (j - Math.floor(player.guns[player.state.activeWeaponIndex].bulletsPerShot / 2)), player.guns[player.state.activeWeaponIndex].lifeTime));
                     }
                   player.state.fireTimer = 0;
                 } else {
@@ -905,9 +983,12 @@ function newConnection(socket) {
                 player.state.recoilTimer = 1;
               }
               io.emit("ui-change", {players: gameData.players, currentRoundScore: gameData.currentRoundScore});
+              gameData.queuedSounds.push({path: player.guns[player.state.activeWeaponIndex].sounds.fire, origin: player.state.position});
             }
-            if(player.state.mag[gameData.players[socket.id].state.activeWeaponIndex] <= 0) {
+            if(player.state.mag[gameData.players[socket.id].state.activeWeaponIndex] <= 0 && !player.state.isReloading) {
               player.state.isReloading = true;
+              player.state.reloadProgress = 0;
+              gameData.queuedSounds.push({path: player.guns[player.state.activeWeaponIndex].sounds.reload, origin: player.state.position});
             }
           /*}
           catch { }*/

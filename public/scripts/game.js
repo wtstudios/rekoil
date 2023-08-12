@@ -20,7 +20,6 @@ let socket,
   },
   keys = [],
   updateObjects,
-  objectRenderCount,
   debug = false,
   sourceSansPro,
   ping;
@@ -42,14 +41,23 @@ function keyPressed() {
     if(keys[49]) {
       socket.emit("change-weapon-index", {index: 0});
       keys[49] = false;
+      if(gameData.players[socket.id].state.activeWeaponIndex != 0) {
+        assetsLoaded[gameData.players[socket.id].guns[gameData.players[socket.id].state.activeWeaponIndex].sounds.reload].stop();
+      }
     }
     if(keys[50]) {
       socket.emit("change-weapon-index", {index: 1});
       keys[50] = false;
+      if(gameData.players[socket.id].state.activeWeaponIndex != 1) {
+        assetsLoaded[gameData.players[socket.id].guns[gameData.players[socket.id].state.activeWeaponIndex].sounds.reload].stop();
+      }
     }
     if(keys[51]) {
       socket.emit("change-weapon-index", {index: 2});
       keys[51] = false;
+      if(gameData.players[socket.id].state.activeWeaponIndex != 2) {
+        assetsLoaded[gameData.players[socket.id].guns[gameData.players[socket.id].state.activeWeaponIndex].sounds.reload].stop();
+      }
     }
     if(keys[73]) {
       debug = !debug;
@@ -77,7 +85,7 @@ function setup() {
         updateGunHUD(gameData);
         document.getElementById("healthbar").style.width = ((windowWidth * 0.1) * (gameData.players[socket.id].health / 100)) + ((windowHeight * 0.1) * (gameData.players[socket.id].health / 100)) + "px";
         document.getElementById("healthbar-opposite").style.width = ((windowWidth * 0.1) * -((gameData.players[socket.id].health / 100) - 1)) + ((windowHeight * 0.1) * -((gameData.players[socket.id].health / 100) - 1)) + "px";
-        document.getElementById("healthbar-opposite").style.right = "calc(16.5vw + 16.5vh - " + ((windowWidth * 0.1) * (-((data.players[socket.id].health / 100) - 1)) + ((windowHeight * 0.1) * -((data.players[socket.id].health / 100) - 1))) + "px)" ;
+        document.getElementById("healthbar-opposite").style.right = "calc(16.5vw + 16.5vh - " + ((windowWidth * 0.1) * (-((gameData.players[socket.id].health / 100) - 1)) + ((windowHeight * 0.1) * -((gameData.players[socket.id].health / 100) - 1))) + "px)" ;
         document.getElementById("healthbar-text").innerHTML = '<img src="/assets/misc/health-icon.svg" style="width: calc(1.2vw + 1.2vh); margin-top: calc(0.4vw + 0.4vh); margin-right: calc(0.4vw + 0.4vh);"></img>';
       }
     }
@@ -103,6 +111,16 @@ function setup() {
   assetsLoaded["/assets/misc/particle.svg"] = loadImage("/assets/misc/particle.svg");
   assetsLoaded["/assets/weapons/cartridge.svg"] = loadImage("/assets/weapons/cartridge.svg");
   assetsLoaded["/assets/environment/point-outline.svg"] = loadImage("/assets/environment/point-outline.svg");
+  assetsLoaded["/assets/misc/arrow.svg"] = loadImage("/assets/misc/arrow.svg");
+  assetsLoaded["/assets/audio/guns/scar_fire.mp3"] = new Howl({ src: ["/assets/audio/guns/scar_fire.mp3"], volume: 1 });
+  assetsLoaded["/assets/audio/guns/ballista_fire.mp3"] = new Howl({ src: ["/assets/audio/guns/ballista_fire.mp3"], volume: 1 });
+  assetsLoaded["/assets/audio/guns/slp_fire.mp3"] = new Howl({ src: ["/assets/audio/guns/slp_fire.mp3"], volume: 1 });
+  assetsLoaded["/assets/audio/guns/509_fire.mp3"] = new Howl({ src: ["/assets/audio/guns/509_fire.mp3"], volume: 1 });
+  assetsLoaded["/assets/audio/guns/melee_fire.mp3"] = new Howl({ src: ["/assets/audio/guns/melee_fire.mp3"], volume: 1 });
+  assetsLoaded["/assets/audio/guns/scar_reload.mp3"] = new Howl({ src: ["/assets/audio/guns/scar_reload.mp3"], volume: 1 });
+  assetsLoaded["/assets/audio/guns/ballista_reload.mp3"] = new Howl({ src: ["/assets/audio/guns/ballista_reload.mp3"], volume: 1 });
+  assetsLoaded["/assets/audio/guns/slp_reload.mp3"] = new Howl({ src: ["/assets/audio/guns/slp_reload.mp3"], volume: 1 });
+  assetsLoaded["/assets/audio/guns/509_reload.mp3"] = new Howl({ src: ["/assets/audio/guns/509_reload.mp3"], volume: 1 });
 
   socket.on("load-world", data => { // first time loading world, right after pressing play
     gameData = data;
@@ -138,7 +156,7 @@ function setup() {
     document.getElementById("mapname").textContent = "Map: " + gameData.mapData.config["map-name"];
     document.getElementById("fps").textContent = "FPS: " + round(frameRate());
     document.getElementById("pingcount").textContent = "Ping: " + gameData.players[socket.id].state.ping;
-    updateObjects = setInterval(function() { if(debug) { document.getElementById("object-count").textContent = objectRenderCount + gameData.bullets.length + gameData.particles.length + gameData.users.length + " objects being rendered"; objectRenderCount = 0; document.getElementById("fps").textContent = "FPS: " + round(frameRate());     document.getElementById("pingcount").textContent = "Ping: " + gameData.players[socket.id].state.ping; } }, 600);
+    updateObjects = setInterval(function() { if(debug) { document.getElementById("object-count").textContent = gameData.players[socket.id].state.objectRenderList.length + gameData.bullets.length + gameData.particles.length + gameData.users.length + " objects being rendered"; document.getElementById("fps").textContent = "FPS: " + round(frameRate());     document.getElementById("pingcount").textContent = "Ping: " + gameData.players[socket.id].state.ping; } }, 600);
     ping = setInterval(function() {
       const start = Date.now();
     
@@ -165,11 +183,19 @@ function setup() {
     gameData.users = data.users;
     gameData.currentRoundScore = data.currentRoundScore;
     gameData.certificate = data.certificate;
+    gameData.queuedSounds = data.queuedSounds;
     if(gameData.players[socket.id].health > 0) {
       queuedCameraLocation.x = gameData.players[socket.id].state.position.x;
       queuedCameraLocation.y = gameData.players[socket.id].state.position.y;
       queuedCameraLocation.targetX = gameData.players[socket.id].state.position.x;
       queuedCameraLocation.targetY = gameData.players[socket.id].state.position.y;  
+    }
+    for(let i = 0; i < gameData.queuedSounds.length; i++) {
+      assetsLoaded[gameData.queuedSounds[i].path].volume(0);
+      if((0.7 - Math.sqrt(squaredDist(gameData.players[socket.id].state.position, gameData.queuedSounds[i].origin)) / 10000) >= 0) {
+        assetsLoaded[gameData.queuedSounds[i].path].volume(0.7 - (Math.sqrt(squaredDist(gameData.players[socket.id].state.position, gameData.queuedSounds[i].origin)) / 10000));
+      }
+      assetsLoaded[gameData.queuedSounds[i].path].play();
     }
   });
 
@@ -204,8 +230,6 @@ function setup() {
 }
 
 function draw() {
-  textFont(sourceSansPro);
-  textSize(100);
   animatePlayers();
   displayWorld();
   if(mouseIsPressed && assetsAreLoaded) {
