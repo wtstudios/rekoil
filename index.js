@@ -26,7 +26,8 @@ const socket = require("socket.io");
 
 const io = socket(server, {
   cors: {
-    origin: "null"
+    methods: ["GET", "PATCH", "POST", "PUT"],
+    origin: true
   }
 });
 
