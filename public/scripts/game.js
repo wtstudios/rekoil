@@ -24,7 +24,7 @@ let socket,
   sourceSansPro,
   ping;
 
-socket = io.connect("ws://rekoil-hp-use.onrender.com");
+socket = io.connect("wss://rekoil-hp-use.onrender.com");
 
 function keyReleased() {
   if(assetsAreLoaded) {
