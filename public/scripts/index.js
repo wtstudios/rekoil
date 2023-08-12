@@ -289,13 +289,13 @@ function animatePlayers() {
         d = !!player.keys[68],*/
       const base = 8.48528137423857;
 
-      player.state.position.x += +(a ^ d) && (((w ^ s) ? Math.SQRT1_2 : 1) * [-1, 1][+d] * base * 0.6);
-      player.state.position.y += +(w ^ s) && (((a ^ d) ? Math.SQRT1_2 : 1) * [-1, 1][+w] * base * 0.6);
+      player.state.position.x += +(a ^ d) && (((w ^ s) ? Math.SQRT1_2 : 1) * [-1, 1][+d] * base * 0.6 * abs(player.state.force.x / 9));
+      player.state.position.y += +(w ^ s) && (((a ^ d) ? Math.SQRT1_2 : 1) * [-1, 1][+w] * base * 0.6 * abs(player.state.force.y / 9));
       if(gameData.users[i] == socket.id && gameData.players[socket.id].health > 0) {
-        queuedCameraLocation.x += +(a ^ d) && (((w ^ s) ? Math.SQRT1_2 : 1) * [-1, 1][+d] * base * 0.6);
-        queuedCameraLocation.y += +(w ^ s) && (((a ^ d) ? Math.SQRT1_2 : 1) * [-1, 1][+w] * base * 0.6);
-        queuedCameraLocation.targetX += +(a ^ d) && (((w ^ s) ? Math.SQRT1_2 : 1) * [-1, 1][+d] * base * 0.6);
-        queuedCameraLocation.targetY += +(w ^ s) && (((a ^ d) ? Math.SQRT1_2 : 1) * [-1, 1][+w] * base * 0.6);
+        queuedCameraLocation.x += +(a ^ d) && (((w ^ s) ? Math.SQRT1_2 : 1) * [-1, 1][+d] * base * 0.6 * abs(player.state.force.x / 9));
+        queuedCameraLocation.y += +(w ^ s) && (((a ^ d) ? Math.SQRT1_2 : 1) * [-1, 1][+w] * base * 0.6 * abs(player.state.force.y / 9));
+        queuedCameraLocation.targetX += +(a ^ d) && (((w ^ s) ? Math.SQRT1_2 : 1) * [-1, 1][+d] * base * 0.6 * abs(player.state.force.x / 9));
+        queuedCameraLocation.targetY += +(w ^ s) && (((a ^ d) ? Math.SQRT1_2 : 1) * [-1, 1][+w] * base * 0.6 * abs(player.state.force.y / 9));
       }
     }
   }
