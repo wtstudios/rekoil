@@ -10,7 +10,7 @@ canvas {
   position: absolute;
   top: 0px;
   left: 0px;
-  cursor: crosshair;
+  cursor: url("/assets/misc/crosshair.png") 60 60, auto;
 }
 
 .background-streak {
@@ -48,6 +48,7 @@ button {
   margin-top: calc(2vw + 2vh);
   margin-left: auto;
   margin-right: auto;
+  margin-bottom: 0px;
   text-align: center;
   padding: 0px;
   font-family: "prime";
@@ -66,6 +67,7 @@ button:hover {
   height: calc(2.25vw + 2.25vh);
   font-size: calc(1.375vw + 1.375vh);
   margin-top: calc(2.125vw + 2.125vh);
+  margin-bottom: calc(2.125vw + 2.125vh);
   transition: linear 0.1s;
 }
 

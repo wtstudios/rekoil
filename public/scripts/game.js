@@ -109,6 +109,7 @@ function setup() {
   assetsLoaded["/assets/weapons/knife_topdown.svg"] = loadImage("/assets/weapons/knife_topdown.svg");
   assetsLoaded["/assets/weapons/bayonet_topdown.svg"] = loadImage("/assets/weapons/bayonet_topdown.svg");
   assetsLoaded["/assets/misc/particle.svg"] = loadImage("/assets/misc/particle.svg");
+  assetsLoaded["/assets/misc/smokeparticle.svg"] = loadImage("/assets/misc/smokeparticle.svg");
   assetsLoaded["/assets/weapons/cartridge.svg"] = loadImage("/assets/weapons/cartridge.svg");
   assetsLoaded["/assets/environment/point-outline.svg"] = loadImage("/assets/environment/point-outline.svg");
   assetsLoaded["/assets/misc/arrow.svg"] = loadImage("/assets/misc/arrow.svg");
@@ -121,13 +122,14 @@ function setup() {
   assetsLoaded["/assets/audio/guns/ballista_reload.mp3"] = new Howl({ src: ["/assets/audio/guns/ballista_reload.mp3"], volume: 1 });
   assetsLoaded["/assets/audio/guns/slp_reload.mp3"] = new Howl({ src: ["/assets/audio/guns/slp_reload.mp3"], volume: 1 });
   assetsLoaded["/assets/audio/guns/509_reload.mp3"] = new Howl({ src: ["/assets/audio/guns/509_reload.mp3"], volume: 1 });
+  assetsLoaded["/assets/audio/guns/hit.mp3"] = new Howl({ src: ["/assets/audio/guns/hit.mp3"], volume: 1 });
 
   socket.on("load-world", data => { // first time loading world, right after pressing play
     gameData = data;
+    assetsLoaded[data.mapData.config["ground-image"]] = loadImage(data.mapData.config["ground-image"]);
     for(let i = 0; i < data.mapData.obstacles.length; i++) {
       assetsLoaded[data.mapData.obstacles[i]["display-data"].src] = loadImage(data.mapData.obstacles[i]["display-data"].src);
     }
-    assetsLoaded[data.mapData.config["ground-image"]] = loadImage(data.mapData.config["ground-image"]);
     assetsAreLoaded = true;
     queuedCameraLocation = {
       x: gameData.players[socket.id].state.position.x,
@@ -230,7 +232,7 @@ function setup() {
 }
 
 function draw() {
-  animatePlayers();
+  //animatePlayers();
   displayWorld();
   if(mouseIsPressed && assetsAreLoaded) {
     socket.emit("shoot-request", {});

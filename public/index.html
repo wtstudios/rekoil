@@ -33,10 +33,12 @@
       <p style="font-size: calc(5vw + 5vh); max-width: calc(30vw + 30vh);">REKOIL</p>
     </div>
 
+    <button id="server-toggle">USW (Oregon)</button>
+
     <button onclick="requestConnectToGame();">FIND A GAME</button>
   </div>
 
-  <div id="hud" style="display: none; cursor: crosshair;">
+  <div id="hud" style='display: none; cursor: url("/assets/misc/crosshair.png") 60 60, auto;'>
     <div id="gun-hud" style="display: none;">
       <div id="ammocount-backing" class="ammocount-backing" style="bottom: calc(1vw + 1vh);">
         <p id="ammocount" style='color: #333333; font-size: calc(1.4vw + 1.4vh); transform: none; margin-top: 0px; margin-left: calc(-2vw + -2vh); font-family: "source-sans-pro"; text-align: center;'></p>
@@ -46,7 +48,7 @@
       </div>
       <div id="pistol-backing" class="gun-backing" style="bottom: calc(8.5vw + 8.5vh);">
         <img id="pistol" class="gun"></img>
-      </div>    
+      </div>
       <div id="melee-backing" class="gun-backing" style="bottom: calc(4vw + 4vh);">
         <img id="melee" class="gun"></img>
       </div>

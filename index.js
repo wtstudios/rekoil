@@ -55,6 +55,8 @@ const Engine = Matter.Engine,
   world = engine.world;
 const runner14832948 = Matter.Runner.run(engine);
 
+let imageBodyList = [];
+
 engine.gravity.y = 0;
 
 class bullet {
@@ -190,7 +192,7 @@ class playerLike {
 }
 
 let gameData = {
-  mapData: ciqlJson.open("maps/dunes.json").data,
+  mapData: ciqlJson.open("maps/dm_dunes.json").data,
   teamNumbers: { "blue": 0, "red": 0 },
   roundsWonScore: {"blue": 0, "red": 0},
   currentRoundScore: { "blue": 0, "red": 0 },
@@ -331,7 +333,7 @@ let gameData = {
           type: "rifle",
           magSize: 5,
           view: 1200,
-          fireDelay: 50,
+          fireDelay: 95,
           spread: {
             standing: 0.5,
             moving: 15
@@ -340,7 +342,7 @@ let gameData = {
           bulletsPerShot: 1,
           handPositions: [{ x: -25, y: -300 }, { x: 25, y: -120 }],
           images: { topdownSRC: "/assets/weapons/ballista_topdown.svg", lootSRC: "/assets/weapons/ballista_loot.svg", offset: { x: 0, y: -390 } },
-          reloadLength: 100,
+          reloadLength: 150,
           roundsPerReload: "all",
           playerDensity: 0.022,          
           sounds: {
@@ -449,14 +451,14 @@ let gameData = {
         {
           name: "SLP",
           type: "shotgun",
-          magSize: 7,
+          magSize: 2,
           view: 0,
           fireDelay: 40,
           spread: {
             standing: 17,
             moving: 21
           },
-          damage: 13,
+          damage: 17,
           bulletsPerShot: 7,
           handPositions: [{ x: -25, y: -255 }, { x: 25, y: -120 }],
           images: { topdownSRC: "/assets/weapons/slp_topdown.svg", lootSRC: "/assets/weapons/slp_loot.svg", offset: { x: 0, y: -320 } },
@@ -571,6 +573,8 @@ function squaredDist(ptA, ptB) {
 }
 
 function populateObstacles() {  
+  Composite.clear(world, false);
+  imageBodyList = [];
   for (let i = 0; i < gameData.mapData.obstacles.length; i++) {
     const obstacle = gameData.mapData.obstacles[i]["body-data"];
     let body;
@@ -583,13 +587,27 @@ function populateObstacles() {
       break;
     }
     Composite.add(world, body);
+    imageBodyList.push(
+      Bodies.rectangle(
+        obstacle.position.x + gameData.mapData.obstacles[i]["display-data"].offset.x, 
+        obstacle.position.y + gameData.mapData.obstacles[i]["display-data"].offset.y, 
+        gameData.mapData.obstacles[i]["display-data"].dimensions.width, 
+        gameData.mapData.obstacles[i]["display-data"].dimensions.height, 
+        {
+          angle: (gameData.mapData.obstacles[i]["display-data"].offset.angle * Math.PI / 180),
+          tag: "" + i
+        }
+      )
+    );
   }
-  gameData.point = {
-    position: gameData.mapData.config.point.position,
-    state: "uncontested",
-    teamNumbers: {
-      blue: 0,
-      red: 0,
+  if(gameData.mapData.config.gamemode == "hardpoint") {
+    gameData.point = {
+      position: gameData.mapData.config.point.position,
+      state: "uncontested",
+      teamNumbers: {
+        blue: 0,
+        red: 0,
+      }
     }
   }
 }
@@ -598,33 +616,35 @@ populateObstacles();
 
 let updateCertificate = setInterval(function() { gameData.certificate = Math.random() * 5 + ""; }, 10000),
 updatePoint = setInterval(function() {
-  gameData.point.teamNumbers.blue = 0,
-  gameData.point.teamNumbers.red = 0;
-  let playerBodies = [];
-  for(let i = 0; i < gameData.users.length; i++) {
-    if(gameData.players[gameData.users[i]].health > 0) {
-      playerBodies.push(gameData.players[gameData.users[i]].body);
+  if(gameData.mapData.config.gamemode == "hardpoint") {
+    gameData.point.teamNumbers.blue = 0,
+    gameData.point.teamNumbers.red = 0;
+    let playerBodies = [];
+    for(let i = 0; i < gameData.users.length; i++) {
+      if(gameData.players[gameData.users[i]].health > 0) {
+        playerBodies.push(gameData.players[gameData.users[i]].body);
+      }
     }
+    let collisions = Matter.Query.collides(Bodies.rectangle(gameData.mapData.config.point.position.x, gameData.mapData.config.point.position.y, 1570, 1570, {chamfer: {radius: 50}}), playerBodies);
+    gameData.point.state = "uncontested";
+    if(collisions[0]) {
+      for(let i = 0; i < collisions.length; i++) {
+        gameData.point.teamNumbers[collisions[i].bodyA.tag]++;
+      }
+      if(gameData.point.teamNumbers.red > gameData.point.teamNumbers.blue) {
+        gameData.currentRoundScore.red++;
+        gameData.point.state = "red";
+      } else if(gameData.point.teamNumbers.blue > gameData.point.teamNumbers.red) {
+        gameData.currentRoundScore.blue++;
+        gameData.point.state = "blue";
+      }
+    } 
+    io.sockets.emit("ui-change", {players: gameData.players, currentRoundScore: gameData.currentRoundScore});
   }
-  let collisions = Matter.Query.collides(Bodies.rectangle(gameData.mapData.config.point.position.x, gameData.mapData.config.point.position.y, 1570, 1570, {chamfer: {radius: 50}}), playerBodies);
-  gameData.point.state = "uncontested";
-  if(collisions[0]) {
-    for(let i = 0; i < collisions.length; i++) {
-      gameData.point.teamNumbers[collisions[i].bodyA.tag]++;
-    }
-    if(gameData.point.teamNumbers.red > gameData.point.teamNumbers.blue) {
-      gameData.currentRoundScore.red++;
-      gameData.point.state = "red";
-    } else if(gameData.point.teamNumbers.blue > gameData.point.teamNumbers.red) {
-      gameData.currentRoundScore.blue++;
-      gameData.point.state = "blue";
-    }
-  } 
-  io.sockets.emit("ui-change", {players: gameData.players, currentRoundScore: gameData.currentRoundScore});
 }, 2000);
 
 function updatePlayer(player, delay) {
-  const deacceleration = 1.4;
+  /*const deacceleration = 1.4;
   if(player.body.velocity.x < 0) {
     Body.setVelocity(player.body, { x: Math.ceil((player.body.velocity.x / deacceleration)), y: player.body.velocity.y });
   } else if(player.body.velocity.x > 0) {
@@ -634,7 +654,7 @@ function updatePlayer(player, delay) {
     Body.setVelocity(player.body, { x: player.body.velocity.x, y: Math.ceil((player.body.velocity.y / deacceleration)) });
   } else if(player.body.velocity.y > 0) {
     Body.setVelocity(player.body, { x: player.body.velocity.x, y: Math.floor((player.body.velocity.y / deacceleration)) });
-  }
+  }*/
 
   const w = !!player.keys[83],
     a = !!player.keys[65],
@@ -650,6 +670,10 @@ function updatePlayer(player, delay) {
 
   player.state.isMoving = !!Math.round(body.velocity.x) || !!Math.round(body.velocity.y);
   player.state.force = {x: body.velocity.x, y: body.velocity.y};
+
+  if(!player.state.isMoving) {
+    player.state.force = {x: 0, y: 0};
+  }
 }
 
 function updateParticles(delay) {
@@ -742,10 +766,9 @@ updateObjectRenderLists = setInterval(function() {
     const player = gameData.players[gameData.users[i]];
 
     player.state.objectRenderList = [];
-    for (let i = 0; i < gameData.mapData.obstacles.length; i++) {
-      if (squaredDist(player.state.position, gameData.mapData.obstacles[i]["body-data"].position) < (3500 + player.guns[player.state.activeWeaponIndex].view) ** 2) {
-        player.state.objectRenderList.push(i);
-      }
+    const collisionList = Matter.Query.collides(Bodies.rectangle(player.state.position.x, player.state.position.y, 5000 + player.guns[player.state.activeWeaponIndex].view ** 1.15, 3000 + player.guns[player.state.activeWeaponIndex].view ** 1.15), imageBodyList);
+    for (let i = 0; i < collisionList.length; i++) {
+      player.state.objectRenderList.push(collisionList[i].bodyA.tag / 1);
     }
   }
 }, 250);
@@ -774,11 +797,12 @@ function newConnection(socket) {
           gameData.teamNumbers.red++;
         }
         gameData.players[socket.id] = new playerLike(
-          Bodies.circle(spawnpoint.x, spawnpoint.y, 120, {
+          Bodies.circle(spawnpoint.x, spawnpoint.y, 115, {
             friction: 0,
             restitution: 0,
-            inertia: -0.1,
+            inertia: 0.1,
             density: 0.015,
+            frictionAir: 0.25,
             tag: spawnpoint.team
           }),
           0,

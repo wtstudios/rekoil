@@ -186,28 +186,28 @@ function displayPlayers() {
         fill("#498fe9");
       }
       translate(playerData.state.position.x, playerData.state.position.y);
-      if(gameData.users[i] == socket.id) {
+      /*if(gameData.users[i] == socket.id) {
         rotate(atan2(mouseY - height / 2, mouseX - width / 2) + 90);
       } else {
         rotate(playerData.state.angle - 90);
-      }
+      }*/
       ellipse(0, 0, 230, 230);
       image(assetsLoaded["/assets/player/player-base.svg"], 0, 0, 250, 250);
       if(debug) {
         fill(0, 255, 0, 100);
-        ellipse(0, 0, 240, 240);
+        ellipse(0, 0, 230, 230);
         if(playerData.state.isMoving) {
-          if(gameData.users[i] == socket.id) {
+          /*if(gameData.users[i] == socket.id) {
             rotate(-atan2(mouseY - height / 2, mouseX - width / 2) + 90);
           } else {
             rotate(-playerData.state.angle - 90);
-          }
+          }*/
           if(!!playerData.state.force.y) {
-            image(assetsLoaded["/assets/misc/arrow.svg"], 0, 0, 30, playerData.state.force.y * 15);
+            image(assetsLoaded["/assets/misc/arrow.svg"], 0, 0, 30, -playerData.state.force.y * 15);
           }
           if(!!playerData.state.force.x) {
             rotate(-90);
-            image(assetsLoaded["/assets/misc/arrow.svg"], 0, 0, 30, playerData.state.force.x * 15);          
+            image(assetsLoaded["/assets/misc/arrow.svg"], 0, 0, 30, -playerData.state.force.x * 15);          
           }
         }
       }
@@ -252,7 +252,9 @@ function displayWorld() {
     //rect(0, 0, gameData.mapData.config["map-dimensions"].width, gameData.mapData.config["map-dimensions"].height, 150);
     image(assetsLoaded[gameData.mapData.config["ground-image"]], gameData.mapData.config["map-dimensions"].width / 2, gameData.mapData.config["map-dimensions"].height / 2, gameData.mapData.config["map-dimensions"].width, gameData.mapData.config["map-dimensions"].height);
     rectMode(CENTER);
-    displayPoint();
+    if(gameData.mapData.config.gamemode == "hardpoint") {
+      displayPoint();
+    }
     displayBullets();
     displayParticles();
     displayGuns();
@@ -289,14 +291,14 @@ function animatePlayers() {
         d = !!player.keys[68],*/
       const base = 8.48528137423857;
 
-      player.state.position.x += +(a ^ d) && (((w ^ s) ? Math.SQRT1_2 : 1) * [-1, 1][+d] * base * 0.6 * abs(player.state.force.x / 9));
-      player.state.position.y += +(w ^ s) && (((a ^ d) ? Math.SQRT1_2 : 1) * [-1, 1][+w] * base * 0.6 * abs(player.state.force.y / 9));
+      /*player.state.position.x += +(a ^ d) && (((w ^ s) ? Math.SQRT1_2 : 1) * [-1, 1][+d] * base * 0.6 * abs(player.state.force.x / 3));
+      player.state.position.y += +(w ^ s) && (((a ^ d) ? Math.SQRT1_2 : 1) * [-1, 1][+w] * base * 0.6 * abs(player.state.force.y / 3));
       if(gameData.users[i] == socket.id && gameData.players[socket.id].health > 0) {
-        queuedCameraLocation.x += +(a ^ d) && (((w ^ s) ? Math.SQRT1_2 : 1) * [-1, 1][+d] * base * 0.6 * abs(player.state.force.x / 9));
-        queuedCameraLocation.y += +(w ^ s) && (((a ^ d) ? Math.SQRT1_2 : 1) * [-1, 1][+w] * base * 0.6 * abs(player.state.force.y / 9));
-        queuedCameraLocation.targetX += +(a ^ d) && (((w ^ s) ? Math.SQRT1_2 : 1) * [-1, 1][+d] * base * 0.6 * abs(player.state.force.x / 9));
-        queuedCameraLocation.targetY += +(w ^ s) && (((a ^ d) ? Math.SQRT1_2 : 1) * [-1, 1][+w] * base * 0.6 * abs(player.state.force.y / 9));
-      }
+        queuedCameraLocation.x += +(a ^ d) && (((w ^ s) ? Math.SQRT1_2 : 1) * [-1, 1][+d] * base * 0.6 * abs(player.state.force.x / 3));
+        queuedCameraLocation.y += +(w ^ s) && (((a ^ d) ? Math.SQRT1_2 : 1) * [-1, 1][+w] * base * 0.6 * abs(player.state.force.y / 3));
+        queuedCameraLocation.targetX += +(a ^ d) && (((w ^ s) ? Math.SQRT1_2 : 1) * [-1, 1][+d] * base * 0.6 * abs(player.state.force.x / 3));
+        queuedCameraLocation.targetY += +(w ^ s) && (((a ^ d) ? Math.SQRT1_2 : 1) * [-1, 1][+w] * base * 0.6 * abs(player.state.force.y / 3));
+      }*/
     }
   }
 }
