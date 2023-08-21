@@ -257,7 +257,7 @@ let gameData = {
             standing: 1.5,
             moving: 8
           },
-          damage: 21,
+          damage: 16,
           bulletsPerShot: 1,
           handPositions: [{ x: -30, y: -115 }, { x: 25, y: -120 }],
           images: { topdownSRC: "/assets/weapons/509_topdown.svg", lootSRC: "/assets/weapons/509_loot.svg", offset: { x: 0, y: -335 } },
@@ -377,7 +377,7 @@ let gameData = {
             standing: 1.5,
             moving: 8
           },
-          damage: 21,
+          damage: 16,
           bulletsPerShot: 1,
           handPositions: [{ x: -30, y: -115 }, { x: 25, y: -120 }],
           images: { topdownSRC: "/assets/weapons/509_topdown.svg", lootSRC: "/assets/weapons/509_loot.svg", offset: { x: 0, y: -335 } },
@@ -496,7 +496,7 @@ let gameData = {
             standing: 1.5,
             moving: 8
           },
-          damage: 21,
+          damage: 16,
           bulletsPerShot: 1,
           handPositions: [{ x: -30, y: -115 }, { x: 25, y: -120 }],
           images: { topdownSRC: "/assets/weapons/509_topdown.svg", lootSRC: "/assets/weapons/509_loot.svg", offset: { x: 0, y: -335 } },
@@ -906,8 +906,9 @@ function newConnection(socket) {
                         if(gameData.players[gameData.users[i]].body == collisions[0].bodyA) {
                           gameData.players[gameData.users[i]].health -= gameData.players[socket.id].guns[gameData.players[socket.id].state.activeWeaponIndex].damage;
                           if (gameData.players[gameData.users[i]].health < 1) {   
-                            for(let k = 0; k < 6; k++) {
-                              gameData.particles.push(new particle({x: gameData.players[gameData.users[i]].state.position.x / 1, y: gameData.players[gameData.users[i]].state.position.y / 1}, Math.random() * 360, Math.random() * Math.PI * 2, gameData.players[gameData.users[i]].team, 250, "/assets/misc/particle.svg", 100, "residue"));
+                            for(let k = 0; k < 10; k++) {
+                              const angle = Math.random() * Math.PI * 2;
+                              gameData.particles.push(new particle({x: (gameData.players[gameData.users[i]].state.position.x / 1) + Math.cos(angle) * 100, y: (gameData.players[gameData.users[i]].state.position.y / 1) + Math.sin(angle) * 100}, Math.random() * 360, angle, gameData.players[gameData.users[i]].team, 250, "/assets/misc/particle.svg", 100, "residue"));
                             }  
                             gameData.players[gameData.users[i]].health = 100;
                             Body.setPosition(gameData.players[gameData.users[i]].body, gameData.players[gameData.users[i]].state.spawnpoint);
@@ -942,8 +943,9 @@ function newConnection(socket) {
                         if (gameData.players[gameData.users[i]].team != gameData.players[socket.id].team) {
                           gameData.players[gameData.users[i]].health -= gameData.players[socket.id].guns[gameData.players[socket.id].state.activeWeaponIndex].damage;
                           if (gameData.players[gameData.users[i]].health < 1) {    
-                            for(let k = 0; k < 6; k++) {
-                              gameData.particles.push(new particle({x: gameData.players[gameData.users[i]].state.position.x / 1, y: gameData.players[gameData.users[i]].state.position.y / 1}, Math.random() * 360, Math.random() * Math.PI * 2, gameData.players[gameData.users[i]].team, 250, "/assets/misc/particle.svg", 100, "residue"));
+                            for(let k = 0; k < 10; k++) {
+                              const angle = Math.random() * Math.PI * 2;
+                              gameData.particles.push(new particle({x: (gameData.players[gameData.users[i]].state.position.x / 1) + Math.cos(angle) * 100, y: (gameData.players[gameData.users[i]].state.position.y / 1) + Math.sin(angle) * 100}, Math.random() * 360, angle, gameData.players[gameData.users[i]].team, 250, "/assets/misc/particle.svg", 100, "residue"));
                             }  
                             gameData.players[gameData.users[i]].health = 100;
                             Body.setPosition(gameData.players[gameData.users[i]].body, gameData.players[gameData.users[i]].state.spawnpoint);
@@ -973,8 +975,9 @@ function newConnection(socket) {
                       if (gameData.players[gameData.users[i]].team != gameData.players[socket.id].team) {
                         gameData.players[gameData.users[i]].health -= gameData.players[socket.id].guns[gameData.players[socket.id].state.activeWeaponIndex].damage;
                         if (gameData.players[gameData.users[i]].health < 1) {
-                          for(let k = 0; k < 6; k++) {
-                            gameData.particles.push(new particle({x: gameData.players[gameData.users[i]].state.position.x / 1, y: gameData.players[gameData.users[i]].state.position.y / 1}, Math.random() * 360, Math.random() * Math.PI * 2, gameData.players[gameData.users[i]].team, 250, "/assets/misc/particle.svg", 100, "residue"));
+                          for(let k = 0; k < 10; k++) {
+                            const angle = Math.random() * Math.PI * 2;
+                            gameData.particles.push(new particle({x: (gameData.players[gameData.users[i]].state.position.x / 1) + Math.cos(angle) * 100, y: (gameData.players[gameData.users[i]].state.position.y / 1) + Math.sin(angle) * 100}, Math.random() * 360, angle, gameData.players[gameData.users[i]].team, 250, "/assets/misc/particle.svg", 100, "residue"));
                           }  
                           gameData.players[gameData.users[i]].health = 100;
                           Body.setPosition(gameData.players[gameData.users[i]].body, gameData.players[gameData.users[i]].state.spawnpoint);
