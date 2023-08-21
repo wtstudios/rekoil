@@ -164,6 +164,35 @@ function setup() {
     
       socket.emit("ping", {time: start});
     }, 1000);
+    bulParUpdate = setInterval(function() {
+      for (let i = 0; i < gameData.bullets.length; i++) {
+        gameData.bullets[i].timeLeft -= 3.25;
+        if (gameData.bullets[i].timeLeft <= 0) {
+          gameData.bullets.splice(i, 1);
+        }
+      }
+    
+      for(let i = 0; i < gameData.particles.length; i++) {
+        const particleData = gameData.particles[i];
+        switch(particleData.type) {
+          case "cartridge":
+            particleData.position.x += Math.cos(particleData.angle) * (particleData.opacity / 6 + 4) * 1.2;
+            particleData.position.y += Math.sin(particleData.angle) * (particleData.opacity / 6 + 4) * 1.2;
+            particleData.rotation += 0.075 * 1.2;
+            particleData.opacity -= Math.round(12 * 1.2);
+            break;
+          case "residue":
+            particleData.position.x += Math.cos(particleData.angle) * 13;
+            particleData.position.y += Math.sin(particleData.angle) * 13;
+            particleData.opacity -= Math.round(15);
+            break;
+        }
+        if(particleData.opacity <= 0) {
+          gameData.particles.splice(i, 1);
+          i--;
+        }
+      }
+    }, 35)
     switch(gameData.players[socket.id].team) {
       case "blue":
         document.getElementById("blue-score").textContent = gameData.currentRoundScore.blue;
@@ -178,14 +207,18 @@ function setup() {
   
   socket.on("world-update", data => { // LITERALLY EVERY 25 MILLISECONDS !!
     gameData.players = data.players,
-    gameData.bullets = data.bullets,
-    gameData.particles = data.particles,
     gameData.point = data.point,
     gameData.usersOnline = data.usersOnline,
     gameData.users = data.users;
     gameData.currentRoundScore = data.currentRoundScore;
     gameData.certificate = data.certificate;
     gameData.queuedSounds = data.queuedSounds;
+    for(let i = 0; i < data.bullets.length; i++) {
+      gameData.bullets.push(data.bullets[i]);
+    }
+    for(let i = 0; i < data.particles.length; i++) {
+      gameData.particles.push(data.particles[i]);
+    }
     if(gameData.players[socket.id].health > 0) {
       queuedCameraLocation.x = gameData.players[socket.id].state.position.x;
       queuedCameraLocation.y = gameData.players[socket.id].state.position.y;

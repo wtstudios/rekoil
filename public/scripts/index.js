@@ -186,28 +186,28 @@ function displayPlayers() {
         fill("#498fe9");
       }
       translate(playerData.state.position.x, playerData.state.position.y);
-      /*if(gameData.users[i] == socket.id) {
+      if(gameData.users[i] == socket.id) {
         rotate(atan2(mouseY - height / 2, mouseX - width / 2) + 90);
       } else {
         rotate(playerData.state.angle - 90);
-      }*/
+      }
       ellipse(0, 0, 230, 230);
       image(assetsLoaded["/assets/player/player-base.svg"], 0, 0, 250, 250);
       if(debug) {
         fill(0, 255, 0, 100);
         ellipse(0, 0, 230, 230);
         if(playerData.state.isMoving) {
-          /*if(gameData.users[i] == socket.id) {
+          if(gameData.users[i] == socket.id) {
             rotate(-atan2(mouseY - height / 2, mouseX - width / 2) + 90);
           } else {
             rotate(-playerData.state.angle - 90);
-          }*/
+          }
           if(!!playerData.state.force.y) {
-            image(assetsLoaded["/assets/misc/arrow.svg"], 0, 0, 30, -playerData.state.force.y * 15);
+            image(assetsLoaded["/assets/misc/arrow.svg"], 0, 0, 30, playerData.state.force.y * 15);
           }
           if(!!playerData.state.force.x) {
             rotate(-90);
-            image(assetsLoaded["/assets/misc/arrow.svg"], 0, 0, 30, -playerData.state.force.x * 15);          
+            image(assetsLoaded["/assets/misc/arrow.svg"], 0, 0, 30, playerData.state.force.x * 15);          
           }
         }
       }
@@ -215,6 +215,8 @@ function displayPlayers() {
     }
   }
 }
+
+let bulParUpdate;
 
 function displayFog() {
   const playerData = gameData.players[socket.id];

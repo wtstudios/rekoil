@@ -40,7 +40,7 @@ let messageLoad = [];
 let ticks = 0,
 lastTime = Date.now();
 
-const tickRate = 35;
+const tickRate = 36;
 
 const Engine = Matter.Engine,
   World = Matter.World,
@@ -215,10 +215,10 @@ let gameData = {
           view: 0,
           fireDelay: 5,
           spread: {
-            standing: 3,
-            moving: 9
+            standing: 2.5,
+            moving: 10
           },
-          damage: 18,
+          damage: 14,
           bulletsPerShot: 1,
           handPositions: [{ x: -25, y: -270 }, { x: 25, y: -120 }],
           images: { topdownSRC: "/assets/weapons/scar_topdown.svg", lootSRC: "/assets/weapons/scar_loot.svg", offset: { x: 0, y: -290 } },
@@ -451,14 +451,14 @@ let gameData = {
         {
           name: "SLP",
           type: "shotgun",
-          magSize: 2,
+          magSize: 4,
           view: 0,
           fireDelay: 40,
           spread: {
             standing: 17,
             moving: 21
           },
-          damage: 17,
+          damage: 11,
           bulletsPerShot: 7,
           handPositions: [{ x: -25, y: -255 }, { x: 25, y: -120 }],
           images: { topdownSRC: "/assets/weapons/slp_topdown.svg", lootSRC: "/assets/weapons/slp_loot.svg", offset: { x: 0, y: -320 } },
@@ -676,28 +676,6 @@ function updatePlayer(player, delay) {
   }
 }
 
-function updateParticles(delay) {
-  for(let i = 0; i < gameData.particles.length; i++) {
-    const particleData = gameData.particles[i];
-    switch(particleData.type) {
-      case "cartridge":
-        particleData.position.x += Math.cos(particleData.angle) * (particleData.opacity / 6 + 4) * delay;
-        particleData.position.y += Math.sin(particleData.angle) * (particleData.opacity / 6 + 4) * delay;
-        particleData.rotation += 0.075 * delay;
-        particleData.opacity -= Math.round(12 * delay);
-        break;
-      case "residue":
-        particleData.position.x += Math.cos(particleData.angle) * 10 * delay;
-        particleData.position.y += Math.sin(particleData.angle) * 10 * delay;
-        particleData.opacity -= Math.round(15 * delay);
-        break;
-    }
-    if(particleData.opacity <= 0) {
-      gameData.particles.splice(i, 1);
-    }
-  }
-}
-
 function updateGame() {
   if (gameData.usersOnline > 0) {
     let time = Date.now();
@@ -743,19 +721,14 @@ function updateGame() {
       });
       updatePlayer(player, tickDelay);
     }
-    for (let k = 0; k < gameData.bullets.length; k++) {
-      gameData.bullets[k].timeLeft -= Math.round(tickDelay * 3);
-      if (gameData.bullets[k].timeLeft <= 0) {
-        gameData.bullets.splice(k, 1);
-      }
-    }
+    gameData.bullets = [],
+    gameData.particles = [];
     if (messageLoad.length > 0) {
       for (let i = 0; i < messageLoad.length; i++) {
         io.to(messageLoad[i][0]).emit(messageLoad[i][1], messageLoad[i][2]);
       }
     }
     messageLoad = [];
-    updateParticles(tickDelay);
     gameData.queuedSounds = [];
   }
 }
@@ -932,7 +905,10 @@ function newConnection(socket) {
                       for(let i = 0; i < gameData.users.length; i++) {
                         if(gameData.players[gameData.users[i]].body == collisions[0].bodyA) {
                           gameData.players[gameData.users[i]].health -= gameData.players[socket.id].guns[gameData.players[socket.id].state.activeWeaponIndex].damage;
-                          if (gameData.players[gameData.users[i]].health < 1) {      
+                          if (gameData.players[gameData.users[i]].health < 1) {   
+                            for(let k = 0; k < 6; k++) {
+                              gameData.particles.push(new particle({x: gameData.players[gameData.users[i]].state.position.x / 1, y: gameData.players[gameData.users[i]].state.position.y / 1}, Math.random() * 360, Math.random() * Math.PI * 2, gameData.players[gameData.users[i]].team, 250, "/assets/misc/particle.svg", 100, "residue"));
+                            }  
                             gameData.players[gameData.users[i]].health = 100;
                             Body.setPosition(gameData.players[gameData.users[i]].body, gameData.players[gameData.users[i]].state.spawnpoint);
                             //Composite.remove(world, gameData.players[gameData.users[i]].body);
@@ -965,7 +941,10 @@ function newConnection(socket) {
                         finish = ray[1].point;
                         if (gameData.players[gameData.users[i]].team != gameData.players[socket.id].team) {
                           gameData.players[gameData.users[i]].health -= gameData.players[socket.id].guns[gameData.players[socket.id].state.activeWeaponIndex].damage;
-                          if (gameData.players[gameData.users[i]].health < 1) {      
+                          if (gameData.players[gameData.users[i]].health < 1) {    
+                            for(let k = 0; k < 6; k++) {
+                              gameData.particles.push(new particle({x: gameData.players[gameData.users[i]].state.position.x / 1, y: gameData.players[gameData.users[i]].state.position.y / 1}, Math.random() * 360, Math.random() * Math.PI * 2, gameData.players[gameData.users[i]].team, 250, "/assets/misc/particle.svg", 100, "residue"));
+                            }  
                             gameData.players[gameData.users[i]].health = 100;
                             Body.setPosition(gameData.players[gameData.users[i]].body, gameData.players[gameData.users[i]].state.spawnpoint);
                             //Composite.remove(world, gameData.players[gameData.users[i]].body);
@@ -994,6 +973,9 @@ function newConnection(socket) {
                       if (gameData.players[gameData.users[i]].team != gameData.players[socket.id].team) {
                         gameData.players[gameData.users[i]].health -= gameData.players[socket.id].guns[gameData.players[socket.id].state.activeWeaponIndex].damage;
                         if (gameData.players[gameData.users[i]].health < 1) {
+                          for(let k = 0; k < 6; k++) {
+                            gameData.particles.push(new particle({x: gameData.players[gameData.users[i]].state.position.x / 1, y: gameData.players[gameData.users[i]].state.position.y / 1}, Math.random() * 360, Math.random() * Math.PI * 2, gameData.players[gameData.users[i]].team, 250, "/assets/misc/particle.svg", 100, "residue"));
+                          }  
                           gameData.players[gameData.users[i]].health = 100;
                           Body.setPosition(gameData.players[gameData.users[i]].body, gameData.players[gameData.users[i]].state.spawnpoint);
                           //Composite.remove(world, gameData.players[gameData.users[i]].body);
