@@ -40,7 +40,7 @@ let messageLoad = [];
 let ticks = 0,
 lastTime = Date.now();
 
-const tickRate = 25;
+const tickRate = 35;
 
 const Engine = Matter.Engine,
   World = Matter.World,
@@ -664,8 +664,8 @@ function updatePlayer(player, delay) {
     base = player.body.circleRadius / (10 * Math.SQRT2);
 
   Body.applyForce(body, body.position, {
-    x: +(a ^ d) && (((w ^ s) ? Math.SQRT1_2 : 1) * [-1, 1][+d] * base * 6.5),
-    y: +(w ^ s) && (((a ^ d) ? Math.SQRT1_2 : 1) * [-1, 1][+w] * base * 6.5)
+    x: +(a ^ d) && (((w ^ s) ? Math.SQRT1_2 : 1) * [-1, 1][+d] * base * 6 * delay),
+    y: +(w ^ s) && (((a ^ d) ? Math.SQRT1_2 : 1) * [-1, 1][+w] * base * 6 * delay)
   });
 
   player.state.isMoving = !!Math.round(body.velocity.x) || !!Math.round(body.velocity.y);
@@ -702,7 +702,7 @@ function updateGame() {
   if (gameData.usersOnline > 0) {
     let time = Date.now();
     
-    const tickDelay = (time - lastTime) / tickRate;
+    const tickDelay = ((time - lastTime) / ((25 / tickRate) * tickRate));
     lastTime = Date.now();
     for (let x = 0; x < gameData.users.length; x++) {
       const player = gameData.players[gameData.users[x]];
