@@ -171,7 +171,8 @@ class playerLike {
     hasStarted: false,
     objectRenderList: [],
     ping: 0,
-    force: {x: 0, y: 0}
+    force: {x: 0, y: 0},
+    previousPosition: {x: 0, y: 0}
   };
 
   constructor(body, angle, guns, health, view, team, platform) {
@@ -185,6 +186,7 @@ class playerLike {
     this.state.isMoving = false;
     this.platform = platform;
     this.state.position = body.position;
+    this.state.previousPosition = {x: body.position.x / 1, y: body.position.y / 1}
   }
   destroy() {
     this.#body = void 0;
@@ -679,7 +681,8 @@ function updatePlayer(player, delay) {
   });
 
   player.state.isMoving = !!Math.round(body.velocity.x) || !!Math.round(body.velocity.y);
-  player.state.force = {x: body.velocity.x, y: body.velocity.y};
+  player.state.force = {x: (player.state.position.x - player.state.previousPosition.x) * 0.45, y: (player.state.position.y - player.state.previousPosition.y) * 0.45};
+  player.state.previousPosition = {x: body.position.x / 1, y: body.position.y / 1};
 
   if(!player.state.isMoving) {
     player.state.force = {x: 0, y: 0};

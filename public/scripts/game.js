@@ -169,35 +169,67 @@ function setup() {
     
       socket.emit("ping", {time: start});
     }, 1000);
-    bulParUpdate = setInterval(function() {
-      for (let i = 0; i < gameData.bullets.length; i++) {
-        gameData.bullets[i].timeLeft -= 3.25;
-        if (gameData.bullets[i].timeLeft <= 0) {
-          gameData.bullets.splice(i, 1);
+    animateBetweenTicks = setInterval(function() {
+      if(assetsAreLoaded && state.includes("ingame")) {
+        for (let i = 0; i < gameData.bullets.length; i++) {
+          gameData.bullets[i].timeLeft -= 3.25;
+          if (gameData.bullets[i].timeLeft <= 0) {
+            gameData.bullets.splice(i, 1);
+          }
         }
-      }
+      
+        for(let i = 0; i < gameData.particles.length; i++) {
+          const particleData = gameData.particles[i];
+          switch(particleData.type) {
+            case "cartridge":
+              particleData.position.x += Math.cos(particleData.angle) * (particleData.opacity / 5) * 0.7;
+              particleData.position.y += Math.sin(particleData.angle) * (particleData.opacity / 5) * 0.7;
+              particleData.rotation += 0.075 * 0.7;
+              particleData.opacity -= Math.round(12 * 0.7);
+              break;
+            case "residue":
+              particleData.position.x += Math.cos(particleData.angle) * 7.5;
+              particleData.position.y += Math.sin(particleData.angle) * 7.5;
+              particleData.opacity -= Math.round(8.5);
+              break;
+          }
+          if(particleData.opacity <= 0) {
+            gameData.particles.splice(i, 1);
+            i--;
+          }
+        }
+
+        for (let i = 0; i < gameData.users.length; i++) {
+          let player = gameData.players[gameData.users[i]];
+          let w, a, s, d;
+          w = a = s = d = false;
+          if(player.state.force.y > 0) {
+            w = true;
+          } else if(player.state.force.y < 0) {
+            s = true;
+          }
+          if(player.state.force.x < 0) {
+            a = true;
+          } else if(player.state.force.x > 0) {
+            d = true;
+          }
+          /*const w = !!player.keys[83],
+            a = !!player.keys[65],
+            s = !!player.keys[87],
+            d = !!player.keys[68],*/
+          const base = 8.48528137423857;
     
-      for(let i = 0; i < gameData.particles.length; i++) {
-        const particleData = gameData.particles[i];
-        switch(particleData.type) {
-          case "cartridge":
-            particleData.position.x += Math.cos(particleData.angle) * (particleData.opacity / 5) * 1.7;
-            particleData.position.y += Math.sin(particleData.angle) * (particleData.opacity / 5) * 1.7;
-            particleData.rotation += 0.075 * 1.7;
-            particleData.opacity -= Math.round(12 * 1.7);
-            break;
-          case "residue":
-            particleData.position.x += Math.cos(particleData.angle) * 18.5;
-            particleData.position.y += Math.sin(particleData.angle) * 18.5;
-            particleData.opacity -= Math.round(21.5);
-            break;
-        }
-        if(particleData.opacity <= 0) {
-          gameData.particles.splice(i, 1);
-          i--;
+          player.state.position.x += +(a ^ d) && (((w ^ s) ? Math.SQRT1_2 : 1) * [-1, 1][+d] * base * 0.35 * abs(player.state.force.x / 3));
+          player.state.position.y += +(w ^ s) && (((a ^ d) ? Math.SQRT1_2 : 1) * [-1, 1][+w] * base * 0.35 * abs(player.state.force.y / 3));
+          if(gameData.users[i] == socket.id && gameData.players[socket.id].health > 0) {
+            queuedCameraLocation.x += +(a ^ d) && (((w ^ s) ? Math.SQRT1_2 : 1) * [-1, 1][+d] * base * 0.35 * abs(player.state.force.x / 3));
+            queuedCameraLocation.y += +(w ^ s) && (((a ^ d) ? Math.SQRT1_2 : 1) * [-1, 1][+w] * base * 0.35 * abs(player.state.force.y / 3));
+            queuedCameraLocation.targetX += +(a ^ d) && (((w ^ s) ? Math.SQRT1_2 : 1) * [-1, 1][+d] * base * 0.35 * abs(player.state.force.x / 3));
+            queuedCameraLocation.targetY += +(w ^ s) && (((a ^ d) ? Math.SQRT1_2 : 1) * [-1, 1][+w] * base * 0.35 * abs(player.state.force.y / 3));
+          }
         }
       }
-    }, 50)
+    }, 25)
     switch(gameData.players[socket.id].team) {
       case "blue":
         document.getElementById("blue-score").textContent = gameData.currentRoundScore.blue;
@@ -278,7 +310,6 @@ function setup() {
 }
 
 function draw() {
-  //animatePlayers();
   displayWorld();
   if(mouseIsPressed && assetsAreLoaded && state.includes("ingame")) {
     socket.emit("shoot-request", {});
