@@ -23,17 +23,15 @@ function requestConnectToGame() {
     platform = "desktop";
   }
   socket.emit("play-request", {platform: platform});
-  document.getElementById("select-scar").style.top = "0%";
-  document.getElementById("select-ballista").style.top = "0%";
-  document.getElementById("select-slp").style.top = "0%";
+
+  document.getElementById("select-slp").addEventListener("click", function() {changeGun("slp");});
+  document.getElementById("select-scar").addEventListener("click", function() {changeGun("scar");});
+  document.getElementById("select-ballista").addEventListener("click", function() {changeGun("ballista");});
 }
 
 function changeGun(gun) {
   socket.emit("pick-weapon", {gun: gun});
   document.getElementById("weapon-selection").style.display = "none";
-  document.getElementById("select-scar").style.top = "300%";
-  document.getElementById("select-ballista").style.top = "300%";
-  document.getElementById("select-slp").style.top = "300%";
   document.getElementById("gun-hud").style.display = "block";
 }
 
@@ -41,14 +39,15 @@ function squaredDist(ptA, ptB) {
   return (ptB.x - ptA.x) ** 2 + (ptB.y - ptA.y) ** 2;
 }
 
-function vh(percent) {
-  var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-  return (percent * h) / 100;
-}
-
-function vw(percent) {
-  var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
-  return (percent * w) / 100;
+function secondsToTimestamp(seconds) {
+  if(seconds < 0) {
+    return "0:00";
+  }
+  if(seconds - Math.floor(seconds / 60) * 60 < 10) {
+    return Math.floor(gameData.secondsLeft / 60) + ":0" + (gameData.secondsLeft - (Math.floor(gameData.secondsLeft / 60) * 60));
+  } else {
+    return Math.floor(gameData.secondsLeft / 60) + ":" + (gameData.secondsLeft - (Math.floor(gameData.secondsLeft / 60) * 60));
+  }
 }
 
 function updateGunHUD(data) {
@@ -159,9 +158,9 @@ function displayBullets() {
       tint(230, 40, 40, (bullet.timeLeft / 30) * 255);
     }
     rotate(bullet.angle - 90);
-    if(bullet.tracerLength > 2500) {
-      image(assetsLoaded["/assets/weapons/tracer-start.svg"], -12.5, bullet.tracerLength - 2500, 25, 2500);
-      image(assetsLoaded["/assets/weapons/tracer-end.svg"], -12.5, -5, 25, bullet.tracerLength - 2495);
+    if(bullet.tracerLength > 3000) {
+      image(assetsLoaded["/assets/weapons/tracer-start.svg"], -12.5, bullet.tracerLength - 3000, 25, 3000);
+      image(assetsLoaded["/assets/weapons/tracer-end.svg"], -12.5, -5, 25, bullet.tracerLength - 2995);
     } else {
       image(assetsLoaded["/assets/weapons/tracer-start.svg"], -12.5, -5, 25, bullet.tracerLength + 5);
     }

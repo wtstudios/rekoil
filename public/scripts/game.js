@@ -19,10 +19,11 @@ let socket,
     targetZ: 0
   },
   keys = [],
-  updateObjects,
+  updateDebugMenu,
   debug = false,
   sourceSansPro,
-  ping;
+  ping,
+  state = "menu-main";
 
 socket = io.connect(window.location.origin);
 
@@ -74,7 +75,7 @@ function setup() {
   createCanvas(windowWidth, windowHeight, WEBGL);
   document.getElementById("defaultCanvas0").style.display = "none";
   background("#333333");
-  pixelDensity(1.5);
+  pixelDensity(1);
   noLoop();
   window.addEventListener(
     "resize",
@@ -124,6 +125,8 @@ function setup() {
   assetsLoaded["/assets/audio/guns/509_reload.mp3"] = new Howl({ src: ["/assets/audio/guns/509_reload.mp3"], volume: 1 });
   assetsLoaded["/assets/audio/guns/hit.mp3"] = new Howl({ src: ["/assets/audio/guns/hit.mp3"], volume: 1 });
 
+  document.getElementById("play-button").addEventListener("click", function() {requestConnectToGame();});
+
   socket.on("load-world", data => { // first time loading world, right after pressing play
     gameData = data;
     assetsLoaded[data.mapData.config["ground-image"]] = loadImage(data.mapData.config["ground-image"]);
@@ -131,6 +134,7 @@ function setup() {
       assetsLoaded[data.mapData.obstacles[i]["display-data"].src] = loadImage(data.mapData.obstacles[i]["display-data"].src);
     }
     assetsAreLoaded = true;
+    state = "ingame-weaponselect";
     queuedCameraLocation = {
       x: gameData.players[socket.id].state.position.x,
       y: gameData.players[socket.id].state.position.y,
@@ -150,6 +154,7 @@ function setup() {
     } else {
       document.getElementById("ammocount").innerHTML = data.players[socket.id].state.mag[data.players[socket.id].state.activeWeaponIndex] + " <smol> I " + data.players[socket.id].guns[data.players[socket.id].state.activeWeaponIndex].magSize + '</smol> <img src="/assets/misc/bullet-icon.svg" style="width: calc(0.2vw + 0.2vh);"></img>';
     }
+    document.getElementById("time-left").textContent = gameData.secondsLeft;
     document.getElementById("healthbar").style.width = ((windowWidth * 0.1) * (gameData.players[socket.id].health / 100)) + ((windowHeight * 0.1) * (gameData.players[socket.id].health / 100)) + "px";
     document.getElementById("healthbar-opposite").style.width = ((windowWidth * 0.1) * -((data.players[socket.id].health / 100) - 1)) + ((windowHeight * 0.1) * -((data.players[socket.id].health / 100) - 1)) + "px";
     document.getElementById("healthbar-opposite").style.right = "calc(16.5vw + 16.5vh - " + ((windowWidth * 0.1) * (-((data.players[socket.id].health / 100) - 1)) + ((windowHeight * 0.1) * -((data.players[socket.id].health / 100) - 1))) + "px)" ;
@@ -158,7 +163,7 @@ function setup() {
     document.getElementById("mapname").textContent = "Map: " + gameData.mapData.config["map-name"];
     document.getElementById("fps").textContent = "FPS: " + round(frameRate());
     document.getElementById("pingcount").textContent = "Ping: " + gameData.players[socket.id].state.ping;
-    updateObjects = setInterval(function() { if(debug) { document.getElementById("object-count").textContent = gameData.players[socket.id].state.objectRenderList.length + gameData.bullets.length + gameData.particles.length + gameData.users.length + " objects being rendered"; document.getElementById("fps").textContent = "FPS: " + round(frameRate());     document.getElementById("pingcount").textContent = "Ping: " + gameData.players[socket.id].state.ping; } }, 600);
+    updateDebugMenu = setInterval(function() { if(debug) { document.getElementById("object-count").textContent = gameData.players[socket.id].state.objectRenderList.length + gameData.bullets.length + gameData.particles.length + gameData.users.length + " objects being rendered"; document.getElementById("fps").textContent = "FPS: " + round(frameRate());     document.getElementById("pingcount").textContent = "Ping: " + gameData.players[socket.id].state.ping; } }, 1000);
     ping = setInterval(function() {
       const start = Date.now();
     
@@ -176,15 +181,15 @@ function setup() {
         const particleData = gameData.particles[i];
         switch(particleData.type) {
           case "cartridge":
-            particleData.position.x += Math.cos(particleData.angle) * (particleData.opacity / 6 + 4) * 1.2;
-            particleData.position.y += Math.sin(particleData.angle) * (particleData.opacity / 6 + 4) * 1.2;
-            particleData.rotation += 0.075 * 1.2;
-            particleData.opacity -= Math.round(12 * 1.2);
+            particleData.position.x += Math.cos(particleData.angle) * (particleData.opacity / 5) * 1.7;
+            particleData.position.y += Math.sin(particleData.angle) * (particleData.opacity / 5) * 1.7;
+            particleData.rotation += 0.075 * 1.7;
+            particleData.opacity -= Math.round(12 * 1.7);
             break;
           case "residue":
-            particleData.position.x += Math.cos(particleData.angle) * 13;
-            particleData.position.y += Math.sin(particleData.angle) * 13;
-            particleData.opacity -= Math.round(15);
+            particleData.position.x += Math.cos(particleData.angle) * 18.5;
+            particleData.position.y += Math.sin(particleData.angle) * 18.5;
+            particleData.opacity -= Math.round(21.5);
             break;
         }
         if(particleData.opacity <= 0) {
@@ -192,7 +197,7 @@ function setup() {
           i--;
         }
       }
-    }, 35)
+    }, 50)
     switch(gameData.players[socket.id].team) {
       case "blue":
         document.getElementById("blue-score").textContent = gameData.currentRoundScore.blue;
@@ -209,10 +214,15 @@ function setup() {
     gameData.players = data.players,
     gameData.point = data.point,
     gameData.usersOnline = data.usersOnline,
+    gameData.secondsLeft = data.secondsLeft,
     gameData.users = data.users;
     gameData.currentRoundScore = data.currentRoundScore;
     gameData.certificate = data.certificate;
     gameData.queuedSounds = data.queuedSounds;
+    const timestamp = secondsToTimestamp(gameData.secondsLeft);
+    if(document.getElementById("time-left").textContent != timestamp) {
+      document.getElementById("time-left").textContent = timestamp;
+    }
     for(let i = 0; i < data.bullets.length; i++) {
       gameData.bullets.push(data.bullets[i]);
     }
@@ -224,6 +234,9 @@ function setup() {
       queuedCameraLocation.y = gameData.players[socket.id].state.position.y;
       queuedCameraLocation.targetX = gameData.players[socket.id].state.position.x;
       queuedCameraLocation.targetY = gameData.players[socket.id].state.position.y;  
+    } else {
+      document.getElementById("weapon-selection").style.display = "block";
+      document.getElementById("gun-hud").style.display = "none";
     }
     for(let i = 0; i < gameData.queuedSounds.length; i++) {
       assetsLoaded[gameData.queuedSounds[i].path].volume(0);
@@ -267,7 +280,7 @@ function setup() {
 function draw() {
   //animatePlayers();
   displayWorld();
-  if(mouseIsPressed && assetsAreLoaded) {
+  if(mouseIsPressed && assetsAreLoaded && state.includes("ingame")) {
     socket.emit("shoot-request", {});
   }
 }

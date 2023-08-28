@@ -1408,6 +1408,77 @@
         "layer": 1
       }
     },
+    {
+      "body-data": {
+        "position": {
+          "x": 6950, 
+          "y": 6734
+        },
+        "type": "rectangle",
+        "dimensions": {
+          "width": 430,
+          "height": 430
+        },
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+          "chamfer": { "radius": 90 },
+          "tag": "#9a7742"
+        }
+      },
+      "display-data": {
+        "src": "/assets/environment/crate2.svg",
+        "dimensions": {
+          "width": 450,
+          "height": 450
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 180
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 7448.65, 
+          "y": 215
+        },
+        "type": "rectangle",
+        "dimensions": {
+          "width": 430,
+          "height": 430
+        },
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+          "chamfer": { "radius": 90 },
+          "tag": "#9a7742"
+        }
+      },
+      "display-data": {
+        "src": "/assets/environment/crate2.svg",
+        "dimensions": {
+          "width": 450,
+          "height": 450
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 180
+        },
+        "layer": 1
+      }
+    },
+
 
 
 
@@ -1436,7 +1507,7 @@
       "display-data": {
         "src": "/assets/misc/blank.svg",
         "dimensions": {
-          "width": 110,
+          "width": 0,
           "height": 7929
         },
         "offset": {
@@ -1504,8 +1575,8 @@
       "display-data": {
         "src": "/assets/misc/blank.svg",
         "dimensions": {
-          "width": 7915,
-          "height": 110
+          "width": 0,
+          "height": 0
         },
         "offset": {
           "x": 0,
@@ -1538,8 +1609,8 @@
       "display-data": {
         "src": "/assets/misc/blank.svg",
         "dimensions": {
-          "width": 7915,
-          "height": 110
+          "width": 0,
+          "height": 0
         },
         "offset": {
           "x": 0,

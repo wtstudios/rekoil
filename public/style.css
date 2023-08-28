@@ -10,7 +10,7 @@ canvas {
   position: absolute;
   top: 0px;
   left: 0px;
-  cursor: url("/assets/misc/crosshair.png") 60 60, auto;
+  cursor: url("/assets/misc/crosshair.png") 64 64, auto;
 }
 
 .background-streak {
@@ -113,30 +113,31 @@ button:hover {
   height: calc(2.5vw + 2.5vh);
   transform: skew(-14deg);
   z-index: 1;
-
 }
 
 .select-weapon {
-  position: absolute;
   background-color: #498ee9b6;
-  height: 100%;
-  width: 15vw;
-  top: 300%;
+  height: calc(2.66vw + 8vh);
+  width: calc(6vw + 18vh);
+  right: auto;
   z-index: 1;
   transform: skew(-14deg);
   cursor: pointer;
   transition: ease-in-out 1.5s;
+  position: relative;
 }
 
 .weapon-select-gun-img {
-  height: 6.5vw;
-  margin-top: 0px;
+  height: 100%;
+  top: auto;
+  bottom: auto;
   margin-left: auto;
   margin-right: auto;
   transform: skew(14deg);
   -webkit-user-drag: none;
   display: block;
   align-items: center;
+  position: auto;
 }
 
 .weapon-select-gun-text {

@@ -40,7 +40,7 @@ let messageLoad = [];
 let ticks = 0,
 lastTime = Date.now();
 
-const tickRate = 36;
+const tickRate = 35;
 
 const Engine = Matter.Engine,
   World = Matter.World,
@@ -196,6 +196,7 @@ let gameData = {
   teamNumbers: { "blue": 0, "red": 0 },
   roundsWonScore: {"blue": 0, "red": 0},
   currentRoundScore: { "blue": 0, "red": 0 },
+  secondsLeft: 360,
   players: {},
   objects: [],
   bullets: [],
@@ -641,7 +642,16 @@ updatePoint = setInterval(function() {
     } 
     io.sockets.emit("ui-change", {players: gameData.players, currentRoundScore: gameData.currentRoundScore});
   }
-}, 2000);
+}, 2000),
+
+updateSecondsLeft = setInterval(function() {
+  if(gameData.users.length > 0) {
+    gameData.secondsLeft--;
+  }
+  if(gameData.secondsLeft < -8) {
+    gameData.secondsLeft = 360;
+  }
+}, 1000);
 
 function updatePlayer(player, delay) {
   /*const deacceleration = 1.4;
@@ -713,6 +723,7 @@ function updateGame() {
         bullets: gameData.bullets,
         particles: gameData.particles,
         usersOnline: gameData.usersOnline,
+        secondsLeft: gameData.secondsLeft,
         users: gameData.users,
         point: gameData.point,
         currentRoundScore: gameData.currentRoundScore,
@@ -744,7 +755,7 @@ updateObjectRenderLists = setInterval(function() {
       player.state.objectRenderList.push(collisionList[i].bodyA.tag / 1);
     }
   }
-}, 250);
+}, tickRate * 10);
 
 io.sockets.on("connection", newConnection);
 
@@ -910,9 +921,10 @@ function newConnection(socket) {
                               const angle = Math.random() * Math.PI * 2;
                               gameData.particles.push(new particle({x: (gameData.players[gameData.users[i]].state.position.x / 1) + Math.cos(angle) * 100, y: (gameData.players[gameData.users[i]].state.position.y / 1) + Math.sin(angle) * 100}, Math.random() * 360, angle, gameData.players[gameData.users[i]].team, 250, "/assets/misc/particle.svg", 100, "residue"));
                             }  
-                            gameData.players[gameData.users[i]].health = 100;
-                            Body.setPosition(gameData.players[gameData.users[i]].body, gameData.players[gameData.users[i]].state.spawnpoint);
-                            //Composite.remove(world, gameData.players[gameData.users[i]].body);
+                            gameData.players[gameData.users[i]].health = 0;
+                            //Body.setPosition(gameData.players[gameData.users[i]].body, gameData.players[gameData.users[i]].state.spawnpoint);
+                            gameData.players[gameData.users[i]].state.hasStarted = false;
+                            Composite.remove(world, gameData.players[gameData.users[i]].body);
                             gameData.players[gameData.users[i]].keys = [];
                             gameData.currentRoundScore[gameData.players[socket.id].team]+=5;
                             gameData.players[gameData.users[i]].state.mag[0] = gameData.players[gameData.users[i]].guns[0].magSize;
@@ -947,9 +959,10 @@ function newConnection(socket) {
                               const angle = Math.random() * Math.PI * 2;
                               gameData.particles.push(new particle({x: (gameData.players[gameData.users[i]].state.position.x / 1) + Math.cos(angle) * 100, y: (gameData.players[gameData.users[i]].state.position.y / 1) + Math.sin(angle) * 100}, Math.random() * 360, angle, gameData.players[gameData.users[i]].team, 250, "/assets/misc/particle.svg", 100, "residue"));
                             }  
-                            gameData.players[gameData.users[i]].health = 100;
-                            Body.setPosition(gameData.players[gameData.users[i]].body, gameData.players[gameData.users[i]].state.spawnpoint);
-                            //Composite.remove(world, gameData.players[gameData.users[i]].body);
+                            gameData.players[gameData.users[i]].health = 0;
+                            //Body.setPosition(gameData.players[gameData.users[i]].body, gameData.players[gameData.users[i]].state.spawnpoint);
+                            gameData.players[gameData.users[i]].state.hasStarted = false;
+                            Composite.remove(world, gameData.players[gameData.users[i]].body);
                             gameData.players[gameData.users[i]].keys = [];
                             gameData.currentRoundScore[gameData.players[socket.id].team]+=5;
                             gameData.players[gameData.users[i]].state.mag[0] = gameData.players[gameData.users[i]].guns[0].magSize;
@@ -979,9 +992,10 @@ function newConnection(socket) {
                             const angle = Math.random() * Math.PI * 2;
                             gameData.particles.push(new particle({x: (gameData.players[gameData.users[i]].state.position.x / 1) + Math.cos(angle) * 100, y: (gameData.players[gameData.users[i]].state.position.y / 1) + Math.sin(angle) * 100}, Math.random() * 360, angle, gameData.players[gameData.users[i]].team, 250, "/assets/misc/particle.svg", 100, "residue"));
                           }  
-                          gameData.players[gameData.users[i]].health = 100;
-                          Body.setPosition(gameData.players[gameData.users[i]].body, gameData.players[gameData.users[i]].state.spawnpoint);
-                          //Composite.remove(world, gameData.players[gameData.users[i]].body);
+                          gameData.players[gameData.users[i]].health = 0;
+                          //Body.setPosition(gameData.players[gameData.users[i]].body, gameData.players[gameData.users[i]].state.spawnpoint);
+                          gameData.players[gameData.users[i]].state.hasStarted = false;
+                          Composite.remove(world, gameData.players[gameData.users[i]].body);
                           gameData.players[gameData.users[i]].keys = [];
                           gameData.currentRoundScore[gameData.players[socket.id].team]+=5;
                           gameData.players[gameData.users[i]].state.mag[0] = gameData.players[gameData.users[i]].guns[0].magSize;
