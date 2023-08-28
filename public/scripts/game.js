@@ -99,31 +99,31 @@ function setup() {
 
   sourceSansPro = loadFont("/fonts/SourceSansPro-Black.ttf")
 
-  assetsLoaded["/assets/player/player-base.svg"] = loadImage("/rekoil/assets/player/player-base.svg");
-  assetsLoaded["/assets/player/player-hand.svg"] = loadImage("/rekoil/assets/player/player-hand.svg");
-  assetsLoaded["/assets/weapons/tracer-start.svg"] = loadImage("/rekoil/assets/weapons/tracer-start.svg");
-  assetsLoaded["/assets/weapons/tracer-end.svg"] = loadImage("/rekoil/assets/weapons/tracer-end.svg");
-  assetsLoaded["/assets/weapons/scar_topdown.svg"] = loadImage("/rekoil/assets/weapons/scar_topdown.svg");
-  assetsLoaded["/assets/weapons/ballista_topdown.svg"] = loadImage("/rekoil/assets/weapons/ballista_topdown.svg");
-  assetsLoaded["/assets/weapons/slp_topdown.svg"] = loadImage("/rekoil/assets/weapons/slp_topdown.svg");
-  assetsLoaded["/assets/weapons/509_topdown.svg"] = loadImage("/rekoil/assets/weapons/509_topdown.svg");
-  assetsLoaded["/assets/weapons/knife_topdown.svg"] = loadImage("/rekoil/assets/weapons/knife_topdown.svg");
-  assetsLoaded["/assets/weapons/bayonet_topdown.svg"] = loadImage("/rekoil/assets/weapons/bayonet_topdown.svg");
-  assetsLoaded["/assets/misc/particle.svg"] = loadImage("/rekoil/assets/misc/particle.svg");
-  assetsLoaded["/assets/misc/smokeparticle.svg"] = loadImage("/rekoil/assets/misc/smokeparticle.svg");
-  assetsLoaded["/assets/weapons/cartridge.svg"] = loadImage("/rekoil/assets/weapons/cartridge.svg");
-  assetsLoaded["/assets/environment/point-outline.svg"] = loadImage("/rekoil/assets/environment/point-outline.svg");
-  assetsLoaded["/assets/misc/arrow.svg"] = loadImage("/rekoil/assets/misc/arrow.svg");
-  assetsLoaded["/assets/audio/guns/scar_fire.mp3"] = new Howl({ src: ["/rekoil/assets/audio/guns/scar_fire.mp3"], volume: 1 });
-  assetsLoaded["/assets/audio/guns/ballista_fire.mp3"] = new Howl({ src: ["/rekoil/assets/audio/guns/ballista_fire.mp3"], volume: 1 });
-  assetsLoaded["/assets/audio/guns/slp_fire.mp3"] = new Howl({ src: ["/rekoil/assets/audio/guns/slp_fire.mp3"], volume: 1 });
-  assetsLoaded["/assets/audio/guns/509_fire.mp3"] = new Howl({ src: ["/rekoil/assets/audio/guns/509_fire.mp3"], volume: 1 });
-  assetsLoaded["/assets/audio/guns/melee_fire.mp3"] = new Howl({ src: ["/rekoil/assets/audio/guns/melee_fire.mp3"], volume: 1 });
-  assetsLoaded["/assets/audio/guns/scar_reload.mp3"] = new Howl({ src: ["/rekoil/assets/audio/guns/scar_reload.mp3"], volume: 1 });
-  assetsLoaded["/assets/audio/guns/ballista_reload.mp3"] = new Howl({ src: ["/rekoil/assets/audio/guns/ballista_reload.mp3"], volume: 1 });
-  assetsLoaded["/assets/audio/guns/slp_reload.mp3"] = new Howl({ src: ["/rekoil/assets/audio/guns/slp_reload.mp3"], volume: 1 });
-  assetsLoaded["/assets/audio/guns/509_reload.mp3"] = new Howl({ src: ["/rekoil/assets/audio/guns/509_reload.mp3"], volume: 1 });
-  assetsLoaded["/assets/audio/guns/hit.mp3"] = new Howl({ src: ["/rekoil/assets/audio/guns/hit.mp3"], volume: 1 });
+  assetsLoaded["/assets/player/player-base.svg"] = loadImage("/rekoil/public/assets/player/player-base.svg");
+  assetsLoaded["/assets/player/player-hand.svg"] = loadImage("/rekoil/public/assets/player/player-hand.svg");
+  assetsLoaded["/assets/weapons/tracer-start.svg"] = loadImage("/rekoil/public/assets/weapons/tracer-start.svg");
+  assetsLoaded["/assets/weapons/tracer-end.svg"] = loadImage("/rekoil/public/assets/weapons/tracer-end.svg");
+  assetsLoaded["/assets/weapons/scar_topdown.svg"] = loadImage("/rekoil/public/assets/weapons/scar_topdown.svg");
+  assetsLoaded["/assets/weapons/ballista_topdown.svg"] = loadImage("/rekoil/public/assets/weapons/ballista_topdown.svg");
+  assetsLoaded["/assets/weapons/slp_topdown.svg"] = loadImage("/rekoil/public/assets/weapons/slp_topdown.svg");
+  assetsLoaded["/assets/weapons/509_topdown.svg"] = loadImage("/rekoil/public/assets/weapons/509_topdown.svg");
+  assetsLoaded["/assets/weapons/knife_topdown.svg"] = loadImage("/rekoil/public/assets/weapons/knife_topdown.svg");
+  assetsLoaded["/assets/weapons/bayonet_topdown.svg"] = loadImage("/rekoil/public/assets/weapons/bayonet_topdown.svg");
+  assetsLoaded["/assets/misc/particle.svg"] = loadImage("/rekoil/public/assets/misc/particle.svg");
+  assetsLoaded["/assets/misc/smokeparticle.svg"] = loadImage("/rekoil/public/assets/misc/smokeparticle.svg");
+  assetsLoaded["/assets/weapons/cartridge.svg"] = loadImage("/rekoil/public/assets/weapons/cartridge.svg");
+  assetsLoaded["/assets/environment/point-outline.svg"] = loadImage("/rekoil/public/assets/environment/point-outline.svg");
+  assetsLoaded["/assets/misc/arrow.svg"] = loadImage("/rekoil/public/assets/misc/arrow.svg");
+  assetsLoaded["/assets/audio/guns/scar_fire.mp3"] = new Howl({ src: ["/rekoil/public/assets/audio/guns/scar_fire.mp3"], volume: 1 });
+  assetsLoaded["/assets/audio/guns/ballista_fire.mp3"] = new Howl({ src: ["/rekoil/public/assets/audio/guns/ballista_fire.mp3"], volume: 1 });
+  assetsLoaded["/assets/audio/guns/slp_fire.mp3"] = new Howl({ src: ["/rekoil/public/assets/audio/guns/slp_fire.mp3"], volume: 1 });
+  assetsLoaded["/assets/audio/guns/509_fire.mp3"] = new Howl({ src: ["/rekoil/public/assets/audio/guns/509_fire.mp3"], volume: 1 });
+  assetsLoaded["/assets/audio/guns/melee_fire.mp3"] = new Howl({ src: ["/rekoil/public/assets/audio/guns/melee_fire.mp3"], volume: 1 });
+  assetsLoaded["/assets/audio/guns/scar_reload.mp3"] = new Howl({ src: ["/rekoil/public/assets/audio/guns/scar_reload.mp3"], volume: 1 });
+  assetsLoaded["/assets/audio/guns/ballista_reload.mp3"] = new Howl({ src: ["/rekoil/public/assets/audio/guns/ballista_reload.mp3"], volume: 1 });
+  assetsLoaded["/assets/audio/guns/slp_reload.mp3"] = new Howl({ src: ["/rekoil/public/assets/audio/guns/slp_reload.mp3"], volume: 1 });
+  assetsLoaded["/assets/audio/guns/509_reload.mp3"] = new Howl({ src: ["/rekoil/public/assets/audio/guns/509_reload.mp3"], volume: 1 });
+  assetsLoaded["/assets/audio/guns/hit.mp3"] = new Howl({ src: ["/rekoil/public/assets/audio/guns/hit.mp3"], volume: 1 });
 
   document.getElementById("play-button").addEventListener("click", function() {requestConnectToGame();});
 
