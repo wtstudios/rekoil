@@ -25,7 +25,7 @@ let socket,
   ping,
   state = "menu-main";
 
-socket = io.connect(window.location.origin);
+socket = io.connect("wss://rekoil-hp-usw.onrender.com");
 
 function keyReleased() {
   if(assetsAreLoaded) {
