@@ -650,7 +650,7 @@ updateSecondsLeft = setInterval(function() {
   if(gameData.users.length > 0) {
     gameData.secondsLeft--;
   }
-  if(gameData.secondsLeft < -8) {
+  if(gameData.secondsLeft < -20) {
     gameData.secondsLeft = 360;
   }
 }, 1000);
@@ -681,12 +681,8 @@ function updatePlayer(player, delay) {
   });
 
   player.state.isMoving = !!Math.round(body.velocity.x) || !!Math.round(body.velocity.y);
-  player.state.force = {x: (player.state.position.x - player.state.previousPosition.x) * 0.45, y: (player.state.position.y - player.state.previousPosition.y) * 0.45};
+  player.state.force = {x: player.state.position.x - player.state.previousPosition.x, y: player.state.position.y - player.state.previousPosition.y};
   player.state.previousPosition = {x: body.position.x / 1, y: body.position.y / 1};
-
-  if(!player.state.isMoving) {
-    player.state.force = {x: 0, y: 0};
-  }
 }
 
 function updateGame() {
@@ -819,6 +815,7 @@ function newConnection(socket) {
             if(gameData.users.length == 0) {
               gameData.currentRoundScore["blue"] = 0;
               gameData.currentRoundScore["red"] = 0;
+              gameData.secondsLeft = 360;
             }
           }
         });

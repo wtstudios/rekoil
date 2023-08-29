@@ -1541,8 +1541,8 @@
       "display-data": {
         "src": "/assets/misc/blank.svg",
         "dimensions": {
-          "width": 110,
-          "height": 7929
+          "width": 0,
+          "height": 0
         },
         "offset": {
           "x": 0,
