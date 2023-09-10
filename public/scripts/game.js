@@ -171,51 +171,6 @@ function setup() {
     
       socket.emit("ping", {time: start});
     }, 1000);
-    animateBetweenTicks = setInterval(function() {
-      if(assetsAreLoaded && state.includes("ingame")) {
-        for (let i = 0; i < gameData.bullets.length; i++) {
-          gameData.bullets[i].timeLeft -= 2;
-          if (gameData.bullets[i].timeLeft <= 0) {
-            gameData.bullets.splice(i, 1);
-          }
-        }
-      
-        for(let i = 0; i < gameData.particles.length; i++) {
-          const particleData = gameData.particles[i];
-
-          switch(particleData.type) {
-            case "cartridge":
-              particleData.position.x += Math.cos(particleData.angle) * (particleData.opacity / 5.5) * 0.6;
-              particleData.position.y += Math.sin(particleData.angle) * (particleData.opacity / 5.5) * 0.6;
-              particleData.rotation += 0.075 * 0.55;
-              particleData.opacity -= Math.round(12 * 0.55);
-              break;
-            case "residue":
-              particleData.position.x += Math.cos(particleData.angle) * (particleData.opacity / 5) * 0.35;
-              particleData.position.y += Math.sin(particleData.angle) * (particleData.opacity / 5) * 0.35;
-              particleData.opacity -= Math.round(12 * 0.45);
-              break;
-          }
-          if(particleData.opacity <= 0) {
-            gameData.particles.splice(i, 1);
-            i--;
-          }
-        }
-
-        for (let i = 0; i < gameData.users.length; i++) {
-          let player = gameData.players[gameData.users[i]];
-    
-          player.state.position.x += player.state.force.x * 0.45;
-          player.state.position.y += player.state.force.y * 0.45;
-          if(gameData.users[i] == permanentID && gameData.players[permanentID].health > 0) {
-            queuedCameraLocation.x += player.state.force.x * 0.45;
-            queuedCameraLocation.y += player.state.force.y * 0.45;
-            queuedCameraLocation.targetX += player.state.force.x * 0.45;
-            queuedCameraLocation.targetY += player.state.force.y * 0.45;
-          }
-        }
-      }
-    }, 25)
     switch(gameData.players[permanentID].team) {
       case "blue":
         document.getElementById("blue-score").textContent = gameData.currentRoundScore.blue;
@@ -237,15 +192,18 @@ function setup() {
     gameData.currentRoundScore = data.currentRoundScore;
     gameData.certificate = data.certificate;
     gameData.queuedSounds = data.queuedSounds;
+    gameData.timeStamp = Date.now();
     const timestamp = secondsToTimestamp(gameData.secondsLeft);
     if(document.getElementById("time-left").textContent != timestamp) {
       document.getElementById("time-left").textContent = timestamp;
     }
     for(let i = 0; i < data.bullets.length; i++) {
       gameData.bullets.push(data.bullets[i]);
+      gameData.bullets[gameData.bullets.length - 1].timeStamp = Date.now();
     }
     for(let i = 0; i < data.particles.length; i++) {
       gameData.particles.push(data.particles[i]);
+      gameData.particles[gameData.particles.length - 1].timeStamp = Date.now();
     }
     if(gameData.players[permanentID].health > 0) {
       queuedCameraLocation.x = gameData.players[permanentID].state.position.x;

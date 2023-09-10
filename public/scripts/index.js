@@ -66,27 +66,33 @@ function updateGunHUD(data) {
 
 function displayParticles() {
   for(let i = 0; i < gameData.particles.length; i++) { 
-    const particleData = gameData.particles[i];
-    push();
-    translate(particleData.position.x, particleData.position.y);
-    rotate(particleData.rotation / Math.PI * 180);
-    tint(255, 255, 255, particleData.opacity);
-    if(particleData.colour != "none") {
-      fill(particleData.colour + hex(particleData.opacity)[6] + (hex(particleData.opacity)[7]));
-      if(particleData.colour === "blue" || particleData.colour === "red") {
-        fill("#e9494f" + hex(particleData.opacity)[6] + (hex(particleData.opacity)[7]));
-        if(particleData.colour == gameData.players[permanentID].team) {
-          fill("#498fe9" + hex(particleData.opacity)[6] + (hex(particleData.opacity)[7]));
+    const particleData = gameData.particles[i],
+    opacity = Math.round(255 - (Date.now() - particleData.timeStamp) / 2) + 1;
+    if(opacity <= -1) {
+      gameData.particles.splice(i, 1);
+      i--;
+    } else {
+      push();
+      translate(particleData.position.x + Math.cos(particleData.angle) * (Date.now() - particleData.timeStamp) / 2, particleData.position.y + Math.sin(particleData.angle) * (Date.now() - particleData.timeStamp) / 2);
+      rotate(particleData.rotation / Math.PI * 180 + (Date.now() - particleData.timeStamp) / 10);
+      tint(255, 255, 255, opacity);
+      if(particleData.colour != "none") {
+        fill(particleData.colour + hex(opacity)[6] + (hex(opacity)[7]));
+        if(particleData.colour === "blue" || particleData.colour === "red") {
+          fill("#e9494f" + hex(opacity)[6] + (hex(opacity)[7]));
+          if(particleData.colour == gameData.players[permanentID].team) {
+            fill("#498fe9" + hex(opacity)[6] + (hex(opacity)[7]));
+          }
         }
+        ellipse(0, 0, particleData.size * 0.3125, particleData.size * 0.3125);
       }
-      ellipse(0, 0, particleData.size * 0.3125, particleData.size * 0.3125);
+      image(assetsLoaded[particleData.src], 0, 0, particleData.size, particleData.size);
+      if(debug) {
+        fill(255, 150, 0, 100);
+        rect(0, 0, particleData.size, particleData.size);
+      }
+      pop();
     }
-    image(assetsLoaded[particleData.src], 0, 0, particleData.size, particleData.size);
-    if(debug) {
-      fill(255, 150, 0, 100);
-      rect(0, 0, particleData.size, particleData.size);
-    }
-    pop();
   }
 }
 
@@ -122,9 +128,10 @@ function displayGuns() {
   for (let i = 0; i < gameData.users.length; i++) {
     if(gameData.players[gameData.users[i]].health > 0) {
       const playerData = gameData.players[gameData.users[i]],
-      gun = playerData.guns[playerData.state.activeWeaponIndex];
+      gun = playerData.guns[playerData.state.activeWeaponIndex],
+      tickDelay = Date.now() - gameData.timeStamp;
       push();
-      translate(playerData.state.position.x, playerData.state.position.y);
+      translate(playerData.state.position.x + playerData.state.force.x * tickDelay / 75, playerData.state.position.y + playerData.state.force.y * tickDelay / 75);
       if(gameData.users[i] == permanentID) {
         rotate(atan2(mouseY - height / 2, mouseX - width / 2) + 90);
       } else {
@@ -148,45 +155,56 @@ function displayGuns() {
 
 function displayBullets() {
   for (let i = 0; i < gameData.bullets.length; i++) {
-    const bullet = gameData.bullets[i];
-    push();
-    imageMode(CORNER);
-    translate(bullet.coordinates.finish.x, bullet.coordinates.finish.y);
-    if (bullet.emitter == gameData.players[permanentID].team) {
-      tint(40, 150, 255, (bullet.timeLeft / 30) * 255);
+    const bullet = gameData.bullets[i],
+    opacity = Math.round((-(Date.now() - bullet.timeStamp) / 3) + 255);
+    if(opacity <= 1) {
+      gameData.bullets.splice(i, 1);
+      i--;
     } else {
-      tint(230, 40, 40, (bullet.timeLeft / 30) * 255);
+      push();
+      imageMode(CORNER);
+      translate(bullet.coordinates.finish.x, bullet.coordinates.finish.y);
+      if (bullet.emitter == gameData.players[permanentID].team) {
+        tint(40, 150, 255, (bullet.timeLeft / 30) * opacity);
+      } else {
+        tint(230, 40, 40, (bullet.timeLeft / 30) * opacity);
+      }
+      rotate(bullet.angle - 90);
+      if(bullet.tracerLength > 2000) {
+        image(assetsLoaded["/assets/weapons/tracer-start.svg"], -10, bullet.tracerLength - 2000, 20, 2000);
+        image(assetsLoaded["/assets/weapons/tracer-end.svg"], -10, -5, 20, bullet.tracerLength - 1995);
+      } else {
+        image(assetsLoaded["/assets/weapons/tracer-start.svg"], -10, -5, 20, bullet.tracerLength + 5);
+      }
+      imageMode(CENTER);
+      if(debug) {
+        fill(255, 255, 0, 200);
+        rectMode(CORNER);
+        rect(-10, 0, 20, dist(bullet.coordinates.start.x, bullet.coordinates.start.y, bullet.coordinates.finish.x, bullet.coordinates.finish.y));
+        rectMode(CENTER);
+      }
+      pop();
     }
-    rotate(bullet.angle - 90);
-    if(bullet.tracerLength > 2000) {
-      image(assetsLoaded["/assets/weapons/tracer-start.svg"], -12.5, bullet.tracerLength - 2000, 25, 2000);
-      image(assetsLoaded["/assets/weapons/tracer-end.svg"], -12.5, -5, 25, bullet.tracerLength - 1995);
-    } else {
-      image(assetsLoaded["/assets/weapons/tracer-start.svg"], -12.5, -5, 25, bullet.tracerLength + 5);
-    }
-    imageMode(CENTER);
-    if(debug) {
-      fill(255, 255, 0, 200);
-      rectMode(CORNER);
-      rect(-12.5, 0, 25, dist(bullet.coordinates.start.x, bullet.coordinates.start.y, bullet.coordinates.finish.x, bullet.coordinates.finish.y));
-      rectMode(CENTER);
-    }
-    pop();
   }
 }
 
 function displayPlayers() {
   for (let i = 0; i < gameData.users.length; i++) {
     if(gameData.players[gameData.users[i]].health > 0) {
-      const playerData = gameData.players[gameData.users[i]];
+      const playerData = gameData.players[gameData.users[i]],
+      tickDelay = Date.now() - gameData.timeStamp;
       push();
       fill("#e9494f");
       if (playerData.team == gameData.players[permanentID].team) {
         fill("#498fe9");
       }
-      translate(playerData.state.position.x, playerData.state.position.y);
+      translate(playerData.state.position.x + playerData.state.force.x * tickDelay / 75, playerData.state.position.y + playerData.state.force.y * tickDelay / 75);
       if(gameData.users[i] == permanentID) {
         rotate(atan2(mouseY - height / 2, mouseX - width / 2) + 90);
+        queuedCameraLocation.x = playerData.state.position.x + playerData.state.force.x * tickDelay / 75;
+        queuedCameraLocation.y  = playerData.state.position.y + playerData.state.force.y * tickDelay / 75;
+        queuedCameraLocation.targetX = playerData.state.position.x + playerData.state.force.x * tickDelay / 75;
+        queuedCameraLocation.targetY  = playerData.state.position.y + playerData.state.force.y * tickDelay / 75;
       } else {
         rotate(playerData.state.angle - 90);
       }
@@ -214,8 +232,6 @@ function displayPlayers() {
     }
   }
 }
-
-let animateBetweenTicks;
 
 function displayFog() {
   const playerData = gameData.players[permanentID];

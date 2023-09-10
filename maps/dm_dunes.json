@@ -12,25 +12,35 @@
     "spawns": {
       "blue": [
         {
-          "x": 1000,
-          "y": 1000,
+          "x": 435,
+          "y": 1715,
           "team": "blue"
         },
         {
-          "x": 5500,
-          "y": 6000,
+          "x": 6815,
+          "y": 1265,
+          "team": "blue"
+        },
+        {
+          "x": 3475,
+          "y": 985,
           "team": "blue"
         }
       ],
       "red": [
         {
-          "x": 1500,
-          "y": 5600,
+          "x": 985,
+          "y": 3400,
           "team": "red"
         },
         {
-          "x": 5500,
-          "y": 5600,
+          "x": 3815,
+          "y": 6980,
+          "team": "red"
+        },
+        {
+          "x": 7000,
+          "y": 6685,
           "team": "red"
         }
       ]
@@ -1474,6 +1484,840 @@
           "x": 0,
           "y": 0,
           "angle": 180
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 300,
+          "y": 1338.65
+        },
+        "type": "rectangle",
+        "dimensions": {
+          "width": 280,
+          "height": 280
+        },
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+          "chamfer": { "radius": 70 },
+          "tag": "#9a7742"
+        }
+      },
+      "display-data": {
+        "src": "/assets/environment/crate1.svg",
+        "dimensions": {
+          "width": 300,
+          "height": 300
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 90
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 1858.65,
+          "y": 938.65
+        },
+        "type": "rectangle",
+        "dimensions": {
+          "width": 280,
+          "height": 280
+        },
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+          "chamfer": { "radius": 70 },
+          "tag": "#9a7742"
+        }
+      },
+      "display-data": {
+        "src": "/assets/environment/crate1.svg",
+        "dimensions": {
+          "width": 300,
+          "height": 300
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 0
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 1340,
+          "y": 3302.195
+        },
+        "type": "rectangle",
+        "dimensions": {
+          "width": 280,
+          "height": 280
+        },
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+          "chamfer": { "radius": 70 },
+          "tag": "#9a7742"
+        }
+      },
+      "display-data": {
+        "src": "/assets/environment/crate1.svg",
+        "dimensions": {
+          "width": 300,
+          "height": 300
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 180
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 1990,
+          "y": 3300
+        },
+        "type": "rectangle",
+        "dimensions": {
+          "width": 280,
+          "height": 280
+        },
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+          "chamfer": { "radius": 70 },
+          "tag": "#9a7742"
+        }
+      },
+      "display-data": {
+        "src": "/assets/environment/crate1.svg",
+        "dimensions": {
+          "width": 300,
+          "height": 300
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 270
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 2240,
+          "y": 2890
+        },
+        "type": "rectangle",
+        "dimensions": {
+          "width": 280,
+          "height": 280
+        },
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+          "chamfer": { "radius": 70 },
+          "tag": "#9a7742"
+        }
+      },
+      "display-data": {
+        "src": "/assets/environment/crate1.svg",
+        "dimensions": {
+          "width": 300,
+          "height": 300
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 0
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 3674,
+          "y": 2490
+        },
+        "type": "rectangle",
+        "dimensions": {
+          "width": 280,
+          "height": 280
+        },
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+          "chamfer": { "radius": 70 },
+          "tag": "#9a7742"
+        }
+      },
+      "display-data": {
+        "src": "/assets/environment/crate1.svg",
+        "dimensions": {
+          "width": 300,
+          "height": 300
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 180
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 6963.65,
+          "y": 890
+        },
+        "type": "rectangle",
+        "dimensions": {
+          "width": 280,
+          "height": 280
+        },
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+          "chamfer": { "radius": 70 },
+          "tag": "#9a7742"
+        }
+      },
+      "display-data": {
+        "src": "/assets/environment/crate1.svg",
+        "dimensions": {
+          "width": 300,
+          "height": 300
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 90
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 7775,
+          "y": 140
+        },
+        "type": "rectangle",
+        "dimensions": {
+          "width": 280,
+          "height": 280
+        },
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+          "chamfer": { "radius": 70 },
+          "tag": "#9a7742"
+        }
+      },
+      "display-data": {
+        "src": "/assets/environment/crate1.svg",
+        "dimensions": {
+          "width": 300,
+          "height": 300
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 0
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 7440,
+          "y": 1840
+        },
+        "type": "rectangle",
+        "dimensions": {
+          "width": 280,
+          "height": 280
+        },
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+          "chamfer": { "radius": 70 },
+          "tag": "#9a7742"
+        }
+      },
+      "display-data": {
+        "src": "/assets/environment/crate1.svg",
+        "dimensions": {
+          "width": 300,
+          "height": 300
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 270
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 7025,
+          "y": 3850
+        },
+        "type": "rectangle",
+        "dimensions": {
+          "width": 280,
+          "height": 280
+        },
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+          "chamfer": { "radius": 70 },
+          "tag": "#9a7742"
+        }
+      },
+      "display-data": {
+        "src": "/assets/environment/crate1.svg",
+        "dimensions": {
+          "width": 300,
+          "height": 300
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 90
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 6010,
+          "y": 3690
+        },
+        "type": "rectangle",
+        "dimensions": {
+          "width": 280,
+          "height": 280
+        },
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+          "chamfer": { "radius": 70 },
+          "tag": "#9a7742"
+        }
+      },
+      "display-data": {
+        "src": "/assets/environment/crate1.svg",
+        "dimensions": {
+          "width": 300,
+          "height": 300
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 0
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 3040,
+          "y": 4090
+        },
+        "type": "rectangle",
+        "dimensions": {
+          "width": 280,
+          "height": 280
+        },
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+          "chamfer": { "radius": 70 },
+          "tag": "#9a7742"
+        }
+      },
+      "display-data": {
+        "src": "/assets/environment/crate1.svg",
+        "dimensions": {
+          "width": 300,
+          "height": 300
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 180
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 2290,
+          "y": 4888.65
+        },
+        "type": "rectangle",
+        "dimensions": {
+          "width": 280,
+          "height": 280
+        },
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+          "chamfer": { "radius": 70 },
+          "tag": "#9a7742"
+        }
+      },
+      "display-data": {
+        "src": "/assets/environment/crate1.svg",
+        "dimensions": {
+          "width": 300,
+          "height": 300
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 90
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 4200,
+          "y": 5138.65
+        },
+        "type": "rectangle",
+        "dimensions": {
+          "width": 280,
+          "height": 280
+        },
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+          "chamfer": { "radius": 70 },
+          "tag": "#9a7742"
+        }
+      },
+      "display-data": {
+        "src": "/assets/environment/crate1.svg",
+        "dimensions": {
+          "width": 300,
+          "height": 300
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 0
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 3800,
+          "y": 5538.65
+        },
+        "type": "rectangle",
+        "dimensions": {
+          "width": 280,
+          "height": 280
+        },
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+          "chamfer": { "radius": 70 },
+          "tag": "#9a7742"
+        }
+      },
+      "display-data": {
+        "src": "/assets/environment/crate1.svg",
+        "dimensions": {
+          "width": 300,
+          "height": 300
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 180
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 7025,
+          "y": 6389
+        },
+        "type": "rectangle",
+        "dimensions": {
+          "width": 280,
+          "height": 280
+        },
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+          "chamfer": { "radius": 70 },
+          "tag": "#9a7742"
+        }
+      },
+      "display-data": {
+        "src": "/assets/environment/crate1.svg",
+        "dimensions": {
+          "width": 300,
+          "height": 300
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 180
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 6770,
+          "y": 7039
+        },
+        "type": "rectangle",
+        "dimensions": {
+          "width": 280,
+          "height": 280
+        },
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+          "chamfer": { "radius": 70 },
+          "tag": "#9a7742"
+        }
+      },
+      "display-data": {
+        "src": "/assets/environment/crate1.svg",
+        "dimensions": {
+          "width": 300,
+          "height": 300
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 90
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 7020,
+          "y": 7039
+        },
+        "type": "rectangle",
+        "dimensions": {
+          "width": 280,
+          "height": 280
+        },
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+          "chamfer": { "radius": 70 },
+          "tag": "#9a7742"
+        }
+      },
+      "display-data": {
+        "src": "/assets/environment/crate1.svg",
+        "dimensions": {
+          "width": 300,
+          "height": 300
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 0
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 4440,
+          "y": 6639.01
+        },
+        "type": "rectangle",
+        "dimensions": {
+          "width": 280,
+          "height": 280
+        },
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+          "chamfer": { "radius": 70 },
+          "tag": "#9a7742"
+        }
+      },
+      "display-data": {
+        "src": "/assets/environment/crate1.svg",
+        "dimensions": {
+          "width": 300,
+          "height": 300
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 90
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 4940,
+          "y": 7039
+        },
+        "type": "rectangle",
+        "dimensions": {
+          "width": 280,
+          "height": 280
+        },
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+          "chamfer": { "radius": 70 },
+          "tag": "#9a7742"
+        }
+      },
+      "display-data": {
+        "src": "/assets/environment/crate1.svg",
+        "dimensions": {
+          "width": 300,
+          "height": 300
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 0
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 2040,
+          "y": 6018.65
+        },
+        "type": "rectangle",
+        "dimensions": {
+          "width": 280,
+          "height": 280
+        },
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+          "chamfer": { "radius": 70 },
+          "tag": "#9a7742"
+        }
+      },
+      "display-data": {
+        "src": "/assets/environment/crate1.svg",
+        "dimensions": {
+          "width": 300,
+          "height": 300
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 180
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 1323,
+          "y": 7038.475
+        },
+        "type": "rectangle",
+        "dimensions": {
+          "width": 280,
+          "height": 280
+        },
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+          "chamfer": { "radius": 70 },
+          "tag": "#9a7742"
+        }
+      },
+      "display-data": {
+        "src": "/assets/environment/crate1.svg",
+        "dimensions": {
+          "width": 300,
+          "height": 300
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 180
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 400,
+          "y": 5312
+        },
+        "type": "circle",
+        "radius": 180,
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+
+          "tag": "#a17756"
+        }
+      },
+      "display-data": {
+        "src": "/assets/environment/tree.svg",
+        "dimensions": {
+          "width": 1000,
+          "height": 1000
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 70
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 7400,
+          "y": 6664
+        },
+        "type": "circle",
+        "radius": 180,
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+
+          "tag": "#a17756"
+        }
+      },
+      "display-data": {
+        "src": "/assets/environment/tree.svg",
+        "dimensions": {
+          "width": 1000,
+          "height": 1000
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 70
         },
         "layer": 1
       }
