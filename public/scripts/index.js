@@ -131,7 +131,7 @@ function displayGuns() {
       gun = playerData.guns[playerData.state.activeWeaponIndex],
       tickDelay = Date.now() - gameData.timeStamp;
       push();
-      translate(playerData.state.position.x + playerData.state.force.x * tickDelay / 75, playerData.state.position.y + playerData.state.force.y * tickDelay / 75);
+      translate(playerData.state.position.x + playerData.state.force.x * (tickDelay / 75), playerData.state.position.y + playerData.state.force.y * (tickDelay / 75));
       if(gameData.users[i] == permanentID) {
         rotate(atan2(mouseY - height / 2, mouseX - width / 2) + 90);
       } else {
@@ -165,9 +165,9 @@ function displayBullets() {
       imageMode(CORNER);
       translate(bullet.coordinates.finish.x, bullet.coordinates.finish.y);
       if (bullet.emitter == gameData.players[permanentID].team) {
-        tint(40, 150, 255, (bullet.timeLeft / 30) * opacity);
+        tint(40, 150, 255, (bullet.timeLeft / 25) * opacity);
       } else {
-        tint(230, 40, 40, (bullet.timeLeft / 30) * opacity);
+        tint(230, 40, 40, (bullet.timeLeft / 25) * opacity);
       }
       rotate(bullet.angle - 90);
       if(bullet.tracerLength > 2000) {
@@ -198,13 +198,9 @@ function displayPlayers() {
       if (playerData.team == gameData.players[permanentID].team) {
         fill("#498fe9");
       }
-      translate(playerData.state.position.x + playerData.state.force.x * tickDelay / 75, playerData.state.position.y + playerData.state.force.y * tickDelay / 75);
+      translate(playerData.state.position.x + playerData.state.force.x * (tickDelay / 75), playerData.state.position.y + playerData.state.force.y * (tickDelay / 75));
       if(gameData.users[i] == permanentID) {
         rotate(atan2(mouseY - height / 2, mouseX - width / 2) + 90);
-        queuedCameraLocation.x = playerData.state.position.x + playerData.state.force.x * tickDelay / 75;
-        queuedCameraLocation.y  = playerData.state.position.y + playerData.state.force.y * tickDelay / 75;
-        queuedCameraLocation.targetX = playerData.state.position.x + playerData.state.force.x * tickDelay / 75;
-        queuedCameraLocation.targetY  = playerData.state.position.y + playerData.state.force.y * tickDelay / 75;
       } else {
         rotate(playerData.state.angle - 90);
       }
@@ -231,6 +227,15 @@ function displayPlayers() {
       pop();
     }
   }
+}
+
+function interpolateCamera() {
+  const playerData = gameData.players[permanentID],
+  tickDelay = Date.now() - gameData.timeStamp;
+  queuedCameraLocation.x = playerData.state.position.x + playerData.state.force.x * (tickDelay / 75);
+  queuedCameraLocation.y  = playerData.state.position.y + playerData.state.force.y * (tickDelay / 75);
+  queuedCameraLocation.targetX = playerData.state.position.x + playerData.state.force.x * (tickDelay / 75);
+  queuedCameraLocation.targetY  = playerData.state.position.y + playerData.state.force.y * (tickDelay / 75);
 }
 
 function displayFog() {
@@ -261,6 +266,7 @@ function displayPoint() {
 
 function displayWorld() {
   if (assetsAreLoaded) {
+    interpolateCamera();
     cameraLocation = queuedCameraLocation;
     camera(cameraLocation.x/* + (mouseX - width / 2) / 2*/, cameraLocation.y/* + (mouseY - height / 2) / 2*/, cameraLocation.z + sin(frameCount * 2) * 10, cameraLocation.targetX/* + (mouseX - width / 2) / 2*/, cameraLocation.targetY/* + (mouseY - height / 2) / 2*/, cameraLocation.targetZ);
     background(gameData.mapData.config["background-colour"]);

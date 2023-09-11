@@ -669,7 +669,7 @@ function updatePlayer(player, delay) {
   });
 
   player.state.isMoving = !!Math.round(body.velocity.x) || !!Math.round(body.velocity.y);
-  player.state.force = {x: player.state.position.x - player.state.previousPosition.x, y: player.state.position.y - player.state.previousPosition.y};
+  player.state.force = {x: (player.state.position.x - player.state.previousPosition.x), y: (player.state.position.y - player.state.previousPosition.y)};
   player.state.previousPosition = {x: body.position.x / 1, y: body.position.y / 1};
 }
 
@@ -678,6 +678,7 @@ function updateGame() {
     let time = Date.now();
     
     const tickDelay = ((time - lastTime) / ((25 / tickRate) * tickRate));
+    console.log(tickDelay);
     lastTime = Date.now();
     for (let x = 0; x < gameData.users.length; x++) {
       const player = gameData.players[gameData.users[x]];
