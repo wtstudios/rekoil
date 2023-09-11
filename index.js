@@ -958,8 +958,7 @@ function newConnection(socket) {
                     let ray = functions.raycast(Composite.allBodies(world), position, { x: player.state.position.x + Math.cos(angle) * bulletLength, y: player.state.position.y + Math.sin(angle) * bulletLength }, true);
                     let finish = ray[1].point;
                     if(ray[1].body.tag != "none") {
-                      const particleRay = functions.raycast(Composite.allBodies(world), position, { x: player.state.position.x + Math.cos(angle) * bulletLength, y: player.state.position.y + Math.sin(angle) * bulletLength }, true);
-                      gameData.particles.push(new particle(particleRay[1].point, Math.random() * 360, angle + Math.PI + (Math.random() - 0.5) * 1, particleRay[1].body.tag, 250, "/assets/misc/particle.svg", 100, "residue"));
+                      gameData.particles.push(new particle(ray[1].point, Math.random() * 360, angle + Math.PI + (Math.random() - 0.5) * 1, ray[1].body.tag, 250, "/assets/misc/particle.svg", 100, "residue"));
                     }
                     for (let i = 0; i < gameData.users.length; i++) {
                       if (gameData.players[gameData.users[i]].body == ray[1].body && gameData.players[gameData.users[i]] != gameData.players[socket.id]) {
@@ -991,8 +990,7 @@ function newConnection(socket) {
                   let ray = functions.raycast(Composite.allBodies(world), position, { x: player.state.position.x + Math.cos((player.state.angle + randomAngleOffset) * Math.PI / 180 - Math.PI) * bulletLength, y: player.state.position.y + Math.sin((player.state.angle + randomAngleOffset) * Math.PI / 180 - Math.PI) * bulletLength }, true);
                   let finish = ray[1].point;
                   if(ray[1].body.tag != "none") {
-                    const particleRay = functions.raycast(Composite.allBodies(world), position, { x: player.state.position.x + Math.cos((player.state.angle + randomAngleOffset) * Math.PI / 180 - Math.PI) * bulletLength, y: player.state.position.y + Math.sin((player.state.angle + randomAngleOffset) * Math.PI / 180 - Math.PI) * bulletLength }, true);
-                    gameData.particles.push(new particle(particleRay[1].point, Math.random() * 360, ((player.state.angle + randomAngleOffset) * Math.PI / 180) + (Math.random() - 0.5), particleRay[1].body.tag, 250, "/assets/misc/particle.svg", 100, "residue"));
+                    gameData.particles.push(new particle(ray[1].point, Math.random() * 360, ((player.state.angle + randomAngleOffset) * Math.PI / 180) + (Math.random() - 0.5), ray[1].body.tag, 250, "/assets/misc/particle.svg", 100, "residue"));
                   }
                   for (let i = 0; i < gameData.users.length; i++) {
                     if (gameData.players[gameData.users[i]].body == ray[1].body && gameData.players[gameData.users[i]] != gameData.players[socket.id]) {
