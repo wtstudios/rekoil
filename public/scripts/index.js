@@ -268,7 +268,7 @@ function displayWorld() {
   if (assetsAreLoaded) {
     interpolateCamera();
     cameraLocation = queuedCameraLocation;
-    camera(cameraLocation.x/* + (mouseX - width / 2) / 2*/, cameraLocation.y/* + (mouseY - height / 2) / 2*/, cameraLocation.z + sin(frameCount * 2) * 10, cameraLocation.targetX/* + (mouseX - width / 2) / 2*/, cameraLocation.targetY/* + (mouseY - height / 2) / 2*/, cameraLocation.targetZ);
+    camera(cameraLocation.x/* + (mouseX - width / 2) / 2*/, cameraLocation.y/* + (mouseY - height / 2) / 2*/, cameraLocation.z + sin(frameCount * 1.5) * 10, cameraLocation.targetX/* + (mouseX - width / 2) / 2*/, cameraLocation.targetY/* + (mouseY - height / 2) / 2*/, cameraLocation.targetZ);
     background(gameData.mapData.config["background-colour"]);
     //fill(gameData.mapData.config["ground-colour"]);
     rectMode(CORNER);

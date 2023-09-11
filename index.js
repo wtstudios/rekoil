@@ -678,7 +678,6 @@ function updateGame() {
     let time = Date.now();
     
     const tickDelay = ((time - lastTime) / ((25 / tickRate) * tickRate));
-    console.log(tickDelay);
     lastTime = Date.now();
     for (let x = 0; x < gameData.users.length; x++) {
       const player = gameData.players[gameData.users[x]];
