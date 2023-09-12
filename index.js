@@ -923,7 +923,7 @@ function newConnection(socket) {
                 if(collisions[0]) {
                   const ray = functions.raycast(Composite.allBodies(world), position, { x: player.state.position.x + Math.cos(Math.atan2(collisions[0].bodyA.position.y - position.y, collisions[0].bodyA.position.x - position.x)) * 300, y: player.state.position.y + Math.sin(Math.atan2(collisions[0].bodyA.position.y - position.y, collisions[0].bodyA.position.x - position.x)) * 300 }, true);
                   if(ray[1] && ray[1].body == collisions[0].bodyA) {
-                    gameData.particles.push(new particle(ray[1].point, Math.random() * 360, player.state.angle * Math.PI / 180 + (Math.random() - 2) * 1 + Math.PI / 2, ray[1].body.tag, 250, "/assets/misc/particle.svg", 100, "residue"));
+                    gameData.particles.push(new particle({x: ray[1].point.x / 1, y: ray[1].point.y / 1}, Math.random() * 360, player.state.angle * Math.PI / 180 + (Math.random() - 2) * 1 + Math.PI / 2, ray[1].body.tag, 250, "/assets/misc/particle.svg", 100, "residue"));
                     if(collisions[0].bodyA.tag != player.body.tag) {
                       for(let i = 0; i < gameData.users.length; i++) {
                         if(gameData.players[gameData.users[i]].body == collisions[0].bodyA) {
@@ -990,7 +990,7 @@ function newConnection(socket) {
                   let ray = functions.raycast(Composite.allBodies(world), position, { x: player.state.position.x + Math.cos((player.state.angle + randomAngleOffset) * Math.PI / 180 - Math.PI) * bulletLength, y: player.state.position.y + Math.sin((player.state.angle + randomAngleOffset) * Math.PI / 180 - Math.PI) * bulletLength }, true);
                   let finish = ray[1].point;
                   if(ray[1].body.tag != "none") {
-                    gameData.particles.push(new particle(ray[1].point, Math.random() * 360, ((player.state.angle + randomAngleOffset) * Math.PI / 180) + (Math.random() - 0.5), ray[1].body.tag, 250, "/assets/misc/particle.svg", 100, "residue"));
+                    gameData.particles.push(new particle({x: ray[1].point.x / 1, y: ray[1].point.y / 1}, Math.random() * 360, ((player.state.angle + randomAngleOffset) * Math.PI / 180) + (Math.random() - 0.5), ray[1].body.tag, 250, "/assets/misc/particle.svg", 100, "residue"));
                   }
                   for (let i = 0; i < gameData.users.length; i++) {
                     if (gameData.players[gameData.users[i]].body == ray[1].body && gameData.players[gameData.users[i]] != gameData.players[socket.id]) {

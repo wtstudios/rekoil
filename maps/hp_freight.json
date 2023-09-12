@@ -516,6 +516,45 @@
     },
 
 
+
+    {
+      "body-data": {
+        "position": {
+          "x": 1500,
+          "y": 1500
+        },
+        "type": "rectangle",
+        "dimensions": {
+          "width": 1680,
+          "height": 1380
+        },
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+          "chamfer": { "radius": 50 },
+          "tag": "#958575"
+        }
+      },
+      "display-data": {
+        "src": "/assets/environment/industrialbuilding1.svg",
+        "dimensions": {
+          "width": 1780,
+          "height": 1480
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 0
+        },
+        "layer": 1
+      }
+    },
+
+
+
     {
       "body-data": {
         "position": {
