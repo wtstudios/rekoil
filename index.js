@@ -671,6 +671,137 @@ function updatePlayer(player, delay) {
   player.state.isMoving = !!Math.round(body.velocity.x) || !!Math.round(body.velocity.y);
   player.state.force = {x: (player.state.position.x - player.state.previousPosition.x), y: (player.state.position.y - player.state.previousPosition.y)};
   player.state.previousPosition = {x: body.position.x / 1, y: body.position.y / 1};
+
+  if(player.keys[950]) {
+    const position = { x: player.state.position.x, y: player.state.position.y };
+    let randomAngleOffset = (Math.random() - 0.5) * player.guns[player.state.activeWeaponIndex].spread.standing;
+    let activeWeaponSpread = player.guns[player.state.activeWeaponIndex].spread.standing;
+    if(player.state.isMoving) {
+      randomAngleOffset = (Math.random() - 0.5) * player.guns[player.state.activeWeaponIndex].spread.moving;
+      activeWeaponSpread = player.guns[player.state.activeWeaponIndex].spread.moving;
+    }
+    const bulletLength = gameData.mapData.config["map-dimensions"].width + gameData.mapData.config["map-dimensions"].height;
+    if (player.state.fireTimer > player.guns[player.state.activeWeaponIndex].fireDelay && player.state.mag[player.state.activeWeaponIndex] > 0 && player.state.hasStarted && player.health > 0 && !player.state.isReloading) {
+      if(player.guns[player.state.activeWeaponIndex].type == "melee") {
+        const angle = player.state.angle * Math.PI / 180 - Math.PI;
+        let playerBodies = [];
+        for(let i = 0; i < gameData.users.length; i++) {
+          if(gameData.users[i] != socket.id) {
+            playerBodies.push(gameData.players[gameData.users[i]].body);
+          }
+        }
+        const collisions = Matter.Query.collides(Matter.Bodies.circle(player.state.position.x + Math.cos(angle) * 300, player.state.position.y + Math.sin(angle) * 300, 150), playerBodies);
+        player.state.recoilTimer = 1;
+        player.state.fireTimer = 0;
+        if(collisions[0]) {
+          const ray = functions.raycast(Composite.allBodies(world), position, { x: player.state.position.x + Math.cos(Math.atan2(collisions[0].bodyA.position.y - position.y, collisions[0].bodyA.position.x - position.x)) * 300, y: player.state.position.y + Math.sin(Math.atan2(collisions[0].bodyA.position.y - position.y, collisions[0].bodyA.position.x - position.x)) * 300 }, true);
+          if(ray[1] && ray[1].body == collisions[0].bodyA) {
+            gameData.particles.push(new particle({x: ray[1].point.x / 1, y: ray[1].point.y / 1}, Math.random() * 360, player.state.angle * Math.PI / 180 + (Math.random() - 2) * 1 + Math.PI / 2, ray[1].body.tag, 250, "/assets/misc/particle.svg", 100, "residue"));
+            if(collisions[0].bodyA.tag != player.body.tag) {
+              for(let i = 0; i < gameData.users.length; i++) {
+                if(gameData.players[gameData.users[i]].body == collisions[0].bodyA) {
+                  gameData.players[gameData.users[i]].health -= player.guns[player.state.activeWeaponIndex].damage;
+                  if (gameData.players[gameData.users[i]].health < 1) {   
+                    for(let k = 0; k < 10; k++) {
+                      const angle = Math.random() * Math.PI * 2;
+                      gameData.particles.push(new particle({x: (gameData.players[gameData.users[i]].state.position.x / 1) + Math.cos(angle) * 100, y: (gameData.players[gameData.users[i]].state.position.y / 1) + Math.sin(angle) * 100}, Math.random() * 360, angle, gameData.players[gameData.users[i]].team, 250, "/assets/misc/particle.svg", 100, "residue"));
+                    }  
+                    gameData.players[gameData.users[i]].health = 0;
+                    //Body.setPosition(gameData.players[gameData.users[i]].body, gameData.players[gameData.users[i]].state.spawnpoint);
+                    gameData.players[gameData.users[i]].state.hasStarted = false;
+                    Composite.remove(world, gameData.players[gameData.users[i]].body);
+                    gameData.players[gameData.users[i]].keys = [];
+                    gameData.currentRoundScore[player.team]+=5;
+                    gameData.players[gameData.users[i]].state.mag[0] = gameData.players[gameData.users[i]].guns[0].magSize;
+                    gameData.players[gameData.users[i]].state.mag[1] = gameData.players[gameData.users[i]].guns[1].magSize;
+                    gameData.players[gameData.users[i]].state.isReloading = false;
+                  }
+                }
+              }
+            }
+          }
+        }
+      } else {
+        player.state.mag[player.state.activeWeaponIndex]--;
+        player.state.reloadProgress = 0;
+        gameData.particles.push(new particle({x: player.state.position.x + Math.cos((player.state.angle * Math.PI / 180) + Math.PI) * 165, y: player.state.position.y + Math.sin((player.state.angle * Math.PI / 180) + Math.PI) * 155}, player.state.angle * Math.PI / 180 + (Math.random() - 0.5) / 2 - Math.PI / 2, player.state.angle * Math.PI / 180 + (Math.random() - 0.5) / 2 - Math.PI / 2, "none", 200, "/assets/weapons/cartridge.svg", 100, "cartridge"));
+        if (player.guns[player.state.activeWeaponIndex].bulletsPerShot > 1) {
+          for (let j = 0; j < player.guns[player.state.activeWeaponIndex].bulletsPerShot; j++) {
+            let angle = ((player.state.angle + (activeWeaponSpread / player.guns[player.state.activeWeaponIndex].bulletsPerShot) * (j - Math.floor(player.guns[player.state.activeWeaponIndex].bulletsPerShot / 2))) + (Math.random() - 0.5) * activeWeaponSpread / 30) * Math.PI / 180 - Math.PI;
+            let ray = functions.raycast(Composite.allBodies(world), position, { x: player.state.position.x + Math.cos(angle) * bulletLength, y: player.state.position.y + Math.sin(angle) * bulletLength }, true);
+            let finish = ray[1].point;
+            if(ray[1].body.tag != "none") {
+              gameData.particles.push(new particle(ray[1].point, Math.random() * 360, angle + Math.PI + (Math.random() - 0.5) * 1, ray[1].body.tag, 250, "/assets/misc/particle.svg", 100, "residue"));
+            }
+            for (let i = 0; i < gameData.users.length; i++) {
+              if (gameData.players[gameData.users[i]].body == ray[1].body && gameData.players[gameData.users[i]] != player) {
+                finish = ray[1].point;
+                if (gameData.players[gameData.users[i]].team != player.team) {
+                  gameData.players[gameData.users[i]].health -= player.guns[player.state.activeWeaponIndex].damage;
+                  if (gameData.players[gameData.users[i]].health < 1) {    
+                    for(let k = 0; k < 10; k++) {
+                      const angle = Math.random() * Math.PI * 2;
+                      gameData.particles.push(new particle({x: (gameData.players[gameData.users[i]].state.position.x / 1) + Math.cos(angle) * 100, y: (gameData.players[gameData.users[i]].state.position.y / 1) + Math.sin(angle) * 100}, Math.random() * 360, angle, gameData.players[gameData.users[i]].team, 250, "/assets/misc/particle.svg", 100, "residue"));
+                    }  
+                    gameData.players[gameData.users[i]].health = 0;
+                    //Body.setPosition(gameData.players[gameData.users[i]].body, gameData.players[gameData.users[i]].state.spawnpoint);
+                    gameData.players[gameData.users[i]].state.hasStarted = false;
+                    Composite.remove(world, gameData.players[gameData.users[i]].body);
+                    gameData.players[gameData.users[i]].keys = [];
+                    gameData.currentRoundScore[player.team]+=5;
+                    gameData.players[gameData.users[i]].state.mag[0] = gameData.players[gameData.users[i]].guns[0].magSize;
+                    gameData.players[gameData.users[i]].state.mag[1] = gameData.players[gameData.users[i]].guns[1].magSize;
+                    gameData.players[gameData.users[i]].state.isReloading = false;
+                  }
+                }
+              }
+            }
+            gameData.bullets.push(new bullet({ start: player.state.position, finish: finish }, player.team, player.state.angle + (activeWeaponSpread / player.guns[player.state.activeWeaponIndex].bulletsPerShot) * (j - Math.floor(player.guns[player.state.activeWeaponIndex].bulletsPerShot / 2)), player.guns[player.state.activeWeaponIndex].lifeTime));
+            }
+          player.state.fireTimer = 0;
+        } else {
+          let ray = functions.raycast(Composite.allBodies(world), position, { x: player.state.position.x + Math.cos((player.state.angle + randomAngleOffset) * Math.PI / 180 - Math.PI) * bulletLength, y: player.state.position.y + Math.sin((player.state.angle + randomAngleOffset) * Math.PI / 180 - Math.PI) * bulletLength }, true);
+          let finish = ray[1].point;
+          if(ray[1].body.tag != "none") {
+            gameData.particles.push(new particle({x: ray[1].point.x / 1, y: ray[1].point.y / 1}, Math.random() * 360, ((player.state.angle + randomAngleOffset) * Math.PI / 180) + (Math.random() - 0.5), ray[1].body.tag, 250, "/assets/misc/particle.svg", 100, "residue"));
+          }
+          for (let i = 0; i < gameData.users.length; i++) {
+            if (gameData.players[gameData.users[i]].body == ray[1].body && gameData.players[gameData.users[i]] != player) {
+              finish = ray[1].point;
+              if (gameData.players[gameData.users[i]].team != player.team) {
+                gameData.players[gameData.users[i]].health -= player.guns[player.state.activeWeaponIndex].damage;
+                if (gameData.players[gameData.users[i]].health < 1) {
+                  for(let k = 0; k < 10; k++) {
+                    const angle = Math.random() * Math.PI * 2;
+                    gameData.particles.push(new particle({x: (gameData.players[gameData.users[i]].state.position.x / 1) + Math.cos(angle) * 100, y: (gameData.players[gameData.users[i]].state.position.y / 1) + Math.sin(angle) * 100}, Math.random() * 360, angle, gameData.players[gameData.users[i]].team, 250, "/assets/misc/particle.svg", 100, "residue"));
+                  }  
+                  gameData.players[gameData.users[i]].health = 0;
+                  //Body.setPosition(gameData.players[gameData.users[i]].body, gameData.players[gameData.users[i]].state.spawnpoint);
+                  gameData.players[gameData.users[i]].state.hasStarted = false;
+                  Composite.remove(world, gameData.players[gameData.users[i]].body);
+                  gameData.players[gameData.users[i]].keys = [];
+                  gameData.currentRoundScore[player.team] += 5;
+                  gameData.players[gameData.users[i]].state.mag[0] = gameData.players[gameData.users[i]].guns[0].magSize;
+                  gameData.players[gameData.users[i]].state.mag[1] = gameData.players[gameData.users[i]].guns[1].magSize;                      
+                  gameData.players[gameData.users[i]].state.isReloading = false;
+                }
+              }
+            }
+          }
+          gameData.bullets.push(new bullet({ start: player.state.position, finish: finish }, player.team, player.state.angle + randomAngleOffset, player.guns[player.state.activeWeaponIndex].lifeTime));
+          player.state.fireTimer = 0;
+        }
+        player.state.recoilTimer = 1;
+      }
+      io.emit("ui-change", {players: gameData.players, currentRoundScore: gameData.currentRoundScore});
+      gameData.queuedSounds.push({path: player.guns[player.state.activeWeaponIndex].sounds.fire, origin: player.state.position});
+    }
+    if(player.state.mag[player.state.activeWeaponIndex] <= 0 && !player.state.isReloading) {
+      player.state.isReloading = true;
+      player.state.reloadProgress = 0;
+      gameData.queuedSounds.push({path: player.guns[player.state.activeWeaponIndex].sounds.reload, origin: player.state.position});
+    }
+  }
 }
 
 function updateGame() {
@@ -705,6 +836,7 @@ function updateGame() {
         }
         io.to(gameData.users[x]).emit("ui-change", { players: gameData.players, currentRoundScore: gameData.currentRoundScore });
       }
+      updatePlayer(player, tickDelay);
       io.to(gameData.users[x]).emit("world-update", {
         players: gameData.players,
         bullets: gameData.bullets,
@@ -717,7 +849,6 @@ function updateGame() {
         certificate: gameData.certificate,
         queuedSounds: gameData.queuedSounds
       });
-      updatePlayer(player, tickDelay);
     }
     gameData.bullets = [],
     gameData.particles = [];
@@ -896,140 +1027,6 @@ function newConnection(socket) {
         });
         socket.on("ping", (data) => {
           gameData.players[socket.id].state.ping = Date.now() - data.time;
-        });
-        socket.on("shoot-request", (data) => {
-          //try {
-            const player = gameData.players[socket.id];
-            const position = { x: player.state.position.x, y: player.state.position.y };
-            let randomAngleOffset = (Math.random() - 0.5) * player.guns[player.state.activeWeaponIndex].spread.standing;
-            let activeWeaponSpread = player.guns[player.state.activeWeaponIndex].spread.standing;
-            if(player.state.isMoving) {
-              randomAngleOffset = (Math.random() - 0.5) * player.guns[player.state.activeWeaponIndex].spread.moving;
-              activeWeaponSpread = player.guns[player.state.activeWeaponIndex].spread.moving;
-            }
-            const bulletLength = gameData.mapData.config["map-dimensions"].width + gameData.mapData.config["map-dimensions"].height;
-            if (player.state.fireTimer > player.guns[player.state.activeWeaponIndex].fireDelay && player.state.mag[player.state.activeWeaponIndex] > 0 && player.state.hasStarted && player.health > 0 && !player.state.isReloading) {
-              if(player.guns[player.state.activeWeaponIndex].type == "melee") {
-                const angle = player.state.angle * Math.PI / 180 - Math.PI;
-                let playerBodies = [];
-                for(let i = 0; i < gameData.users.length; i++) {
-                  if(gameData.users[i] != socket.id) {
-                    playerBodies.push(gameData.players[gameData.users[i]].body);
-                  }
-                }
-                const collisions = Matter.Query.collides(Matter.Bodies.circle(player.state.position.x + Math.cos(angle) * 300, player.state.position.y + Math.sin(angle) * 300, 150), playerBodies);
-                player.state.recoilTimer = 1;
-                player.state.fireTimer = 0;
-                if(collisions[0]) {
-                  const ray = functions.raycast(Composite.allBodies(world), position, { x: player.state.position.x + Math.cos(Math.atan2(collisions[0].bodyA.position.y - position.y, collisions[0].bodyA.position.x - position.x)) * 300, y: player.state.position.y + Math.sin(Math.atan2(collisions[0].bodyA.position.y - position.y, collisions[0].bodyA.position.x - position.x)) * 300 }, true);
-                  if(ray[1] && ray[1].body == collisions[0].bodyA) {
-                    gameData.particles.push(new particle({x: ray[1].point.x / 1, y: ray[1].point.y / 1}, Math.random() * 360, player.state.angle * Math.PI / 180 + (Math.random() - 2) * 1 + Math.PI / 2, ray[1].body.tag, 250, "/assets/misc/particle.svg", 100, "residue"));
-                    if(collisions[0].bodyA.tag != player.body.tag) {
-                      for(let i = 0; i < gameData.users.length; i++) {
-                        if(gameData.players[gameData.users[i]].body == collisions[0].bodyA) {
-                          gameData.players[gameData.users[i]].health -= gameData.players[socket.id].guns[gameData.players[socket.id].state.activeWeaponIndex].damage;
-                          if (gameData.players[gameData.users[i]].health < 1) {   
-                            for(let k = 0; k < 10; k++) {
-                              const angle = Math.random() * Math.PI * 2;
-                              gameData.particles.push(new particle({x: (gameData.players[gameData.users[i]].state.position.x / 1) + Math.cos(angle) * 100, y: (gameData.players[gameData.users[i]].state.position.y / 1) + Math.sin(angle) * 100}, Math.random() * 360, angle, gameData.players[gameData.users[i]].team, 250, "/assets/misc/particle.svg", 100, "residue"));
-                            }  
-                            gameData.players[gameData.users[i]].health = 0;
-                            //Body.setPosition(gameData.players[gameData.users[i]].body, gameData.players[gameData.users[i]].state.spawnpoint);
-                            gameData.players[gameData.users[i]].state.hasStarted = false;
-                            Composite.remove(world, gameData.players[gameData.users[i]].body);
-                            gameData.players[gameData.users[i]].keys = [];
-                            gameData.currentRoundScore[gameData.players[socket.id].team]+=5;
-                            gameData.players[gameData.users[i]].state.mag[0] = gameData.players[gameData.users[i]].guns[0].magSize;
-                            gameData.players[gameData.users[i]].state.mag[1] = gameData.players[gameData.users[i]].guns[1].magSize;
-                            gameData.players[gameData.users[i]].state.isReloading = false;
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              } else {
-                player.state.mag[player.state.activeWeaponIndex]--;
-                player.state.reloadProgress = 0;
-                gameData.particles.push(new particle({x: player.state.position.x + Math.cos((player.state.angle * Math.PI / 180) + Math.PI) * 165, y: player.state.position.y + Math.sin((player.state.angle * Math.PI / 180) + Math.PI) * 155}, player.state.angle * Math.PI / 180 + (Math.random() - 0.5) / 2 - Math.PI / 2, player.state.angle * Math.PI / 180 + (Math.random() - 0.5) / 2 - Math.PI / 2, "none", 200, "/assets/weapons/cartridge.svg", 100, "cartridge"));
-                if (player.guns[player.state.activeWeaponIndex].bulletsPerShot > 1) {
-                  for (let j = 0; j < player.guns[player.state.activeWeaponIndex].bulletsPerShot; j++) {
-                    let angle = ((player.state.angle + (activeWeaponSpread / player.guns[player.state.activeWeaponIndex].bulletsPerShot) * (j - Math.floor(player.guns[player.state.activeWeaponIndex].bulletsPerShot / 2))) + (Math.random() - 0.5) * activeWeaponSpread / 30) * Math.PI / 180 - Math.PI;
-                    let ray = functions.raycast(Composite.allBodies(world), position, { x: player.state.position.x + Math.cos(angle) * bulletLength, y: player.state.position.y + Math.sin(angle) * bulletLength }, true);
-                    let finish = ray[1].point;
-                    if(ray[1].body.tag != "none") {
-                      gameData.particles.push(new particle(ray[1].point, Math.random() * 360, angle + Math.PI + (Math.random() - 0.5) * 1, ray[1].body.tag, 250, "/assets/misc/particle.svg", 100, "residue"));
-                    }
-                    for (let i = 0; i < gameData.users.length; i++) {
-                      if (gameData.players[gameData.users[i]].body == ray[1].body && gameData.players[gameData.users[i]] != gameData.players[socket.id]) {
-                        finish = ray[1].point;
-                        if (gameData.players[gameData.users[i]].team != gameData.players[socket.id].team) {
-                          gameData.players[gameData.users[i]].health -= gameData.players[socket.id].guns[gameData.players[socket.id].state.activeWeaponIndex].damage;
-                          if (gameData.players[gameData.users[i]].health < 1) {    
-                            for(let k = 0; k < 10; k++) {
-                              const angle = Math.random() * Math.PI * 2;
-                              gameData.particles.push(new particle({x: (gameData.players[gameData.users[i]].state.position.x / 1) + Math.cos(angle) * 100, y: (gameData.players[gameData.users[i]].state.position.y / 1) + Math.sin(angle) * 100}, Math.random() * 360, angle, gameData.players[gameData.users[i]].team, 250, "/assets/misc/particle.svg", 100, "residue"));
-                            }  
-                            gameData.players[gameData.users[i]].health = 0;
-                            //Body.setPosition(gameData.players[gameData.users[i]].body, gameData.players[gameData.users[i]].state.spawnpoint);
-                            gameData.players[gameData.users[i]].state.hasStarted = false;
-                            Composite.remove(world, gameData.players[gameData.users[i]].body);
-                            gameData.players[gameData.users[i]].keys = [];
-                            gameData.currentRoundScore[gameData.players[socket.id].team]+=5;
-                            gameData.players[gameData.users[i]].state.mag[0] = gameData.players[gameData.users[i]].guns[0].magSize;
-                            gameData.players[gameData.users[i]].state.mag[1] = gameData.players[gameData.users[i]].guns[1].magSize;
-                            gameData.players[gameData.users[i]].state.isReloading = false;
-                          }
-                        }
-                      }
-                    }
-                    gameData.bullets.push(new bullet({ start: player.state.position, finish: finish }, player.team, player.state.angle + (activeWeaponSpread / player.guns[player.state.activeWeaponIndex].bulletsPerShot) * (j - Math.floor(player.guns[player.state.activeWeaponIndex].bulletsPerShot / 2)), player.guns[player.state.activeWeaponIndex].lifeTime));
-                    }
-                  player.state.fireTimer = 0;
-                } else {
-                  let ray = functions.raycast(Composite.allBodies(world), position, { x: player.state.position.x + Math.cos((player.state.angle + randomAngleOffset) * Math.PI / 180 - Math.PI) * bulletLength, y: player.state.position.y + Math.sin((player.state.angle + randomAngleOffset) * Math.PI / 180 - Math.PI) * bulletLength }, true);
-                  let finish = ray[1].point;
-                  if(ray[1].body.tag != "none") {
-                    gameData.particles.push(new particle({x: ray[1].point.x / 1, y: ray[1].point.y / 1}, Math.random() * 360, ((player.state.angle + randomAngleOffset) * Math.PI / 180) + (Math.random() - 0.5), ray[1].body.tag, 250, "/assets/misc/particle.svg", 100, "residue"));
-                  }
-                  for (let i = 0; i < gameData.users.length; i++) {
-                    if (gameData.players[gameData.users[i]].body == ray[1].body && gameData.players[gameData.users[i]] != gameData.players[socket.id]) {
-                      finish = ray[1].point;
-                      if (gameData.players[gameData.users[i]].team != gameData.players[socket.id].team) {
-                        gameData.players[gameData.users[i]].health -= gameData.players[socket.id].guns[gameData.players[socket.id].state.activeWeaponIndex].damage;
-                        if (gameData.players[gameData.users[i]].health < 1) {
-                          for(let k = 0; k < 10; k++) {
-                            const angle = Math.random() * Math.PI * 2;
-                            gameData.particles.push(new particle({x: (gameData.players[gameData.users[i]].state.position.x / 1) + Math.cos(angle) * 100, y: (gameData.players[gameData.users[i]].state.position.y / 1) + Math.sin(angle) * 100}, Math.random() * 360, angle, gameData.players[gameData.users[i]].team, 250, "/assets/misc/particle.svg", 100, "residue"));
-                          }  
-                          gameData.players[gameData.users[i]].health = 0;
-                          //Body.setPosition(gameData.players[gameData.users[i]].body, gameData.players[gameData.users[i]].state.spawnpoint);
-                          gameData.players[gameData.users[i]].state.hasStarted = false;
-                          Composite.remove(world, gameData.players[gameData.users[i]].body);
-                          gameData.players[gameData.users[i]].keys = [];
-                          gameData.currentRoundScore[gameData.players[socket.id].team] += 5;
-                          gameData.players[gameData.users[i]].state.mag[0] = gameData.players[gameData.users[i]].guns[0].magSize;
-                          gameData.players[gameData.users[i]].state.mag[1] = gameData.players[gameData.users[i]].guns[1].magSize;                      
-                          gameData.players[gameData.users[i]].state.isReloading = false;
-                        }
-                      }
-                    }
-                  }
-                  gameData.bullets.push(new bullet({ start: player.state.position, finish: finish }, player.team, player.state.angle + randomAngleOffset, player.guns[player.state.activeWeaponIndex].lifeTime));
-                  player.state.fireTimer = 0;
-                }
-                player.state.recoilTimer = 1;
-              }
-              io.emit("ui-change", {players: gameData.players, currentRoundScore: gameData.currentRoundScore});
-              gameData.queuedSounds.push({path: player.guns[player.state.activeWeaponIndex].sounds.fire, origin: player.state.position});
-            }
-            if(player.state.mag[gameData.players[socket.id].state.activeWeaponIndex] <= 0 && !player.state.isReloading) {
-              player.state.isReloading = true;
-              player.state.reloadProgress = 0;
-              gameData.queuedSounds.push({path: player.guns[player.state.activeWeaponIndex].sounds.reload, origin: player.state.position});
-            }
-          /*}
-          catch { }*/
         });
       }
     }

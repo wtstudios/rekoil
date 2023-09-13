@@ -28,6 +28,20 @@ let socket,
 
 socket = io.connect(window.location.origin);
 
+function mousePressed() {
+  if(assetsAreLoaded && state.includes("ingame") && mouseButton == LEFT) {
+    keys[950] = true;
+    socket.emit("move-key-change", {keys: keys});
+  }
+}
+
+function mouseReleased() {
+  if(assetsAreLoaded && state.includes("ingame") && mouseButton == LEFT) {
+    keys[950] = false;
+    socket.emit("move-key-change", {keys: keys});
+  }
+}
+
 function keyReleased() {
   if(assetsAreLoaded) {
     keys[keyCode] = false;
@@ -256,9 +270,6 @@ function setup() {
 function draw() {
   try {
     displayWorld();
-    if(mouseIsPressed && assetsAreLoaded && state.includes("ingame")) {
-      socket.emit("shoot-request", {});
-    }
   }
   catch {}
 }
