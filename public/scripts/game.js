@@ -26,7 +26,11 @@ let socket,
   state = "menu-main",
   permanentID;
 
-socket = io.connect(window.location.origin);
+if(window.location.href.includes("render") || window.location.href.includes("localhost")) {
+  socket = io.connect(window.location.origin);
+} else {
+  socket = io.connect("wss://rekoil-dm-usw.onrender.com");
+}
 
 function mousePressed() {
   if(assetsAreLoaded && state.includes("ingame") && mouseButton == LEFT) {

@@ -763,7 +763,8 @@ function updatePlayer(player, delay) {
           let ray = functions.raycast(Composite.allBodies(world), position, { x: player.state.position.x + Math.cos((player.state.angle + randomAngleOffset) * Math.PI / 180 - Math.PI) * bulletLength, y: player.state.position.y + Math.sin((player.state.angle + randomAngleOffset) * Math.PI / 180 - Math.PI) * bulletLength }, true);
           let finish = ray[1].point;
           if(ray[1].body.tag != "none") {
-            gameData.particles.push(new particle({x: ray[1].point.x / 1, y: ray[1].point.y / 1}, Math.random() * 360, ((player.state.angle + randomAngleOffset) * Math.PI / 180) + (Math.random() - 0.5), ray[1].body.tag, 250, "/assets/misc/particle.svg", 100, "residue"));
+            let vertsAngle = Math.atan2(ray[1].verts[0].y - ray[1].verts[1].y, ray[1].verts[0].x - ray[1].verts[1].x);
+            gameData.particles.push(new particle({x: ray[1].point.x / 1, y: ray[1].point.y / 1}, Math.random() * 360, (vertsAngle + Math.PI / 2) + ((vertsAngle + Math.PI / 2) - (player.state.angle * Math.PI / 180)) / 1.2 + (Math.random() * 0.5) - 0.25, ray[1].body.tag, 250, "/assets/misc/particle.svg", 100, "residue"));
           }
           for (let i = 0; i < gameData.users.length; i++) {
             if (gameData.players[gameData.users[i]].body == ray[1].body && gameData.players[gameData.users[i]] != player) {
