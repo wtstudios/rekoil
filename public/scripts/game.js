@@ -216,8 +216,37 @@ function setup() {
       document.getElementById("time-left").textContent = timestamp;
     }
     for(let i = 0; i < data.bullets.length; i++) {
+      let angle = Math.atan2(data.bullets[i].collisionSurface[0].y - data.bullets[i].collisionSurface[1].y, data.bullets[i].collisionSurface[0].x - data.bullets[i].collisionSurface[1].x) + Math.PI / 2;
+      angle = angle + (angle - data.bullets[i].angle * Math.PI / 180);
       gameData.bullets.push(data.bullets[i]);
       gameData.bullets[gameData.bullets.length - 1].timeStamp = Date.now();
+      gameData.bullets[gameData.bullets.length - 1].tracerLength = Math.ceil(Math.sqrt(gameData.bullets[gameData.bullets.length - 1].tracerLength));
+      gameData.particles.push(
+        {
+          position: { x: data.bullets[i].coordinates.finish.x, y: data.bullets[i].coordinates.finish.y },
+          rotation: Math.random() * 360,
+          angle: angle,
+          colour: data.bullets[i].collisionSurface[0].colour,
+          opacity: 250,
+          src: '/assets/misc/particle.svg',
+          size: 100,
+          type: 'residue',
+          timeStamp: Date.now()
+        }
+      );
+      gameData.particles.push(
+        {
+          position: {x: data.bullets[i].coordinates.start.x + Math.cos((data.bullets[i].angle * Math.PI / 180) + Math.PI) * 165, y: data.bullets[i].coordinates.start.y + Math.sin((data.bullets[i].angle * Math.PI / 180) + Math.PI) * 155},
+          rotation: data.bullets[i].angle * Math.PI / 180 + (Math.random() - 0.5) / 2 - Math.PI / 2,
+          angle: data.bullets[i].angle * Math.PI / 180 + (Math.random() - 0.5) / 2 - Math.PI / 2,
+          colour: "none",
+          opacity: 250,
+          src: "/assets/weapons/cartridge.svg",
+          size: 100,
+          type: "cartridge",
+          timeStamp: Date.now()
+        }
+      )
     }
     for(let i = 0; i < data.particles.length; i++) {
       gameData.particles.push(data.particles[i]);

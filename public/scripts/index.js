@@ -171,10 +171,10 @@ function displayBullets() {
       }
       rotate(bullet.angle - 90);
       if(bullet.tracerLength > 2000) {
-        image(assetsLoaded["/assets/weapons/tracer-start.svg"], -10, bullet.tracerLength - 2000, 20, 2000);
-        image(assetsLoaded["/assets/weapons/tracer-end.svg"], -10, -5, 20, bullet.tracerLength - 1995);
+        image(assetsLoaded["/assets/weapons/tracer-start.svg"], -12.5, bullet.tracerLength - 2000, 25, 2000);
+        image(assetsLoaded["/assets/weapons/tracer-end.svg"], -12.5, -5, 25, bullet.tracerLength - 1995);
       } else {
-        image(assetsLoaded["/assets/weapons/tracer-start.svg"], -10, -5, 20, bullet.tracerLength + 5);
+        image(assetsLoaded["/assets/weapons/tracer-start.svg"], -12.5, -5, 25, bullet.tracerLength + 5);
       }
       imageMode(CENTER);
       if(debug) {
