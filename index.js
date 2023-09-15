@@ -66,14 +66,16 @@ class bullet {
   timeLeft;
   tracerLength;
   collisionSurface = [];
+  shouldEjectCartridge;
 
-  constructor(coordinates, emitter, angle, timeLeft, collisionSurface) {
+  constructor(coordinates, emitter, angle, timeLeft, collisionSurface, shouldEjectCartridge) {
     this.coordinates = coordinates;
     this.emitter = emitter;
     this.angle = angle;
     this.timeLeft = timeLeft;
     this.collisionSurface = collisionSurface;
     this.tracerLength = squaredDist({x: coordinates.start.x, y: coordinates.start.y}, {x: coordinates.finish.x, y: coordinates.finish.y});
+    this.shouldEjectCartridge = shouldEjectCartridge;
   }
 }
 
@@ -758,7 +760,11 @@ function updatePlayer(player, delay) {
                 }
               }
             }
-            gameData.bullets.push(new bullet({ start: player.state.position, finish: finish }, player.team, player.state.angle + (activeWeaponSpread / player.guns[player.state.activeWeaponIndex].bulletsPerShot) * (j - Math.floor(player.guns[player.state.activeWeaponIndex].bulletsPerShot / 2)), player.guns[player.state.activeWeaponIndex].lifeTime, [{x: ray[1].verts[0].x, y: ray[1].verts[0].y, colour: ray[1].body.tag}, {x: ray[1].verts[1].x, y: ray[1].verts[1].y, colour: ray[1].body.tag}]));
+            let shouldEjectCartridge = false;
+            if(j == 0) {
+              shouldEjectCartridge = true;
+            }
+            gameData.bullets.push(new bullet({ start: player.state.position, finish: finish }, player.team, player.state.angle + (activeWeaponSpread / player.guns[player.state.activeWeaponIndex].bulletsPerShot) * (j - Math.floor(player.guns[player.state.activeWeaponIndex].bulletsPerShot / 2)), player.guns[player.state.activeWeaponIndex].lifeTime, [{x: ray[1].verts[0].x, y: ray[1].verts[0].y, colour: ray[1].body.tag}, {x: ray[1].verts[1].x, y: ray[1].verts[1].y, colour: ray[1].body.tag}], shouldEjectCartridge));
           }
           player.state.fireTimer = 0;
         } else {
@@ -791,7 +797,7 @@ function updatePlayer(player, delay) {
               }
             }
           }
-          gameData.bullets.push(new bullet({ start: player.state.position, finish: finish }, player.team, player.state.angle + randomAngleOffset, player.guns[player.state.activeWeaponIndex].lifeTime, [{x: ray[1].verts[0].x, y: ray[1].verts[0].y, colour: ray[1].body.tag}, {x: ray[1].verts[1].x, y: ray[1].verts[1].y, colour: ray[1].body.tag}]));
+          gameData.bullets.push(new bullet({ start: player.state.position, finish: finish }, player.team, player.state.angle + randomAngleOffset, player.guns[player.state.activeWeaponIndex].lifeTime, [{x: ray[1].verts[0].x, y: ray[1].verts[0].y, colour: ray[1].body.tag}, {x: ray[1].verts[1].x, y: ray[1].verts[1].y, colour: ray[1].body.tag}], true));
           player.state.fireTimer = 0;
         }
         player.state.recoilTimer = 1;

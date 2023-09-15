@@ -234,19 +234,21 @@ function setup() {
           timeStamp: Date.now()
         }
       );
-      gameData.particles.push(
-        {
-          position: {x: data.bullets[i].coordinates.start.x + Math.cos((data.bullets[i].angle * Math.PI / 180) + Math.PI) * 165, y: data.bullets[i].coordinates.start.y + Math.sin((data.bullets[i].angle * Math.PI / 180) + Math.PI) * 155},
-          rotation: data.bullets[i].angle * Math.PI / 180 + (Math.random() - 0.5) / 2 - Math.PI / 2,
-          angle: data.bullets[i].angle * Math.PI / 180 + (Math.random() - 0.5) / 2 - Math.PI / 2,
-          colour: "none",
-          opacity: 250,
-          src: "/assets/weapons/cartridge.svg",
-          size: 100,
-          type: "cartridge",
-          timeStamp: Date.now()
-        }
-      )
+      if(data.bullets[i].shouldEjectCartridge) {
+        gameData.particles.push(
+          {
+            position: {x: data.bullets[i].coordinates.start.x + Math.cos((data.bullets[i].angle * Math.PI / 180) + Math.PI) * 165, y: data.bullets[i].coordinates.start.y + Math.sin((data.bullets[i].angle * Math.PI / 180) + Math.PI) * 155},
+            rotation: data.bullets[i].angle * Math.PI / 180 + (Math.random() - 0.5) / 2 - Math.PI / 2,
+            angle: data.bullets[i].angle * Math.PI / 180 + (Math.random() - 0.5) / 2 - Math.PI / 2,
+            colour: "none",
+            opacity: 250,
+            src: "/assets/weapons/cartridge.svg",
+            size: 100,
+            type: "cartridge",
+            timeStamp: Date.now()
+          }
+        );
+      }
     }
     for(let i = 0; i < data.particles.length; i++) {
       gameData.particles.push(data.particles[i]);
