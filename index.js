@@ -223,7 +223,7 @@ function squaredDist(ptA, ptB) {
 function fillWeapons() {
   const gunAPI = ciqlJson.open("public/api/weapons.json").data.weapons;
   for(let i = 0; i < gunAPI.length; i++) {
-    gameData.weapons[gunAPI[i].name] = gunAPI[i];
+    gameData.weapons[gunAPI[i].name] = new weapon(gunAPI[i]);
   }
 }
 
@@ -569,7 +569,6 @@ function newConnection(socket) {
           spawnpoint.team,
           data.platform || "desktop"
         );
-        console.log(gameData.loadouts);
         gameData.players[socket.id].state.mag[gameData.players[socket.id].state.activeWeaponIndex] = gameData.weapons[gameData.players[socket.id].guns[gameData.players[socket.id].state.activeWeaponIndex]].magSize;
         gameData.players[socket.id].state.spawnpoint = spawnpoint;
         Composite.add(world, gameData.players[socket.id].body);
