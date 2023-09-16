@@ -24,9 +24,9 @@ function requestConnectToGame() {
   }
   socket.emit("play-request", {platform: platform});
 
-  document.getElementById("select-slp").addEventListener("click", function() {changeGun("slp");});
-  document.getElementById("select-scar").addEventListener("click", function() {changeGun("scar");});
-  document.getElementById("select-ballista").addEventListener("click", function() {changeGun("ballista");});
+  document.getElementById("select-slp").addEventListener("click", function() {changeGun("breach");});
+  document.getElementById("select-scar").addEventListener("click", function() {changeGun("assault");});
+  document.getElementById("select-ballista").addEventListener("click", function() {changeGun("scout");});
 }
 
 function changeGun(gun) {
@@ -51,9 +51,9 @@ function secondsToTimestamp(seconds) {
 }
 
 function updateGunHUD(data) {
-  document.getElementById("main").src = data.players[permanentID].guns[0].images.lootSRC;
-  document.getElementById("pistol").src = data.players[permanentID].guns[1].images.lootSRC;
-  document.getElementById("melee").src = data.players[permanentID].guns[2].images.lootSRC;
+  document.getElementById("main").src = gameData.weapons[data.players[permanentID].guns[0]].images.lootSRC;
+  document.getElementById("pistol").src = gameData.weapons[data.players[permanentID].guns[1]].images.lootSRC;
+  document.getElementById("melee").src = gameData.weapons[data.players[permanentID].guns[2]].images.lootSRC;
   document.getElementById("main-backing").style.width = "calc(" + document.getElementById("main").width + "px + 4.5vw + 4.5vh)";
   document.getElementById("pistol-backing").style.width = "calc(" + document.getElementById("pistol").width + "px + 4.5vw + 4.5vh)";
   document.getElementById("melee-backing").style.width = "calc(" + document.getElementById("melee").width + "px + 4.5vw + 4.5vh)";
@@ -128,7 +128,7 @@ function displayGuns() {
   for (let i = 0; i < gameData.users.length; i++) {
     if(gameData.players[gameData.users[i]].health > 0) {
       const playerData = gameData.players[gameData.users[i]],
-      gun = playerData.guns[playerData.state.activeWeaponIndex],
+      gun = gameData.weapons[playerData.guns[playerData.state.activeWeaponIndex]],
       tickDelay = Date.now() - gameData.timeStamp;
       push();
       translate(playerData.state.position.x + playerData.state.force.x * (tickDelay / 70), playerData.state.position.y + playerData.state.force.y * (tickDelay / 70));
@@ -180,7 +180,7 @@ function displayBullets() {
       if(debug) {
         fill(255, 255, 0, 200);
         rectMode(CORNER);
-        rect(-10, 0, 20, dist(bullet.coordinates.start.x, bullet.coordinates.start.y, bullet.coordinates.finish.x, bullet.coordinates.finish.y));
+        rect(-12.5, 0, 25, dist(bullet.coordinates.start.x, bullet.coordinates.start.y, bullet.coordinates.finish.x, bullet.coordinates.finish.y));
         rectMode(CENTER);
       }
       pop();
@@ -240,10 +240,11 @@ function interpolateCamera() {
 
 function displayFog() {
   const playerData = gameData.players[permanentID];
+  const currentWeapon = gameData.weapons[playerData.guns[playerData.state.activeWeaponIndex]];
   push();
   translate(playerData.state.position.x + cos(playerData.state.angle) * 500, playerData.state.position.y + sin(playerData.state.angle) * 500, 0.05);
   fill("#33333380");
-  arc(0, 0, playerData.guns[playerData.state.activeWeaponIndex].view + 9000, playerData.guns[playerData.state.activeWeaponIndex].view + 9000, playerData.state.angle + 210, playerData.state.angle + 150);
+  arc(0, 0, currentWeapon.view + 9000, currentWeapon.view + 9000, playerData.state.angle + 210, playerData.state.angle + 150);
   pop();
 }
 
@@ -283,8 +284,8 @@ function displayWorld() {
     displayGuns();
     displayPlayers();
     displayObstacles();
-    if(queuedCameraLocation.z != gameData.players[permanentID].guns[gameData.players[permanentID].state.activeWeaponIndex].view + 2000) {
-      queuedCameraLocation.z += Math.round((gameData.players[permanentID].guns[gameData.players[permanentID].state.activeWeaponIndex].view + 2000 - queuedCameraLocation.z) / 6)
+    if(queuedCameraLocation.z != gameData.weapons[gameData.players[permanentID].guns[gameData.players[permanentID].state.activeWeaponIndex]].view + 2000) {
+      queuedCameraLocation.z += Math.round((gameData.weapons[gameData.players[permanentID].guns[gameData.players[permanentID].state.activeWeaponIndex]].view + 2000 - queuedCameraLocation.z) / 6)
     }
     if(mouseX != pmouseX || mouseY != pmouseY) {
       socket.emit("angle-change", { angle: atan2(mouseY - height / 2, mouseX - width / 2) + 180, certificate: gameData.certificate });

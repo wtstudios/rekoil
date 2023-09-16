@@ -45,6 +45,11 @@
         }
       ]
     },
+    "loadouts": {
+      "assault": ["SCAR-L", "T509", "Bayonet"],
+      "breach": ["SLP", "T509", "Bayonet"],
+      "scout": ["Ballista", "T509", "Bayonet"]
+    },
     "point": {
       "position": {
         "x": -2500,
