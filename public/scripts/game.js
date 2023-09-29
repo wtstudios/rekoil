@@ -62,21 +62,21 @@ function keyPressed() {
       socket.emit("change-weapon-index", {index: 0});
       keys[49] = false;
       if(gameData.players[permanentID].state.activeWeaponIndex != 0) {
-        assetsLoaded[gameData.players[permanentID].gameData.weapons[guns[gameData.players[permanentID].state.activeWeaponIndex]].sounds.reload].stop();
+        assetsLoaded[gameData.weapons[gameData.players[permanentID].guns[gameData.players[permanentID].state.activeWeaponIndex]].sounds.reload].stop();
       }
     }
     if(keys[50]) {
       socket.emit("change-weapon-index", {index: 1});
       keys[50] = false;
       if(gameData.players[permanentID].state.activeWeaponIndex != 1) {
-        assetsLoaded[gameData.players[permanentID].gameData.weapons[guns[gameData.players[permanentID].state.activeWeaponIndex]].sounds.reload].stop();
+        assetsLoaded[gameData.weapons[gameData.players[permanentID].guns[gameData.players[permanentID].state.activeWeaponIndex]].sounds.reload].stop();      
       }
     }
     if(keys[51]) {
       socket.emit("change-weapon-index", {index: 2});
       keys[51] = false;
       if(gameData.players[permanentID].state.activeWeaponIndex != 2) {
-        assetsLoaded[gameData.players[permanentID].gameData.weapons[guns[gameData.players[permanentID].state.activeWeaponIndex]].sounds.reload].stop();
+        assetsLoaded[gameData.weapons[gameData.players[permanentID].guns[gameData.players[permanentID].state.activeWeaponIndex]].sounds.reload].stop();
       }
     }
     if(keys[73]) {

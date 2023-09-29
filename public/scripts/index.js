@@ -131,7 +131,7 @@ function displayGuns() {
       gun = gameData.weapons[playerData.guns[playerData.state.activeWeaponIndex]],
       tickDelay = Date.now() - gameData.timeStamp;
       push();
-      translate(playerData.state.position.x + playerData.state.force.x * (tickDelay / 60), playerData.state.position.y + playerData.state.force.y * (tickDelay / 60));
+      translate(playerData.state.previousPosition.x + playerData.state.force.x * (tickDelay / 44), playerData.state.previousPosition.y + playerData.state.force.y * (tickDelay / 44));
       if(gameData.users[i] == permanentID) {
         rotate(atan2(mouseY - height / 2, mouseX - width / 2) + 90);
       } else {
@@ -200,7 +200,7 @@ function displayPlayers() {
       if (playerData.team == gameData.players[permanentID].team) {
         fill("#498fe9");
       }
-      translate(playerData.state.position.x + playerData.state.force.x * (tickDelay / 60), playerData.state.position.y + playerData.state.force.y * (tickDelay / 60));
+      translate(playerData.state.previousPosition.x + playerData.state.force.x * (tickDelay / 44), playerData.state.previousPosition.y + playerData.state.force.y * (tickDelay / 44));
       if(gameData.users[i] == permanentID) {
         rotate(atan2(mouseY - height / 2, mouseX - width / 2) + 90);
       } else {
@@ -234,17 +234,17 @@ function displayPlayers() {
 function interpolateCamera() {
   const playerData = gameData.players[permanentID],
   tickDelay = Date.now() - gameData.timeStamp;
-  queuedCameraLocation.x = playerData.state.position.x + playerData.state.force.x * (tickDelay / 60);
-  queuedCameraLocation.y  = playerData.state.position.y + playerData.state.force.y * (tickDelay / 60);
-  queuedCameraLocation.targetX = playerData.state.position.x + playerData.state.force.x * (tickDelay / 60);
-  queuedCameraLocation.targetY  = playerData.state.position.y + playerData.state.force.y * (tickDelay / 60);
+  queuedCameraLocation.x = playerData.state.previousPosition.x + playerData.state.force.x * (tickDelay / 44);
+  queuedCameraLocation.y  = playerData.state.previousPosition.y + playerData.state.force.y * (tickDelay / 44);
+  queuedCameraLocation.targetX = playerData.state.previousPosition.x + playerData.state.force.x * (tickDelay / 44);
+  queuedCameraLocation.targetY  = playerData.state.previousPosition.y + playerData.state.force.y * (tickDelay / 44);
 }
 
 function displayFog() {
   const playerData = gameData.players[permanentID];
   const currentWeapon = gameData.weapons[playerData.guns[playerData.state.activeWeaponIndex]];
   push();
-  translate(playerData.state.position.x + cos(playerData.state.angle) * 500, playerData.state.position.y + sin(playerData.state.angle) * 500, 0.05);
+  translate(playerData.state.previousPosition.x + cos(playerData.state.angle) * 500, playerData.state.previousPosition.y + sin(playerData.state.angle) * 500, 0.05);
   fill("#33333380");
   arc(0, 0, currentWeapon.view + 9000, currentWeapon.view + 9000, playerData.state.angle + 210, playerData.state.angle + 150);
   pop();

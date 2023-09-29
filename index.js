@@ -315,14 +315,15 @@ function updatePlayer(player, delay) {
     body = player.body,
     base = player.body.circleRadius / (14.14);
 
+  player.state.force = {x: (player.state.position.x - player.state.previousPosition.x) / (delay / (tickRate / ((25 / tickRate) * tickRate))), y: (player.state.position.y - player.state.previousPosition.y) / (delay / (tickRate / ((25 / tickRate) * tickRate)))};
+  player.state.previousPosition = {x: body.position.x / 1, y: body.position.y / 1};
+
   Body.applyForce(body, body.position, {
     x: +(a ^ d) && (((w ^ s) ? 0.7071 : 1) * [-1, 1][+d] * base * 6 * delay),
     y: +(w ^ s) && (((a ^ d) ? 0.7071 : 1) * [-1, 1][+w] * base * 6 * delay)
   });
 
   player.state.isMoving = !!Math.round(body.velocity.x) || !!Math.round(body.velocity.y);
-  player.state.force = {x: (player.state.position.x - player.state.previousPosition.x), y: (player.state.position.y - player.state.previousPosition.y)};
-  player.state.previousPosition = {x: body.position.x / 1, y: body.position.y / 1};
 
   if(player.keys[950]) {
     const position = { x: player.state.position.x, y: player.state.position.y },
