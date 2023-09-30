@@ -1,0 +1,100 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  
+  <script type="text/javascript" src="scripts/socket.io.js"></script>
+
+  <script src="scripts/p5.js"></script>
+
+  <script src="scripts/howler.core.min.js"></script>
+  
+  <script language="javascript" type="text/javascript" src="scripts/game.js"></script>
+  
+  <script language="javascript" type="text/javascript" src="scripts/index.js"></script>
+
+  <link rel="stylesheet" type="text/css" href="style.css">
+
+  <title>REKOIL - 2D Team Deathmatch in your browser</title>
+  <meta name="description" content="REKOIL is a new take on the team-based shooter, prioritizing easy-to-understand game mechanics with simple graphics to create a fun and straightforward experience." />
+
+</head>
+
+<body>
+
+  <div id="main-menu">
+
+    <div class="background-streak" style="width: 6vw; left: 1vw;"></div>
+    <div class="background-streak" style="width: 3vw; left: 9vw;"></div>
+    <div class="background-streak" style="width: 1vw; left: 30vw;"></div>
+    <div class="background-streak" style="width: 2vw; left: 85vw;"></div>
+    <div class="background-streak" style="width: 8vw; left: 92vw;"></div>
+
+    <div class="main-menu-title">
+      <p style="font-size: calc(2.5vw + 2.5vh); max-width: calc(30vw + 30vh);">PROJECT:</p>
+      <p style="font-size: calc(5vw + 5vh); max-width: calc(30vw + 30vh);">REKOIL</p>
+    </div>
+
+    <button id="server-toggle">Server Select</button>
+
+    <button id="play-button">FIND A GAME</button>
+  </div>
+
+  <div id="hud" style='display: none; cursor: url("/assets/misc/crosshair.png") 64 64, auto;'>
+    <div id="gun-hud" style="display: none;">
+      <div id="ammocount-backing" class="ammocount-backing" style="bottom: calc(1vw + 1vh);">
+        <p id="ammocount" style='color: #333333; font-size: calc(1.4vw + 1.4vh); transform: none; margin-top: 0px; margin-left: calc(-2vw + -2vh); font-family: "source-sans-pro"; text-align: center;'></p>
+      </div>
+      <div id="main-backing" class="gun-backing" style="bottom: calc(13vw + 13vh);">
+        <img id="main" class="gun"></img>
+      </div>
+      <div id="pistol-backing" class="gun-backing" style="bottom: calc(8.5vw + 8.5vh);">
+        <img id="pistol" class="gun"></img>
+      </div>
+      <div id="melee-backing" class="gun-backing" style="bottom: calc(4vw + 4vh);">
+        <img id="melee" class="gun"></img>
+      </div>
+      <p id="healthbar" style="background-color: #e63128b6; position: absolute; height: calc(2vw + 2vh); bottom: calc(1vw + 1vh); right: calc(6.5vw + 6.5vh); transform: skew(-14deg); z-index: 1; transition: ease-in-out 0.025s; text-align: right;"></p>
+      <p id="healthbar-opposite" style="background-color: #498ee967; position: absolute; width: calc(6vw + 6vh); height: calc(2vw + 2vh); bottom: calc(1vw + 1vh); right: calc(16.5vw + 16.5vh); transform: skew(-14deg); z-index: 1; transition: ease-in-out 0.025s;"></p>
+      <p id="healthbar-text" style="position: absolute; height: calc(2vw + 2vh); bottom: calc(1vw + 1vh); right: calc(6.5vw + 6.5vh); transform: skew(-14deg); z-index: 1; transition: ease-in-out 0.025s; text-align: right;"></p>
+      <div id="reloadcolumn" style="display: none; background-color: #498ee9b6; position: absolute; width: calc(2vw + 2vh); bottom: calc(1vw + 1vh); right: calc(15.5vw + 15.5vh); transform: skew(-14deg); z-index: 1; transition: linear 0.01s;"></div>
+    </div>
+    <div id="stats" style="display: none; background-color: #333333d6; position: absolute; width: calc(6vw + 6vh); height: calc(3vw + 3vh); left: calc(1.5vw + 1.5vh); top: calc(1vw + 1vh); transform: skew(-14deg); z-index: 1;">
+      <p id="fps" style="font-family: 'source-sans-pro'; font-size: calc(0.5vw + 0.5vh); width: calc(4vw + 4vh); margin-left: auto; margin-right: auto; transform: none;"></p>
+      <p id="object-count" style="font-family: 'source-sans-pro'; font-size: calc(0.45vw + 0.45vh); width: calc(5.5vw + 5.5vh); margin-left: auto; margin-right: auto; transform: none;"></p>
+      <p id="mapname" style="font-family: 'source-sans-pro'; font-size: calc(0.5vw + 0.5vh); width: calc(4vw + 4vh); margin-left: auto; margin-right: auto; transform: none;"></p>
+      <p id="pingcount" style="font-family: 'source-sans-pro'; font-size: calc(0.5vw + 0.5vh); width: calc(4vw + 4vh); margin-left: auto; margin-right: auto; transform: none;"></p>
+    </div>
+    <div id="blue-score-container" class="individual-score-container" style="background-color: #498ee9b6; left: calc(50% - (6vw + 6vh));">
+      <p id="blue-score" class="score"style='color: #333333; font-size: calc(1.75vw + 1.75vh); transform: none; margin-top: calc(0.1vw + 0.1vh); margin-left: 0px; width: calc(4vw + 4vh); text-align: center; font-family: "source-sans-pro";'>0</p>
+    </div>
+    <div id="time-left-container" class="individual-score-container" style="background-color: #498ee967; left: calc(50% - (1.1vw + 1.1vh)); width: calc(2.5vw + 2.5vh); height: calc(1.25vw + 1.25vh); top: calc(1.625vw + 1.625vh);">
+      <p id="time-left" class="score"style='color: #333333; font-size: calc(0.8vw + 0.8vh); transform: none; margin-top: calc(0.1vw + 0.1vh); margin-left: 0px; width: calc(2.5vw + 2.5vh); text-align: center; font-family: "source-sans-pro";'>1:34</p>
+    </div>
+    <div id="red-score-container" class="individual-score-container" style="background-color: #e63128b6; right: calc(50% - (6vw + 6vh));">
+      <p id="red-score" class="score"style='color: #333333; font-size: calc(1.75vw + 1.75vh); transform: none; margin-top: calc(0.1vw + 0.1vh); margin-left: 0px; width: calc(4vw + 4vh); text-align: center; font-family: "source-sans-pro";'>0</p>
+    </div>
+    <div id="weapon-selection" style="width: 100%; height: 100%; z-index: 1; background-color: #3333338e; position: absolute; left: 0px; top: 0px;">
+      <div id="weapons-list" style="right: calc(3vw + 9vh); top: calc((100vh - (2.66vw + 8vh)) / 4.5); width: calc(6vw + 18vh); height: calc(2.66vw + 8vh); position: absolute; transform: skew(-14deg);">
+        <div id="weapons-list-wrapper-individual" style="transform: skew(14deg);">
+          <div id="select-breach" class="select-weapon" style="margin-top: 0px; background-color: #498ee967;">
+            <img id="weapon-select-gun-breach" class="weapon-select-gun-img" src="/assets/weapons/slp_loot.svg"></img>
+          </div>
+        </div>
+        <div id="weapons-list-wrapper-individual" style="transform: skew(14deg);">
+          <div id="select-assault" class="select-weapon" style="margin-top: calc(1vw + 3vh);">
+            <img id="weapon-select-gun-assault" class="weapon-select-gun-img" src="/assets/weapons/scar_loot.svg"></img>
+          </div>
+        </div>
+        <div id="weapons-list-wrapper-individual" style="transform: skew(14deg);">
+          <div id="select-scout" class="select-weapon" style="margin-top: calc(1vw + 3vh); background-color: #498ee967;">
+            <img id="weapon-select-gun-scout" class="weapon-select-gun-img" src="/assets/weapons/ballista_loot.svg"></img>
+          </div>
+        </div>
+        <div id="weapons-list-wrapper-individual" style="transform: skew(14deg);">
+          <button id="respawn-button" style="background-color: #e63128b6; margin-top: calc(1vw + 3vh); height: calc(2.66vw + 8vh); width: calc(6vw + 18vh); transform: skew(-14deg); font-family: source-sans-pro; color: #333333; font-size: calc(1.7vw + 1.7vh);">SPAWN</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
