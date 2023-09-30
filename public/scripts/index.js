@@ -24,13 +24,27 @@ function requestConnectToGame() {
   }
   socket.emit("play-request", {platform: platform});
 
-  document.getElementById("select-slp").addEventListener("click", function() {changeGun("breach");});
-  document.getElementById("select-scar").addEventListener("click", function() {changeGun("assault");});
-  document.getElementById("select-ballista").addEventListener("click", function() {changeGun("scout");});
+  document.getElementById("select-breach").addEventListener("click", function() {changeGun("breach");});
+  document.getElementById("select-assault").addEventListener("click", function() {changeGun("assault");});
+  document.getElementById("select-scout").addEventListener("click", function() {changeGun("scout");});
+
+  document.getElementById("respawn-button").addEventListener("click", function() {requestSpawn();});
 }
 
 function changeGun(gun) {
-  socket.emit("pick-weapon", {gun: gun});
+  //socket.emit("pick-weapon", {gun: gun});
+  //document.getElementById("weapon-selection").style.display = "none";
+  //document.getElementById("gun-hud").style.display = "block";
+  document.getElementById("select-breach").style.backgroundColor = "#498ee967";
+  document.getElementById("select-assault").style.backgroundColor = "#498ee967";
+  document.getElementById("select-scout").style.backgroundColor = "#498ee967";
+
+  document.getElementById("select-" + gun + "").style.backgroundColor = "#498ee9b6";
+  gameData.selectedClass = gun;
+}
+
+function requestSpawn() {
+  socket.emit("spawn", {class: gameData.selectedClass});
   document.getElementById("weapon-selection").style.display = "none";
   document.getElementById("gun-hud").style.display = "block";
 }
@@ -78,7 +92,7 @@ function displayParticles() {
       tint(255, 255, 255, opacity);
       if(particleData.colour != "none") {
         fill(particleData.colour + hex(opacity)[6] + (hex(opacity)[7]));
-        if(particleData.colour === "blue" || particleData.colour === "red") {
+        if(particleData.colour == "blue" || particleData.colour === "red") {
           fill("#e9494f" + hex(opacity)[6] + (hex(opacity)[7]));
           if(particleData.colour == gameData.players[permanentID].team) {
             fill("#498fe9" + hex(opacity)[6] + (hex(opacity)[7]));
