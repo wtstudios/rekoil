@@ -131,7 +131,7 @@ function displayGuns() {
       gun = gameData.weapons[playerData.guns[playerData.state.activeWeaponIndex]],
       tickDelay = Date.now() - gameData.timeStamp;
       push();
-      translate(playerData.state.previousPosition.x + playerData.state.force.x * (tickDelay / 44), playerData.state.previousPosition.y + playerData.state.force.y * (tickDelay / 44));
+      translate(playerData.state.previousPosition.x + playerData.state.force.x * (tickDelay / gameData.lastTickDelay), playerData.state.previousPosition.y + playerData.state.force.y * (tickDelay / gameData.lastTickDelay));
       if(gameData.users[i] == permanentID) {
         rotate(atan2(mouseY - height / 2, mouseX - width / 2) + 90);
       } else {
@@ -200,7 +200,7 @@ function displayPlayers() {
       if (playerData.team == gameData.players[permanentID].team) {
         fill("#498fe9");
       }
-      translate(playerData.state.previousPosition.x + playerData.state.force.x * (tickDelay / 44), playerData.state.previousPosition.y + playerData.state.force.y * (tickDelay / 44));
+      translate(playerData.state.previousPosition.x + playerData.state.force.x * (tickDelay / gameData.lastTickDelay), playerData.state.previousPosition.y + playerData.state.force.y * (tickDelay / gameData.lastTickDelay));
       if(gameData.users[i] == permanentID) {
         rotate(atan2(mouseY - height / 2, mouseX - width / 2) + 90);
       } else {
@@ -234,10 +234,10 @@ function displayPlayers() {
 function interpolateCamera() {
   const playerData = gameData.players[permanentID],
   tickDelay = Date.now() - gameData.timeStamp;
-  queuedCameraLocation.x = playerData.state.previousPosition.x + playerData.state.force.x * (tickDelay / 44);
-  queuedCameraLocation.y  = playerData.state.previousPosition.y + playerData.state.force.y * (tickDelay / 44);
-  queuedCameraLocation.targetX = playerData.state.previousPosition.x + playerData.state.force.x * (tickDelay / 44);
-  queuedCameraLocation.targetY  = playerData.state.previousPosition.y + playerData.state.force.y * (tickDelay / 44);
+  queuedCameraLocation.x = playerData.state.previousPosition.x + playerData.state.force.x * (tickDelay / gameData.lastTickDelay);
+  queuedCameraLocation.y  = playerData.state.previousPosition.y + playerData.state.force.y * (tickDelay / gameData.lastTickDelay);
+  queuedCameraLocation.targetX = playerData.state.previousPosition.x + playerData.state.force.x * (tickDelay / gameData.lastTickDelay);
+  queuedCameraLocation.targetY  = playerData.state.previousPosition.y + playerData.state.force.y * (tickDelay / gameData.lastTickDelay);
 }
 
 function displayFog() {

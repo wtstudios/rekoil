@@ -213,7 +213,8 @@ let gameData = {
   certificate: "",
   queuedSounds: [],
   weapons: {},
-  loadouts: ciqlJson.open("maps/dm_dunes.json").data.config.loadouts
+  loadouts: ciqlJson.open("maps/dm_dunes.json").data.config.loadouts,
+  lastTickDelay: tickRate
 };
 
 function squaredDist(ptA, ptB) {
@@ -307,6 +308,15 @@ updateSecondsLeft = setInterval(function() {
   }
 }, 1000);
 
+function updatePlayerPositions() {
+  for(let i = 0; i < gameData.users.length; i++) {
+    const body = gameData.players[gameData.users[i]].body,
+    player = gameData.players[gameData.users[i]];
+
+    player.state.previousPosition = {x: body.position.x / 1, y: body.position.y / 1};
+  }
+}
+
 function updatePlayer(player, delay) {
   const w = !!player.keys[83],
     a = !!player.keys[65],
@@ -315,13 +325,20 @@ function updatePlayer(player, delay) {
     body = player.body,
     base = player.body.circleRadius / (14.14);
 
-  player.state.force = {x: (player.state.position.x - player.state.previousPosition.x) / (delay / (tickRate / ((25 / tickRate) * tickRate))), y: (player.state.position.y - player.state.previousPosition.y) / (delay / (tickRate / ((25 / tickRate) * tickRate)))};
-  player.state.previousPosition = {x: body.position.x / 1, y: body.position.y / 1};
+  player.state.force = {x: (player.state.position.x - player.state.previousPosition.x), y: (player.state.position.y - player.state.previousPosition.y)};
 
-  Body.applyForce(body, body.position, {
-    x: +(a ^ d) && (((w ^ s) ? 0.7071 : 1) * [-1, 1][+d] * base * 6 * delay),
-    y: +(w ^ s) && (((a ^ d) ? 0.7071 : 1) * [-1, 1][+w] * base * 6 * delay)
-  });
+  if(w || s) {
+    Body.setVelocity(body, {
+      x: body.velocity.x,
+      y: +(w ^ s) && (((a ^ d) ? 0.7071 : 1) * [-1, 1][+w] * base * delay * 2)
+    });
+  }
+  if(a || d) {
+    Body.setVelocity(body, {
+      x: +(a ^ d) && (((w ^ s) ? 0.7071 : 1) * [-1, 1][+d] * base * delay * 2),
+      y: body.velocity.y
+    });
+  }
 
   player.state.isMoving = !!Math.round(body.velocity.x) || !!Math.round(body.velocity.y);
 
@@ -468,6 +485,8 @@ function updateGame() {
     let time = Date.now();
     
     const tickDelay = ((time - lastTime) / ((25 / tickRate) * tickRate));
+    gameData.lastTickDelay = (time - lastTime);
+
     lastTime = Date.now();
     for (let x = 0; x < gameData.users.length; x++) {
       const player = gameData.players[gameData.users[x]];
@@ -509,12 +528,14 @@ function updateGame() {
         point: gameData.point,
         currentRoundScore: gameData.currentRoundScore,
         certificate: gameData.certificate,
-        queuedSounds: gameData.queuedSounds
+        queuedSounds: gameData.queuedSounds,
+        lastTickDelay: gameData.lastTickDelay
       });
     }
     gameData.bullets = [],
     gameData.particles = [];
     gameData.queuedSounds = [];
+    updatePlayerPositions();
   }
 }
 
@@ -558,7 +579,7 @@ function newConnection(socket) {
           Bodies.circle(spawnpoint.x, spawnpoint.y, 115, {
             friction: 0,
             restitution: 0,
-            inertia: 0.1,
+            inertia: 1,
             density: 0.015,
             frictionAir: 0.25,
             tag: spawnpoint.team
