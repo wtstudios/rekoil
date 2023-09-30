@@ -670,7 +670,6 @@ function newConnection(socket) {
               player.state.fireTimer = 1000;
               player.state.hasStarted = true;
               Body.setDensity(player.body, gameData.weapons[player.guns[player.state.activeWeaponIndex]].playerDensity * 2.5);
-              io.to(socket.id).emit("ui-change", { players: gameData.players, currentRoundScore: gameData.currentRoundScore});
               gameData.players[socket.id].health = 100;
               gameData.players[socket.id].state.hasStarted = true;
 
@@ -678,6 +677,8 @@ function newConnection(socket) {
 
               Body.setPosition(gameData.players[socket.id].body, {x: spawn.x, y: spawn.y})
               Composite.add(world, gameData.players[socket.id].body);
+
+              io.to(socket.id).emit("ui-change", { players: gameData.players, currentRoundScore: gameData.currentRoundScore});
             }
           }
           catch { }
