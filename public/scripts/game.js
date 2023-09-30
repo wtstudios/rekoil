@@ -184,7 +184,6 @@ function setup() {
     document.getElementById("fps").textContent = "FPS: " + round(frameRate());
     document.getElementById("pingcount").textContent = "Ping: " + gameData.players[permanentID].state.ping;
     updateDebugMenu = setInterval(function() { if(debug) { document.getElementById("object-count").textContent = gameData.players[permanentID].state.objectRenderList.length + gameData.bullets.length + gameData.particles.length + gameData.users.length + " objects being rendered"; document.getElementById("fps").textContent = "FPS: " + round(frameRate());     document.getElementById("pingcount").textContent = "Ping: " + gameData.players[permanentID].state.ping; } }, 1000);
-    gameData.selectedClass = "assault";
     ping = setInterval(function() {
       const start = Date.now();
     
@@ -202,7 +201,7 @@ function setup() {
     }
   });
   
-  socket.on("world-update", data => { // LITERALLY EVERY "44" MILLISECOND !!
+  socket.on("world-update", data => { // LITERALLY EVERY 25 MILLISECONDS !!
     gameData.players = data.players,
     gameData.point = data.point,
     gameData.usersOnline = data.usersOnline,

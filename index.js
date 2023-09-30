@@ -452,6 +452,7 @@ function updatePlayer(player, delay) {
                     gameData.particles.push(new particle({x: (gameData.players[gameData.users[i]].state.position.x / 1) + Math.cos(angle) * 100, y: (gameData.players[gameData.users[i]].state.position.y / 1) + Math.sin(angle) * 100}, Math.random() * 360, angle, gameData.players[gameData.users[i]].team, 250, "/assets/misc/particle.svg", 100, "residue"));
                   }  
                   gameData.players[gameData.users[i]].health = 0;
+                  //Body.setPosition(gameData.players[gameData.users[i]].body, gameData.players[gameData.users[i]].state.spawnpoint);
                   gameData.players[gameData.users[i]].state.hasStarted = false;
                   Composite.remove(world, gameData.players[gameData.users[i]].body);
                   gameData.players[gameData.users[i]].keys = [];
@@ -575,7 +576,7 @@ function newConnection(socket) {
           gameData.teamNumbers.red++;
         }
         gameData.players[socket.id] = new playerLike(
-          Bodies.circle(gameData.mapData.config["map-dimensions"].width / 2, gameData.mapData.config["map-dimensions"].height / 2, 115, {
+          Bodies.circle(spawnpoint.x, spawnpoint.y, 115, {
             friction: 0,
             restitution: 0,
             inertia: 1,
@@ -585,13 +586,14 @@ function newConnection(socket) {
           }),
           0,
           gameData.loadouts["assault"],
-          0,
+          100,
           0,
           spawnpoint.team,
           data.platform || "desktop"
         );
         gameData.players[socket.id].state.mag[gameData.players[socket.id].state.activeWeaponIndex] = gameData.weapons[gameData.players[socket.id].guns[gameData.players[socket.id].state.activeWeaponIndex]].magSize;
         gameData.players[socket.id].state.spawnpoint = spawnpoint;
+        Composite.add(world, gameData.players[socket.id].body);
         socket.emit("load-world", gameData);
 
         socket.on("disconnect", function() {
@@ -612,6 +614,24 @@ function newConnection(socket) {
               gameData.secondsLeft = 360;
             }
           }
+        });
+
+        socket.on("pick-weapon", (data) => {
+          try {
+            let player = gameData.players[socket.id];
+            if(!player.state.hasStarted) {
+              player.guns = gameData.loadouts[data.gun];
+              player.state.mag[0] = gameData.weapons[player.guns[0]].magSize;
+              player.state.mag[1] = gameData.weapons[player.guns[1]].magSize;
+              player.state.mag[2] = gameData.weapons[player.guns[2]].magSize;
+              io.to(socket.id).emit("gun-ui-change", {players: gameData.players});
+              player.state.fireTimer = 1000;
+              player.state.hasStarted = true;
+              Body.setDensity(player.body, gameData.weapons[player.guns[player.state.activeWeaponIndex]].playerDensity * 2.5);
+              io.to(socket.id).emit("ui-change", { players: gameData.players, currentRoundScore: gameData.currentRoundScore});
+            }
+          }
+          catch { }
         });
         socket.on("move-key-change", (data) => {
           try {
@@ -660,27 +680,27 @@ function newConnection(socket) {
         });
         socket.on("spawn", (data) => {
           try {
-            let player = gameData.players[socket.id];
-            if(!player.state.hasStarted || gameData.players[socket.id].health < 0) {
-              player.guns = gameData.loadouts[data.class];
-              player.state.mag[0] = gameData.weapons[player.guns[0]].magSize;
-              player.state.mag[1] = gameData.weapons[player.guns[1]].magSize;
-              player.state.mag[2] = gameData.weapons[player.guns[2]].magSize;
-              io.to(socket.id).emit("gun-ui-change", {players: gameData.players});
-              player.state.fireTimer = 1000;
-              player.state.hasStarted = true;
-              Body.setDensity(player.body, gameData.weapons[player.guns[player.state.activeWeaponIndex]].playerDensity * 2.5);
-              io.to(socket.id).emit("ui-change", { players: gameData.players, currentRoundScore: gameData.currentRoundScore});
-              gameData.players[socket.id].health = 100;
-              gameData.players[socket.id].state.hasStarted = true;
-
-              const spawn = gameData.mapData.config.spawns[gameData.players[socket.id].team][Math.floor(Math.random() * gameData.mapData.config.spawns[gameData.players[socket.id].team].length)];
-
-              Body.setPosition(gameData.players[socket.id].body, {x: spawn.x, y: spawn.y})
-              Composite.add(world, gameData.players[socket.id].body);
-            }
+            /*if(gameData.players[socket.id].health < 0) {
+              gameData.players[socket.id] = new playerLike(
+                const spawnpoint = 
+                Bodies.circle(spawnpoint.x, spawnpoint.y, 115, {
+                  friction: 0,
+                  restitution: 0,
+                  inertia: 0.1,
+                  density: 0.015,
+                  frictionAir: 0.25,
+                  tag: gameData.players[socket.id].team
+                }),
+                0,
+                gameData.players[socket.id].guns,
+                100,
+                0,
+                gameData.players[socket.id].team,
+                data.platform || "desktop"
+              );
+            }*/
           }
-          catch { }
+          catch { } 
         });
         socket.on("ping", (data) => {
           gameData.players[socket.id].state.ping = Date.now() - data.time;
