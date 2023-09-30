@@ -666,7 +666,6 @@ function newConnection(socket) {
               player.state.mag[0] = gameData.weapons[player.guns[0]].magSize;
               player.state.mag[1] = gameData.weapons[player.guns[1]].magSize;
               player.state.mag[2] = gameData.weapons[player.guns[2]].magSize;
-              io.to(socket.id).emit("gun-ui-change", {players: gameData.players});
               player.state.fireTimer = 1000;
               player.state.hasStarted = true;
               Body.setDensity(player.body, gameData.weapons[player.guns[player.state.activeWeaponIndex]].playerDensity * 2.5);
@@ -679,6 +678,7 @@ function newConnection(socket) {
               Composite.add(world, gameData.players[socket.id].body);
 
               io.to(socket.id).emit("ui-change", { players: gameData.players, currentRoundScore: gameData.currentRoundScore});
+              io.to(socket.id).emit("gun-ui-change", {players: gameData.players});
             }
           }
           catch { }
