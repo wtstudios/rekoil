@@ -40,7 +40,7 @@ let messageLoad = [];
 let ticks = 0,
 lastTime = Date.now();
 
-const tickRate = 44;
+const tickRate = 50;
 
 const Engine = Matter.Engine,
   World = Matter.World,
@@ -165,8 +165,10 @@ class playerLike {
     isReloading: false,
     reloadProgress: 0,
     angle: 0,
+    previousPosition: 0,
     isMoving: false,
     position: {},
+    previousPosition: {x: 0, y: 0},
     spawnNumber: 0,
     recoilTimer: 0,
     spawnpoint: {},
@@ -175,8 +177,7 @@ class playerLike {
     hasStarted: false,
     objectRenderList: [],
     ping: 0,
-    force: {x: 0, y: 0},
-    previousPosition: {x: 0, y: 0}
+    force: {x: 0, y: 0}
   };
 
   constructor(body, angle, guns, health, view, team, platform) {
@@ -308,12 +309,13 @@ updateSecondsLeft = setInterval(function() {
   }
 }, 1000);
 
-function updatePlayerPositions() {
+function updatePlayerPrev() {
   for(let i = 0; i < gameData.users.length; i++) {
     const body = gameData.players[gameData.users[i]].body,
     player = gameData.players[gameData.users[i]];
 
     player.state.previousPosition = {x: body.position.x / 1, y: body.position.y / 1};
+    player.state.previousAngle = player.state.angle;
   }
 }
 
@@ -330,12 +332,12 @@ function updatePlayer(player, delay) {
   if(w || s) {
     Body.setVelocity(body, {
       x: body.velocity.x,
-      y: +(w ^ s) && (((a ^ d) ? 0.7071 : 1) * [-1, 1][+w] * base * delay * 2)
+      y: +(w ^ s) && (((a ^ d) ? 0.7071 : 1) * [-1, 1][+w] * base * 4)
     });
   }
   if(a || d) {
     Body.setVelocity(body, {
-      x: +(a ^ d) && (((w ^ s) ? 0.7071 : 1) * [-1, 1][+d] * base * delay * 2),
+      x: +(a ^ d) && (((w ^ s) ? 0.7071 : 1) * [-1, 1][+d] * base * 4),
       y: body.velocity.y
     });
   }
@@ -534,7 +536,7 @@ function updateGame() {
     gameData.bullets = [],
     gameData.particles = [];
     gameData.queuedSounds = [];
-    updatePlayerPositions();
+    updatePlayerPrev();
   }
 }
 
@@ -669,13 +671,12 @@ function newConnection(socket) {
               player.state.fireTimer = 1000;
               player.state.hasStarted = true;
               Body.setDensity(player.body, gameData.weapons[player.guns[player.state.activeWeaponIndex]].playerDensity * 2.5);
-              gameData.players[socket.id].health = 100;
-              gameData.players[socket.id].state.hasStarted = true;
+              player.health = 100;
 
-              const spawn = gameData.mapData.config.spawns[gameData.players[socket.id].team][Math.floor(Math.random() * gameData.mapData.config.spawns[gameData.players[socket.id].team].length)];
+              const spawn = gameData.mapData.config.spawns[player.team][Math.floor(Math.random() * gameData.mapData.config.spawns[player.team].length)];
 
-              Body.setPosition(gameData.players[socket.id].body, {x: spawn.x, y: spawn.y})
-              Composite.add(world, gameData.players[socket.id].body);
+              Body.setPosition(player.body, {x: spawn.x, y: spawn.y})
+              Composite.add(world, player.body);
 
               io.to(socket.id).emit("ui-change", { players: gameData.players, currentRoundScore: gameData.currentRoundScore});
               io.to(socket.id).emit("gun-ui-change", {players: gameData.players});

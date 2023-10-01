@@ -202,7 +202,7 @@ function setup() {
     }
   });
   
-  socket.on("world-update", data => { // LITERALLY EVERY "44" MILLISECOND !!
+  socket.on("world-update", data => { // LITERALLY EVERY "50" MILLISECOND !!
     gameData.players = data.players,
     gameData.point = data.point,
     gameData.usersOnline = data.usersOnline,
@@ -212,6 +212,7 @@ function setup() {
     gameData.certificate = data.certificate;
     gameData.queuedSounds = data.queuedSounds;
     gameData.timeStamp = Date.now();
+    gameData.lastTickDelay = data.lastTickDelay;
     const timestamp = secondsToTimestamp(gameData.secondsLeft);
     if(document.getElementById("time-left").textContent != timestamp) {
       document.getElementById("time-left").textContent = timestamp;
@@ -291,7 +292,7 @@ function setup() {
         break;
       }
     }
-    if(gameData.players[permanentID].health > 0) {
+    if(data.players[permanentID].health > 0) {
       queuedCameraLocation.x = data.players[permanentID].state.position.x;
       queuedCameraLocation.y = data.players[permanentID].state.position.y;
       queuedCameraLocation.targetX = data.players[permanentID].state.position.x;

@@ -32,9 +32,6 @@ function requestConnectToGame() {
 }
 
 function changeGun(gun) {
-  //socket.emit("pick-weapon", {gun: gun});
-  //document.getElementById("weapon-selection").style.display = "none";
-  //document.getElementById("gun-hud").style.display = "block";
   document.getElementById("select-breach").style.backgroundColor = "#498ee967";
   document.getElementById("select-assault").style.backgroundColor = "#498ee967";
   document.getElementById("select-scout").style.backgroundColor = "#498ee967";
@@ -149,7 +146,15 @@ function displayGuns() {
       if(gameData.users[i] == permanentID) {
         rotate(atan2(mouseY - height / 2, mouseX - width / 2) + 90);
       } else {
-        rotate(playerData.state.angle - 90);
+        const oldAngleVector = {
+          x: Math.cos(playerData.state.previousAngle * Math.PI / 180),
+          y: Math.sin(playerData.state.previousAngle * Math.PI / 180)
+        },
+        newAngleVector = {
+          x: Math.cos(playerData.state.angle * Math.PI / 180),
+          y: Math.sin(playerData.state.angle * Math.PI / 180)
+        }
+        rotate(Math.atan2(oldAngleVector.y + (newAngleVector.y - oldAngleVector.y) * (tickDelay / gameData.lastTickDelay), oldAngleVector.x + (newAngleVector.x - oldAngleVector.x) * (tickDelay / gameData.lastTickDelay)) / Math.PI * 180 - 90);
       }
       scale(0.7);
       image(assetsLoaded[gun.images.topdownSRC], gun.images.offset.x + playerData.state.recoilTimer * gun.recoilImpulse[2].x, gun.images.offset.y + playerData.state.recoilTimer * gun.recoilImpulse[2].y);
