@@ -297,7 +297,9 @@ updatePoint = setInterval(function() {
         gameData.point.state = "blue";
       }
     } 
-    io.sockets.emit("ui-change", {players: gameData.players, currentRoundScore: gameData.currentRoundScore});
+    for(let v = 0; v < gameData.users.length; v++) {
+      io.to(gameData.users[v]).emit("ui-change", {players: gameData.players, currentRoundScore: gameData.currentRoundScore});
+    }
   }
 }, 2000),
 updateSecondsLeft = setInterval(function() {
@@ -470,7 +472,9 @@ function updatePlayer(player, delay) {
         }
         player.state.recoilTimer = 1;
       }
-      io.emit("ui-change", {players: gameData.players, currentRoundScore: gameData.currentRoundScore});
+      for(let v = 0; v < gameData.users.length; v++) {
+        io.to(gameData.users[v]).emit("gun-ui-change", {players: gameData.players});
+      }
       gameData.queuedSounds.push({path: currentWeapon.sounds.fire, origin: player.state.position});
     }
     if(player.state.mag[player.state.activeWeaponIndex] <= 0 && !player.state.isReloading) {
@@ -583,7 +587,7 @@ function newConnection(socket) {
             inertia: 1,
             density: 0.015,
             frictionAir: 0.25,
-            tag: spawnpoint.team
+            tag: spawnpoint.team  
           }),
           0,
           gameData.loadouts["assault"],
