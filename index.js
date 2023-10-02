@@ -215,7 +215,8 @@ let gameData = {
   queuedSounds: [],
   weapons: {},
   loadouts: ciqlJson.open("maps/dm_dunes.json").data.config.loadouts,
-  lastTickDelay: tickRate
+  lastTickDelay: tickRate,
+  shouldUpdateUI: false
 };
 
 function squaredDist(ptA, ptB) {
@@ -297,9 +298,7 @@ updatePoint = setInterval(function() {
         gameData.point.state = "blue";
       }
     } 
-    for(let v = 0; v < gameData.users.length; v++) {
-      io.to(gameData.users[v]).emit("ui-change", {players: gameData.players, currentRoundScore: gameData.currentRoundScore});
-    }
+    gameData.shouldUpdateUI = true;
   }
 }, 2000),
 updateSecondsLeft = setInterval(function() {
@@ -472,9 +471,7 @@ function updatePlayer(player, delay) {
         }
         player.state.recoilTimer = 1;
       }
-      for(let v = 0; v < gameData.users.length; v++) {
-        io.to(gameData.users[v]).emit("gun-ui-change", {players: gameData.players});
-      }
+      gameData.shouldUpdateUI = true;
       gameData.queuedSounds.push({path: currentWeapon.sounds.fire, origin: player.state.position});
     }
     if(player.state.mag[player.state.activeWeaponIndex] <= 0 && !player.state.isReloading) {
@@ -518,7 +515,7 @@ function updateGame() {
         } else {
           player.state.reloadProgress+=tickDelay;
         }
-        io.to(gameData.users[x]).emit("ui-change", { players: gameData.players, currentRoundScore: gameData.currentRoundScore });
+        gameData.shouldUpdateUI = true;
       }
       updatePlayer(player, tickDelay);
     }
@@ -534,12 +531,14 @@ function updateGame() {
         currentRoundScore: gameData.currentRoundScore,
         certificate: gameData.certificate,
         queuedSounds: gameData.queuedSounds,
-        lastTickDelay: gameData.lastTickDelay
+        lastTickDelay: gameData.lastTickDelay,
+        shouldUpdateUI: gameData.shouldUpdateUI
       });
     }
     gameData.bullets = [],
     gameData.particles = [];
     gameData.queuedSounds = [];
+    gameData.shouldUpdateUI = false;
     updatePlayerPrev();
   }
 }
@@ -650,8 +649,7 @@ function newConnection(socket) {
                   gameData.queuedSounds.push({path: gameData.weapons[player.guns[player.state.activeWeaponIndex]].sounds.reload, origin: player.state.position});
                 }
               }
-              io.to(socket.id).emit("gun-ui-change", {players: gameData.players});
-              io.to(socket.id).emit("ui-change", { players: gameData.players, currentRoundScore: gameData.currentRoundScore});
+              gameData.shouldUpdateUI = true;
             }
           }
           catch { }
@@ -682,8 +680,7 @@ function newConnection(socket) {
               Body.setPosition(player.body, {x: spawn.x, y: spawn.y})
               Composite.add(world, player.body);
 
-              io.to(socket.id).emit("ui-change", { players: gameData.players, currentRoundScore: gameData.currentRoundScore});
-              io.to(socket.id).emit("gun-ui-change", {players: gameData.players});
+              gameData.shouldUpdateUI = true;
             }
           }
           catch { }
