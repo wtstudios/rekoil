@@ -333,12 +333,12 @@ function updatePlayer(player, delay) {
   if(w || s) {
     Body.setVelocity(body, {
       x: body.velocity.x,
-      y: +(w ^ s) && (((a ^ d) ? 0.7071 : 1) * [-1, 1][+w] * base * 4)
+      y: +(w ^ s) && (((a ^ d) ? 0.7071 : 1) * [-1, 1][+w] * base / delay * 3.5 / (body.density / 0.15))
     });
   }
   if(a || d) {
     Body.setVelocity(body, {
-      x: +(a ^ d) && (((w ^ s) ? 0.7071 : 1) * [-1, 1][+d] * base * 4),
+      x: +(a ^ d) && (((w ^ s) ? 0.7071 : 1) * [-1, 1][+d] * base / delay * 3.5 / (body.density / 0.15)),
       y: body.velocity.y
     });
   }
