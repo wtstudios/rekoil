@@ -1,7 +1,11 @@
 body {
   overflow: hidden;
   margin: 0px;
-  background-color: #333333;
+  background-image: url("/assets/backgrounds/dm_dunes.svg");
+  background-position: center;
+  background-size: 150%;
+  background-repeat: no-repeat;
+  background-color: #caa975;
   user-select: none;
   -webkit-user-drag: none;
 }
@@ -13,18 +17,8 @@ canvas {
   cursor: url("/assets/misc/crosshair.png") 64 64, auto;
 }
 
-.background-streak {
-  position: absolute;
-  height: 100%;
-  transform: skew(calc(-14deg));
-  background-color: rgb(230, 49, 40);
-  z-index: -1;
-  margin-top: calc(-1 * (5vw + 5vh));
-}
-
 .main-menu-title {
   width: 100%;
-  margin-top: calc(5vw + 5vh);
 }
 
 p {

@@ -24,9 +24,10 @@ let socket,
   sourceSansPro,
   ping,
   state = "menu-main",
-  permanentID;
+  permanentID,
+  syncedMS;
 
-if(window.location.href.includes("render") || window.location.href.includes("localhost")) {
+if(window.location.href.includes("render") || window.location.href.includes("localhost") || window.location.href.includes("fl0")) {
   socket = io.connect(window.location.origin);
 } else {
   socket = io.connect("wss://rekoil-dm-usw.onrender.com");
@@ -271,8 +272,8 @@ function setup() {
 }
 
 function draw() {
-  try {
+  //try {
     displayWorld();
-  }
-  catch {}
+  //}
+  //catch {}
 }

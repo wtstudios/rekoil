@@ -47,11 +47,7 @@ const Engine = Matter.Engine,
   Composite = Matter.Composite,
   Bodies = Matter.Bodies,
   Body = Matter.Body,
-  engine = Engine.create(void 0, {
-    gravity: {
-      y: 0 // For some reason, this doesn't work
-    }
-  }),
+  engine = Engine.create(void 0),
   world = engine.world;
 const runner14832948 = Matter.Runner.run(engine);
 

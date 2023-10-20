@@ -44,6 +44,7 @@ function requestSpawn() {
   socket.emit("spawn", {class: gameData.selectedClass});
   document.getElementById("weapon-selection").style.display = "none";
   document.getElementById("gun-hud").style.display = "block";
+  updateGunHUD();
 }
 
 function squaredDist(ptA, ptB) {
@@ -175,7 +176,7 @@ function displayGuns() {
     if(gameData.players[gameData.users[i]].health > 0) {
       const playerData = gameData.players[gameData.users[i]],
       gun = gameData.weapons[playerData.guns[playerData.state.activeWeaponIndex]],
-      tickDelay = Date.now() - gameData.timeStamp;
+      tickDelay = syncedMS;
       push();
       translate(playerData.state.previousPosition.x + playerData.state.force.x * (tickDelay / gameData.lastTickDelay), playerData.state.previousPosition.y + playerData.state.force.y * (tickDelay / gameData.lastTickDelay));
       if(gameData.users[i] == permanentID) {
@@ -248,7 +249,7 @@ function displayPlayers() {
   for (let i = 0; i < gameData.users.length; i++) {
     if(gameData.players[gameData.users[i]].health > 0) {
       const playerData = gameData.players[gameData.users[i]],
-      tickDelay = Date.now() - gameData.timeStamp;
+      tickDelay = syncedMS;
       push();
       fill("#e9494f");
       if (playerData.team == gameData.players[permanentID].team) {
@@ -287,7 +288,7 @@ function displayPlayers() {
 
 function interpolateCamera() {
   const playerData = gameData.players[permanentID],
-  tickDelay = Date.now() - gameData.timeStamp;
+  tickDelay = syncedMS;
   queuedCameraLocation.x = playerData.state.previousPosition.x + playerData.state.force.x * (tickDelay / gameData.lastTickDelay);
   queuedCameraLocation.y  = playerData.state.previousPosition.y + playerData.state.force.y * (tickDelay / gameData.lastTickDelay);
   queuedCameraLocation.targetX = playerData.state.previousPosition.x + playerData.state.force.x * (tickDelay / gameData.lastTickDelay);
@@ -296,11 +297,21 @@ function interpolateCamera() {
 
 function displayFog() {
   const playerData = gameData.players[permanentID];
-  const currentWeapon = gameData.weapons[playerData.guns[playerData.state.activeWeaponIndex]];
+  const currentWeapon = gameData.weapons[playerData.guns[playerData.state.activeWeaponIndex]],
+  tickDelay = syncedMS,
+  oldAngleVector = {
+    x: Math.cos(playerData.state.previousAngle * Math.PI / 180),
+    y: Math.sin(playerData.state.previousAngle * Math.PI / 180)
+  },
+  newAngleVector = {
+    x: Math.cos(playerData.state.angle * Math.PI / 180),
+    y: Math.sin(playerData.state.angle * Math.PI / 180)
+  };
+  const playerAngle = Math.atan2(oldAngleVector.y + (newAngleVector.y - oldAngleVector.y) * (tickDelay / gameData.lastTickDelay), oldAngleVector.x + (newAngleVector.x - oldAngleVector.x) * (tickDelay / gameData.lastTickDelay)) / Math.PI * 180;
   push();
-  translate(playerData.state.previousPosition.x + cos(playerData.state.angle) * 500, playerData.state.previousPosition.y + sin(playerData.state.angle) * 500, 0.05);
+  translate(playerData.state.previousPosition.x + playerData.state.force.x * (tickDelay / gameData.lastTickDelay) + cos(playerAngle) * 500, playerData.state.previousPosition.y + playerData.state.force.y * (tickDelay / gameData.lastTickDelay) + sin(playerAngle) * 500, 0.01);
   fill("#33333380");
-  arc(0, 0, currentWeapon.view + 9000, currentWeapon.view + 9000, playerData.state.angle + 210, playerData.state.angle + 150);
+  arc(0, 0, currentWeapon.view + 9000, currentWeapon.view + 9000, playerAngle + 210, playerAngle + 150);
   pop();
 }
 
@@ -322,14 +333,13 @@ function displayPoint() {
 }
 
 function displayWorld() {
+  syncedMS = Date.now() - gameData.timeStamp;
   if (assetsAreLoaded) {
     interpolateCamera();
     cameraLocation = queuedCameraLocation;
-    camera(cameraLocation.x/* + (mouseX - width / 2) / 2*/, cameraLocation.y/* + (mouseY - height / 2) / 2*/, cameraLocation.z + sin(frameCount * 1.5) * 10, cameraLocation.targetX/* + (mouseX - width / 2) / 2*/, cameraLocation.targetY/* + (mouseY - height / 2) / 2*/, cameraLocation.targetZ);
+    camera(cameraLocation.x, cameraLocation.y, cameraLocation.z + sin(frameCount * 1.5) * 10, cameraLocation.targetX, cameraLocation.targetY, cameraLocation.targetZ);
     background(gameData.mapData.config["background-colour"]);
-    //fill(gameData.mapData.config["ground-colour"]);
     rectMode(CORNER);
-    //rect(0, 0, gameData.mapData.config["map-dimensions"].width, gameData.mapData.config["map-dimensions"].height, 150);
     image(assetsLoaded[gameData.mapData.config["ground-image"]], gameData.mapData.config["map-dimensions"].width / 2, gameData.mapData.config["map-dimensions"].height / 2, gameData.mapData.config["map-dimensions"].width, gameData.mapData.config["map-dimensions"].height);
     rectMode(CENTER);
     if(gameData.mapData.config.gamemode == "hardpoint") {
