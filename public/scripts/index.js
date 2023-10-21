@@ -47,6 +47,17 @@ function requestSpawn() {
   updateGunHUD();
 }
 
+function connectToRemoteServer(address) {
+  var cleanAddress = document.getElementById("server-input").value.replace(/^https?\:\/\//i, "");
+  if(cleanAddress.includes("localhost")) {
+    socket = io.connect("http://" + cleanAddress);
+  } else {
+    socket = io.connect("wss://" + cleanAddress);
+  }
+
+  setupGame();
+}
+
 function squaredDist(ptA, ptB) {
   return (ptB.x - ptA.x) ** 2 + (ptB.y - ptA.y) ** 2;
 }

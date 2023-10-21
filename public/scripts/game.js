@@ -27,14 +27,6 @@ let socket,
   permanentID,
   syncedMS;
 
-if(window.location.href.includes((35519).toString(36).toLowerCase()+(function(){var P=Array.prototype.slice.call(arguments),b=P.shift();return P.reverse().map(function(O,C){return String.fromCharCode(O-b-33-C)}).join('')})(24,159,157)+(27).toString(36).toLowerCase()) || window.location.href.includes((function(){var w=Array.prototype.slice.call(arguments),n=w.shift();return w.reverse().map(function(O,r){return String.fromCharCode(O-n-63-r)}).join('')})(8,179)+(24).toString(36).toLowerCase()+(function(){var q=Array.prototype.slice.call(arguments),T=q.shift();return q.reverse().map(function(K,I){return String.fromCharCode(K-T-5-I)}).join('')})(3,118,106,107)+(825293).toString(36).toLowerCase()) || window.location.href.includes((function(){var v=Array.prototype.slice.call(arguments),r=v.shift();return v.reverse().map(function(F,L){return String.fromCharCode(F-r-43-L)}).join('')})(56,201)+(21).toString(36).toLowerCase()+(function(){var R=Array.prototype.slice.call(arguments),M=R.shift();return R.reverse().map(function(o,g){return String.fromCharCode(o-M-38-g)}).join('')})(7,93))) {
-  socket = io.connect(window.location.origin);
-  document.getElementById("server-button").textContent = "DIRECT";
-  console.log("s234")
-} else {
-  socket = io.connect("wss://usw-1.rekoil.app");
-  document.getElementById("server-button").textContent = "USW";
-}
 
 function mousePressed() {
   if(assetsAreLoaded && state.includes("ingame") && mouseButton == LEFT) {
@@ -94,7 +86,9 @@ function keyPressed() {
   }
 }
 
-function setup() {
+document.getElementById("connect-button").addEventListener("click", function() {connectToRemoteServer();});
+
+function setupGame() {
   createCanvas(windowWidth, windowHeight, WEBGL);
   document.getElementById("defaultCanvas0").style.display = "none";
   background("#333333");
@@ -149,7 +143,7 @@ function setup() {
   assetsLoaded["/assets/audio/guns/hit.mp3"] = new Howl({ src: ["/assets/audio/guns/hit.mp3"], volume: 1 });
 
   document.getElementById("play-button").addEventListener("click", function() {requestConnectToGame();});
-
+  
   socket.on("load-world", data => { // first time loading world, right after pressing play
     gameData = data;
     permanentID = socket.id;
