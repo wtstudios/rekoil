@@ -23,7 +23,7 @@ canvas {
 
 p {
   color: rgb(240, 240, 240);
-  font-family: "prime";
+  font-family: "bebas";
   margin-left: auto;
   margin-right: auto;
   margin-top: 0px;
@@ -36,33 +36,50 @@ p {
 
 button {
   display: block;
-  background-color: rgb(230, 49, 40);
+  background-color: #498ee967;
   width: calc(12vw + 12vh);
   height: calc(2.5vw + 2.5vh);
-  margin-top: calc(2vw + 2vh);
+  margin-top: calc(1.5vw + 1.5vh);
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 0px;
   text-align: center;
   padding: 0px;
-  font-family: "prime";
+  font-family: "source-sans-pro";
   color: rgb(240, 240, 240);
   font-size: calc(1.5vw + 1.5vh);
   border: none;
-  transform: skew(calc(-14deg));
-  padding-top: calc(0.3vw + 0.3vh);
+  padding-top: 0px;
   cursor: pointer;
-  border: 0px solid rgb(240, 240, 240);
   transition: linear 0.1s;
+  user-select: none;
+  outline: 0px #333333;
 }
 
-button:hover {
-  width: calc(11vw + 11vh);
-  height: calc(2.25vw + 2.25vh);
-  font-size: calc(1.375vw + 1.375vh);
-  margin-top: calc(2.125vw + 2.125vh);
-  margin-bottom: calc(2.125vw + 2.125vh);
+input {
+  display: block;
+  background-color: #498ee967;
+  width: calc(12vw + 12vh);
+  height: calc(2.5vw + 2.5vh);
+  margin-top: calc(1.5vw + 1.5vh);
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 0px;
+  text-align: center;
+  padding: 0px;
+  font-family: "source-sans-pro";
+  color: rgb(240, 240, 240);
+  font-size: calc(1.5vw + 1.5vh);
+  border: none;
+  padding-top: 0px;
+  cursor: text;
   transition: linear 0.1s;
+  outline: 0px #333333;
+}
+
+input::placeholder {
+  color: rgb(240, 240, 240);
+  opacity: 60%;
 }
 
 .gun-backing {
@@ -75,7 +92,6 @@ button:hover {
   transform: skew(-14deg);
   z-index: 1;
   transition: linear 0.1s;
-
 }
 
 .ammocount-backing {
@@ -86,7 +102,6 @@ button:hover {
   right: calc(-2vw - 2vh);
   transform: skew(-14deg);
   z-index: 1;
-
 }
 
 .gun {
@@ -117,7 +132,7 @@ button:hover {
   z-index: 1;
   transform: skew(-14deg);
   cursor: pointer;
-  transition: ease-in-out 1.5s;
+  transition: linear 0.1s;
   position: relative;
 }
 
@@ -158,4 +173,9 @@ smol {
 @font-face {
   font-family: "source-sans-pro";
   src: url("fonts/SourceSansPro-Black.ttf");
+}
+
+@font-face {
+  font-family: "bebas";
+  src: url("fonts/BebasNeue-Regular.ttf");
 }

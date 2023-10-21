@@ -7,10 +7,6 @@
   <script src="scripts/p5.js"></script>
 
   <script src="scripts/howler.core.min.js"></script>
-  
-  <script language="javascript" type="text/javascript" src="scripts/game.js"></script>
-  
-  <script language="javascript" type="text/javascript" src="scripts/index.js"></script>
 
   <link rel="stylesheet" type="text/css" href="style.css">
 
@@ -27,12 +23,13 @@
   <div id="main-menu" style="background-color: #3333338e; height: 100%; width: 100%;">
 
     <div class="main-menu-title">
-      <p style="font-size: calc(5vw + 5vh); max-width: calc(30vw + 30vh);">REKOIL</p>
+      <p style="font-size: calc(7vw + 7vh); max-width: calc(30vw + 30vh); padding-top: calc(2vw + 2vh); letter-spacing: calc(0.1vw + 0.1vh);">REKOIL</p>
     </div>
-
-    <button id="server-toggle">Server Select</button>
-
-    <button id="play-button">FIND A GAME</button>
+    <div id="mainmenu-middle-container" style="width: calc(16vw + 16vh); height: calc(12.5vw + 12.5vh); padding-top: calc(2vw + 2vh); transform: skew(calc(-14deg)); margin-left: auto; margin-right: auto; background-color: #3333331e">
+      <input id="nickname-input" placeholder="NICKNAME" style="margin-top: 0px;" maxlength="16"></nickname>
+      <button id="server-button"></button>
+      <button id="play-button">QUICK PLAY</button>
+    </div>
   </div>
 
   <div id="hud" style='display: none; cursor: url("/assets/misc/crosshair.png") 64 64, auto;'>
@@ -92,5 +89,9 @@
       </div>
     </div>
   </div>
+
+  <script language="javascript" type="text/javascript" src="scripts/game.js"></script>
+  
+  <script language="javascript" type="text/javascript" src="scripts/index.js"></script>
 </body>
 </html>

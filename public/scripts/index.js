@@ -63,17 +63,19 @@ function secondsToTimestamp(seconds) {
 }
 
 function updateGunHUD(data) {
-  document.getElementById("main").src = gameData.weapons[data.players[permanentID].guns[0]].images.lootSRC;
-  document.getElementById("pistol").src = gameData.weapons[data.players[permanentID].guns[1]].images.lootSRC;
-  document.getElementById("melee").src = gameData.weapons[data.players[permanentID].guns[2]].images.lootSRC;
-  document.getElementById("main-backing").style.width = "calc(" + document.getElementById("main").width + "px + 4.5vw + 4.5vh)";
-  document.getElementById("pistol-backing").style.width = "calc(" + document.getElementById("pistol").width + "px + 4.5vw + 4.5vh)";
-  document.getElementById("melee-backing").style.width = "calc(" + document.getElementById("melee").width + "px + 4.5vw + 4.5vh)";
-  document.getElementById("main-backing").style.backgroundColor = "#498ee967";
-  document.getElementById("pistol-backing").style.backgroundColor = "#498ee967";
-  document.getElementById("melee-backing").style.backgroundColor = "#498ee967";
-  document.getElementById(["main", "pistol", "melee"][data.players[permanentID].state.activeWeaponIndex] + "-backing").style.width = "calc(" + document.getElementById(["main", "pistol", "melee"][data.players[permanentID].state.activeWeaponIndex]).width + "px + 7vw + 7vh)";
-  document.getElementById(["main", "pistol", "melee"][data.players[permanentID].state.activeWeaponIndex] + "-backing").style.backgroundColor = "#498ee9b6";
+  try {
+    document.getElementById("main").src = gameData.weapons[data.players[permanentID].guns[0]].images.lootSRC;
+    document.getElementById("pistol").src = gameData.weapons[data.players[permanentID].guns[1]].images.lootSRC;
+    document.getElementById("melee").src = gameData.weapons[data.players[permanentID].guns[2]].images.lootSRC;
+    document.getElementById("main-backing").style.width = "calc(" + document.getElementById("main").width + "px + 4.5vw + 4.5vh)";
+    document.getElementById("pistol-backing").style.width = "calc(" + document.getElementById("pistol").width + "px + 4.5vw + 4.5vh)";
+    document.getElementById("melee-backing").style.width = "calc(" + document.getElementById("melee").width + "px + 4.5vw + 4.5vh)";
+    document.getElementById("main-backing").style.backgroundColor = "#498ee967";
+    document.getElementById("pistol-backing").style.backgroundColor = "#498ee967";
+    document.getElementById("melee-backing").style.backgroundColor = "#498ee967";
+    document.getElementById(["main", "pistol", "melee"][data.players[permanentID].state.activeWeaponIndex] + "-backing").style.width = "calc(" + document.getElementById(["main", "pistol", "melee"][data.players[permanentID].state.activeWeaponIndex]).width + "px + 7vw + 7vh)";
+    document.getElementById(["main", "pistol", "melee"][data.players[permanentID].state.activeWeaponIndex] + "-backing").style.backgroundColor = "#498ee9b6";
+  } catch { }
 }
 
 function updateHUD(data) {
@@ -333,8 +335,8 @@ function displayPoint() {
 }
 
 function displayWorld() {
-  syncedMS = Date.now() - gameData.timeStamp;
   if (assetsAreLoaded) {
+    syncedMS = Date.now() - gameData.timeStamp;
     interpolateCamera();
     cameraLocation = queuedCameraLocation;
     camera(cameraLocation.x, cameraLocation.y, cameraLocation.z + sin(frameCount * 1.5) * 10, cameraLocation.targetX, cameraLocation.targetY, cameraLocation.targetZ);

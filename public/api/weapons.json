@@ -10,7 +10,7 @@
         "standing": 2.5,
         "moving": 10
       },
-      "damage": 14,
+      "damage": 17,
       "bulletsPerShot": 1,
       "handPositions": [{ "x": -25, "y": -270 }, { "x": 25, "y": -120 }],
       "images": { "topdownSRC": "/assets/weapons/scar_topdown.svg", "lootSRC": "/assets/weapons/scar_loot.svg", "offset": { "x": 0, "y": -290 } },
@@ -81,10 +81,10 @@
       "view": 0,
       "fireDelay": 40,
       "spread": {
-        "standing": 12,
-        "moving": 18
+        "standing": 20,
+        "moving": 24
       },
-      "damage": 18,
+      "damage": 15,
       "bulletsPerShot": 5,
       "handPositions": [{ "x": -25, "y": -255 }, { "x": 25, "y": -120 }],
       "images": { "topdownSRC": "/assets/weapons/slp_topdown.svg", "lootSRC": "/assets/weapons/slp_loot.svg", "offset": { "x": 0, "y": -320 } },
@@ -120,7 +120,7 @@
         "standing": 1.5,
         "moving": 8
       },
-      "damage": 16,
+      "damage": 25,
       "bulletsPerShot": 1,
       "handPositions": [{ "x": -30, "y": -115 }, { "x": 25, "y": -120 }],
       "images": { "topdownSRC": "/assets/weapons/509_topdown.svg", "lootSRC": "/assets/weapons/509_loot.svg", "offset": { "x": 0, "y": -335 } },
