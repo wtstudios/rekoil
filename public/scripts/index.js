@@ -44,6 +44,7 @@ function requestSpawn() {
   socket.emit("spawn", {class: gameData.selectedClass});
   document.getElementById("weapon-selection").style.display = "none";
   document.getElementById("gun-hud").style.display = "block";
+  gameData.players[permanentID].health = 100;
   updateGunHUD();
 }
 
@@ -276,22 +277,19 @@ function displayPlayers() {
       }
       ellipse(0, 0, 230, 230);
       image(assetsLoaded["/assets/player/player-base.svg"], 0, 0, 250, 250);
+      pop();
+      push();
       if(debug) {
         fill(0, 255, 0, 100);
-        ellipse(0, 0, 230, 230);
-        if(playerData.state.isMoving) {
-          if(gameData.users[i] == permanentID) {
-            rotate(-atan2(mouseY - height / 2, mouseX - width / 2) + 90);
-          } else {
-            rotate(-playerData.state.angle - 90);
-          }
-          if(!!playerData.state.force.y) {
-            image(assetsLoaded["/assets/misc/arrow.svg"], 0, 0, 30, playerData.state.force.y * 7);
-          }
-          if(!!playerData.state.force.x) {
-            rotate(-90);
-            image(assetsLoaded["/assets/misc/arrow.svg"], 0, 0, 30, playerData.state.force.x * 7);          
-          }
+        ellipse(playerData.state.position.x, playerData.state.position.y, 230, 230);
+        translate(playerData.state.previousPosition.x + playerData.state.force.x * (tickDelay / gameData.lastTickDelay), playerData.state.previousPosition.y + playerData.state.force.y * (tickDelay / gameData.lastTickDelay));
+        if(!!playerData.state.force.y) {
+          rotate(180);
+          image(assetsLoaded["/assets/misc/arrow.svg"], 0, 0, 30, playerData.state.force.y * 7);
+        }
+        if(!!playerData.state.force.x) {
+          rotate(-90);
+          image(assetsLoaded["/assets/misc/arrow.svg"], 0, 0, 30, playerData.state.force.x * 7);          
         }
       }
       pop();
