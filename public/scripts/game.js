@@ -25,7 +25,8 @@ let socket,
   ping,
   state = "menu-main",
   permanentID,
-  syncedMS;
+  syncedMS,
+  changelogAPI;
 
 
 function mousePressed() {
@@ -87,6 +88,15 @@ function keyPressed() {
 }
 
 document.getElementById("connect-button").addEventListener("click", function() {connectToRemoteServer();});
+
+fetch("/api/changelog.json")
+  .then(response => response.json())
+  .then(data => {
+    for(let i = 0; i < data.updates.length; i++) {
+      document.getElementById("changelog-text").innerHTML = document.getElementById("changelog-text").innerHTML + "<smol><lightishblue><br>" + data.updates[i].title + "</lightishblue><br>(" + data.updates[i].date + ")" + "<br></smol>";
+      document.getElementById("changelog-text").innerHTML = document.getElementById("changelog-text").innerHTML + "<reallysmol><br>" + data.updates[i].content + "<br></reallysmol>";
+    }
+  });
 
 function setupGame() {
   createCanvas(windowWidth, windowHeight, WEBGL);

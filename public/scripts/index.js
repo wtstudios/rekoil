@@ -32,11 +32,14 @@ function requestConnectToGame() {
 }
 
 function changeGun(gun) {
+
   document.getElementById("select-breach").style.backgroundColor = "#498ee967";
   document.getElementById("select-assault").style.backgroundColor = "#498ee967";
   document.getElementById("select-scout").style.backgroundColor = "#498ee967";
 
   document.getElementById("select-" + gun + "").style.backgroundColor = "#498ee9b6";
+
+  document.getElementById("character-body").src = "assets/player/pose-" + gun + ".svg";
   gameData.selectedClass = gun;
 }
 

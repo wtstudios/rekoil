@@ -1,0 +1,52 @@
+{
+    "updates": [
+        {
+            "version": "0.1.6.5",
+            "title": "Menu additions",
+            "date": "November 1, 2023",
+            "content": "- This changelog has been added to the main menu<br>- Various improvements and additions to UI"
+        },
+        {
+            "version": "0.1.6",
+            "title": "Wow, a new menu",
+            "date": "October 19, 2023",
+            "content": "- A new, modern menu rework has been rolled out"
+        },
+        {
+            "version": "0.1.5",
+            "title": "Fluid gameplay, finally!",
+            "date": "September 23, 2023",
+            "content": "- Interpolation has been completely smoothed out."
+        },
+        {
+            "version": "0.1.4",
+            "title": "New map!!",
+            "date": "August 29, 2023",
+            "content": "- New map: dm_dunes. As the name suggests, this level plays with the deathmath mode<br>- Miscellaneous tweaks to weapons and interpolation"
+        },
+        {
+            "version": "0.1.3",
+            "title": "Yeah, more tweaks.",
+            "date": "August 12, 2023",
+            "content": "- Tweaked movement<br>- Added some features to debug mode<br>- Miscellaneous optimizations<br>- Added moving and standing accuracies for weapons<br>- Updated weapon icons<br>- Added sounds for firing and reloading weapons"
+        },
+        {
+            "version": "0.1.2",
+            "title": "Minor Tweaks: More of them.",
+            "date": "August 4, 2023",
+            "content": "- Ingame HUD has recieved a rework<br>- Particles move more fluidly<br>- Changed some visuals for weapon recoil animations<br>- Bullets have been optimized<br>- Added animations for changing between scope FOVs"
+        },
+        {
+            "version": "0.1.1",
+            "title": "Minor Tweaks + A New Weapon",
+            "date": "July 22, 2023",
+            "content": "- Added survival knife<br>- Added point to hp_dunes<br>- Kills grant 5 points<br>- Standing on the point grants 1 point every 3 seconds<br>- Added detailings on the ground of the map"
+        },
+        {
+            "version": "0.1",
+            "title": "Various Small Improvements",
+            "date": "July 16, 2023",
+            "content": "- Added T509 Pistol<br>- Added more clutter to the sides of the map hp_dunes, fixed some hitboxes<br>- Added debug view, toggleable with the i key<br>- Added cartridges<br>- Added particles<br>- Added secondary weapon support<br>- Weapons now have signature move speeds<br>- Added weapon selection menu visible when a game is entered"
+        }
+    ]
+}

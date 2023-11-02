@@ -79,10 +79,10 @@ input {
 
 input:-webkit-autofill,
 input:-webkit-autofill:focus {
-    transition: background-color 600000s 0s, color 600000s 0s;
+  transition: background-color 600000s 0s, color 600000s 0s;
 }
 input[data-autocompleted] {
-    background-color: transparent !important;
+  background-color: transparent !important;
 }
 
 input::placeholder {
@@ -136,7 +136,7 @@ input::placeholder {
   background-color: #498ee9b6;
   height: calc(2.66vw + 8vh);
   width: calc(6vw + 18vh);
-  right: auto;
+  left: calc(2vw + 2vh);
   z-index: 1;
   transform: skew(-14deg);
   cursor: pointer;
@@ -168,9 +168,41 @@ smol {
   font-size: calc(0.8vw + 0.8vh);
 }
 
+reallysmol {
+  font-size: calc(0.5vw + 0.5vh);
+}
+
+lightishblue {
+  color: #498ee9;
+}
+
 .resize-animation-stopper * {
   animation: none !important;
   transition: none !important;
+}
+
+@keyframes float {
+	0% {
+		transform: translatey(0px);
+	}
+	50% {
+		transform: translatey(calc(-0.2vw - 0.6vh));
+	}
+	100% {
+		transform: translatey(0px);
+	}
+}
+
+::-webkit-scrollbar {
+  width: calc(0.7vw + 0.7vh);
+}
+
+::-webkit-scrollbar-track {
+  background: rgb(0, 0, 0, 0);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #498ee967;
 }
 
 @font-face {
