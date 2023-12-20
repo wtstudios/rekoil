@@ -14,7 +14,7 @@ canvas {
   position: absolute;
   top: 0px;
   left: 0px;
-  cursor: url("/assets/misc/crosshair.png") 64 64, auto;
+  cursor: url("/assets/misc/crosshair.png") 32 32, auto;
 }
 
 .main-menu-title {
@@ -116,9 +116,9 @@ input::placeholder {
   position: absolute;
   height: calc(3.5vw + 3.5vh);
   left: calc(1vw + 1vh);
-  transform: skew(14deg) scaleX(-1);
+  transform: skew(14deg) scaleX(1);
   -webkit-user-drag: none;
-  filter: opacity(0.01) drop-shadow(0 0 0 #333333) drop-shadow(0 0 0 #333333) drop-shadow(0 0 0 #333333) drop-shadow(0 0 0 #333333) drop-shadow(0 0 0 #333333) drop-shadow(0 0 0 #333333) drop-shadow(0 0 0 #333333) drop-shadow(0 0 0 #333333) drop-shadow(0 0 0 #333333) drop-shadow(0 0 0 #333333) drop-shadow(0 0 0 #333333) drop-shadow(0 0 0 #333333) drop-shadow(0 0 0 #333333) drop-shadow(0 0 0 #333333);
+  filter: opacity(0.01) drop-shadow(0 0 0 #333333) drop-shadow(0 0 0 #333333) drop-shadow(0 0 0 #333333) drop-shadow(0 0 0 #333333) drop-shadow(0 0 0 #333333) drop-shadow(0 0 0 #333333);
   filter: none;
   transition: linear 0.1s;
 }

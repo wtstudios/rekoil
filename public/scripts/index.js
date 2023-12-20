@@ -1,3 +1,5 @@
+// HM2023
+
 let resizeTimer;
 window.addEventListener("resize", () => {
   document.body.classList.add("resize-animation-stopper");
@@ -41,6 +43,16 @@ function changeGun(gun) {
 
   document.getElementById("character-body").src = "assets/player/pose-" + gun + ".svg";
   gameData.selectedClass = gun;
+}
+
+function restrict(number, min, max) {
+  if(number < min) {
+    number = min;
+  }
+  if(number > max) {
+    number = max;
+  }
+  return number;
 }
 
 function requestSpawn() {
@@ -118,10 +130,6 @@ function updateHUD(data) {
     }
   }
   if(data.players[permanentID].health > 0) {
-    queuedCameraLocation.x = data.players[permanentID].state.position.x;
-    queuedCameraLocation.y = data.players[permanentID].state.position.y;
-    queuedCameraLocation.targetX = data.players[permanentID].state.position.x;
-    queuedCameraLocation.targetY = data.players[permanentID].state.position.y;  
   } else {
     document.getElementById("weapon-selection").style.display = "block";
     document.getElementById("gun-hud").style.display = "none";
@@ -137,7 +145,7 @@ function displayParticles() {
       i--;
     } else {
       push();
-      translate(particleData.position.x + Math.cos(particleData.angle) * ((sqrt(Date.now() - particleData.timeStamp) * 15) - 44), particleData.position.y + Math.sin(particleData.angle) * ((sqrt(Date.now() - particleData.timeStamp) * 15) - 44));
+      translate(particleData.position.x + Math.cos(particleData.angle) * ((sqrt(Date.now() - particleData.timeStamp - gameData.lastTickDelay) * 15) - 44), particleData.position.y + Math.sin(particleData.angle) * ((sqrt(Date.now() - particleData.timeStamp - gameData.lastTickDelay) * 15) - 44));
       rotate(particleData.rotation / Math.PI * 180 + (Date.now() - particleData.timeStamp) / 10);
       tint(255, 255, 255, opacity);
       if(particleData.colour != "none") {
@@ -167,7 +175,9 @@ function displayObstacles() {
     push();
     translate(obstacleData["body-data"].position.x + obstacleData["display-data"]["offset"].x, obstacleData["body-data"].position.y + obstacleData["display-data"]["offset"].y);
     rotate(obstacleData["display-data"]["offset"].angle);
+    if(debug) tint("#ffffff80");
     image(assetsLoaded[obstacleData["display-data"].src], 0, 0, obstacleData["display-data"].dimensions.width, obstacleData["display-data"].dimensions.height);
+    tint("#ffffff");
     if(debug) {
       fill(0, 255, 0, 100);
       rotate(-obstacleData["display-data"]["offset"].angle -obstacleData["body-data"].options.angle / Math.PI * 180);
@@ -183,6 +193,11 @@ function displayObstacles() {
           ellipse(-obstacleData["display-data"]["offset"].x, -obstacleData["display-data"]["offset"].y,  obstacleData["body-data"].radius * 2,  obstacleData["body-data"].radius * 2);
           break;
       }
+      fill(240, 240, 240, 200);
+      textFont(sourceSansPro);
+      textSize(60);
+      textAlign(CENTER);
+      text(obstacleData["display-data"].src.replace("/assets/environment/", ""), 0, 0);
     }
     pop();
   }
@@ -228,33 +243,35 @@ function displayGuns() {
 function displayBullets() {
   for (let i = 0; i < gameData.bullets.length; i++) {
     const bullet = gameData.bullets[i],
-    opacity = Math.round((-(Date.now() - bullet.timeStamp) / 3) + (bullet.timeLeft * 6));
+    tickDelay = syncedMS,
+    opacity = Math.round((-(Date.now() - bullet.timeStamp) / 3) + (bullet.timeLeft * 6)),
+    lengthMultiplier = restrict((Date.now() - bullet.timeStamp) / (gameData.lastTickDelay), 0, 1);
     if(opacity <= 1) {
       gameData.bullets.splice(i, 1);
       i--;
     } else {
       push();
       imageMode(CORNER);
-      translate(bullet.coordinates.finish.x, bullet.coordinates.finish.y);
+      translate(bullet.coordinates.start.x, bullet.coordinates.start.y);
       if (bullet.emitter == gameData.players[permanentID].team) {
         tint(40, 150, 255, (bullet.timeLeft / 25) * opacity);
       } else {
         tint(230, 40, 40, (bullet.timeLeft / 25) * opacity);
       }
       rotate(bullet.angle - 90);
-      if(bullet.tracerLength > 2000) {
-        image(assetsLoaded["/assets/weapons/tracer-start.svg"], -12.5, bullet.tracerLength - 2000, 25, 2000);
-        image(assetsLoaded["/assets/weapons/tracer-end.svg"], -12.5, -5, 25, bullet.tracerLength - 1995);
+      if(lengthMultiplier * bullet.tracerLength > 2000) {
+        image(assetsLoaded["/assets/weapons/tracer-start.svg"], -12.5, (lengthMultiplier * bullet.tracerLength - 2000) - (lengthMultiplier * bullet.tracerLength), 25, 2000);
+        image(assetsLoaded["/assets/weapons/tracer-end.svg"], -12.5, -(lengthMultiplier * bullet.tracerLength + 15), 25, (lengthMultiplier * bullet.tracerLength - 1985));
       } else {
-        image(assetsLoaded["/assets/weapons/tracer-start.svg"], -12.5, -5, 25, bullet.tracerLength + 5);
+        image(assetsLoaded["/assets/weapons/tracer-start.svg"], -12.5, -(lengthMultiplier * bullet.tracerLength), 25, (lengthMultiplier * bullet.tracerLength + 15));
       }
       imageMode(CENTER);
       if(debug) {
         fill(255, 255, 0, 200);
         rectMode(CORNER);
-        rect(-12.5, 0, 25, dist(bullet.coordinates.start.x, bullet.coordinates.start.y, bullet.coordinates.finish.x, bullet.coordinates.finish.y));
+        rect(-12.5, 0, 25, -dist(bullet.coordinates.start.x, bullet.coordinates.start.y, bullet.coordinates.finish.x, bullet.coordinates.finish.y));
         fill(255, 0, 0, 255);
-        rect(-0.5, 0, 1, dist(bullet.coordinates.start.x, bullet.coordinates.start.y, bullet.coordinates.finish.x, bullet.coordinates.finish.y));
+        rect(-0.5, 0, 1, -dist(bullet.coordinates.start.x, bullet.coordinates.start.y, bullet.coordinates.finish.x, bullet.coordinates.finish.y));
         rectMode(CENTER);
       }
       pop();
@@ -304,29 +321,134 @@ function interpolateCamera() {
   const playerData = gameData.players[permanentID],
   tickDelay = syncedMS;
   queuedCameraLocation.x = playerData.state.previousPosition.x + playerData.state.force.x * (tickDelay / gameData.lastTickDelay);
-  queuedCameraLocation.y  = playerData.state.previousPosition.y + playerData.state.force.y * (tickDelay / gameData.lastTickDelay);
+  queuedCameraLocation.y = playerData.state.previousPosition.y + playerData.state.force.y * (tickDelay / gameData.lastTickDelay);
   queuedCameraLocation.targetX = playerData.state.previousPosition.x + playerData.state.force.x * (tickDelay / gameData.lastTickDelay);
   queuedCameraLocation.targetY  = playerData.state.previousPosition.y + playerData.state.force.y * (tickDelay / gameData.lastTickDelay);
 }
 
 function displayFog() {
-  const playerData = gameData.players[permanentID];
-  const currentWeapon = gameData.weapons[playerData.guns[playerData.state.activeWeaponIndex]],
+  const playerData = gameData.players[permanentID],
+  currentWeapon = gameData.weapons[playerData.guns[playerData.state.activeWeaponIndex]],
   tickDelay = syncedMS,
-  oldAngleVector = {
-    x: Math.cos(playerData.state.previousAngle * Math.PI / 180),
-    y: Math.sin(playerData.state.previousAngle * Math.PI / 180)
-  },
-  newAngleVector = {
-    x: Math.cos(playerData.state.angle * Math.PI / 180),
-    y: Math.sin(playerData.state.angle * Math.PI / 180)
-  };
-  const playerAngle = Math.atan2(oldAngleVector.y + (newAngleVector.y - oldAngleVector.y) * (tickDelay / gameData.lastTickDelay), oldAngleVector.x + (newAngleVector.x - oldAngleVector.x) * (tickDelay / gameData.lastTickDelay)) / Math.PI * 180;
-  push();
-  translate(playerData.state.previousPosition.x + playerData.state.force.x * (tickDelay / gameData.lastTickDelay) + cos(playerAngle) * 500, playerData.state.previousPosition.y + playerData.state.force.y * (tickDelay / gameData.lastTickDelay) + sin(playerAngle) * 500, 0.01);
-  fill("#33333380");
-  arc(0, 0, currentWeapon.view + 9000, currentWeapon.view + 9000, playerAngle + 210, playerAngle + 150);
-  pop();
+  playerAngle = atan2(mouseY - height / 2, mouseX - width / 2) + 180;
+
+  let shadowLog = [];
+  for(let i = 0; i < playerData.state.objectRenderList.length; i++) {
+    const obstacleData = gameData.mapData.obstacles[playerData.state.objectRenderList[i]],
+    playerObjectAngle = -atan2(obstacleData["body-data"].position.x - (playerData.state.previousPosition.x + playerData.state.force.x * (tickDelay / gameData.lastTickDelay)), obstacleData["body-data"].position.y - (playerData.state.previousPosition.y + playerData.state.force.y * (tickDelay / gameData.lastTickDelay))) + 90;
+    push();
+    translate(obstacleData["body-data"].position.x, obstacleData["body-data"].position.y);
+    switch(obstacleData["body-data"].type) {
+      case "rectangle":
+        let playerCoordinates = {x: (playerData.state.previousPosition.x + playerData.state.force.x * (tickDelay / gameData.lastTickDelay)), y: (playerData.state.previousPosition.y + playerData.state.force.y * (tickDelay / gameData.lastTickDelay))};
+
+        break;
+      case "circle":
+        // solves ssa triangle to determine what portion of the circle is visible
+        let playerObjectDistance = Math.sqrt(squaredDist({x: (playerData.state.previousPosition.x + playerData.state.force.x * (tickDelay / gameData.lastTickDelay)), y: (playerData.state.previousPosition.y + playerData.state.force.y * (tickDelay / gameData.lastTickDelay))}, obstacleData["body-data"].position)),
+        radius = obstacleData["body-data"].radius,
+        secondAngle = asin((radius * sin(90)) / playerObjectDistance),
+        finalAngle = 90 - secondAngle,
+        negativeCoordinate = {x: cos(playerObjectAngle - finalAngle + 180) * radius, y: sin(playerObjectAngle - finalAngle + 180) * radius},
+        positiveCoordinate = {x: cos(playerObjectAngle + finalAngle + 180) * radius, y: sin(playerObjectAngle + finalAngle + 180) * radius},
+        shadow = []
+
+        shadow.push(
+          {
+            x: obstacleData["body-data"].position.x + positiveCoordinate.x,
+            y: obstacleData["body-data"].position.y + positiveCoordinate.y
+          }
+        );
+
+        shadow.push(
+          {
+            x: obstacleData["body-data"].position.x + positiveCoordinate.x - (cos(-atan2((obstacleData["body-data"].position.x + positiveCoordinate.x) - (playerData.state.previousPosition.x + playerData.state.force.x * (tickDelay / gameData.lastTickDelay)), (obstacleData["body-data"].position.y + positiveCoordinate.y) - (playerData.state.previousPosition.y + playerData.state.force.y * (tickDelay / gameData.lastTickDelay))) - 90) * (5000 + gameData.weapons[gameData.players[permanentID].guns[gameData.players[permanentID].state.activeWeaponIndex]].view ** 1.15)), 
+            y: obstacleData["body-data"].position.y + positiveCoordinate.y - (sin(-atan2((obstacleData["body-data"].position.x + positiveCoordinate.x) - (playerData.state.previousPosition.x + playerData.state.force.x * (tickDelay / gameData.lastTickDelay)), (obstacleData["body-data"].position.y + positiveCoordinate.y) - (playerData.state.previousPosition.y + playerData.state.force.y * (tickDelay / gameData.lastTickDelay))) - 90) * (5000 + gameData.weapons[gameData.players[permanentID].guns[gameData.players[permanentID].state.activeWeaponIndex]].view ** 1.15))
+          }
+        );
+
+        shadow.push(
+          {
+            x: obstacleData["body-data"].position.x + negativeCoordinate.x - (cos(-atan2((obstacleData["body-data"].position.x + negativeCoordinate.x) - (playerData.state.previousPosition.x + playerData.state.force.x * (tickDelay / gameData.lastTickDelay)), (obstacleData["body-data"].position.y + negativeCoordinate.y) - (playerData.state.previousPosition.y + playerData.state.force.y * (tickDelay / gameData.lastTickDelay))) - 90) * (5000 + gameData.weapons[gameData.players[permanentID].guns[gameData.players[permanentID].state.activeWeaponIndex]].view ** 1.15)), 
+            y: obstacleData["body-data"].position.y + negativeCoordinate.y - (sin(-atan2((obstacleData["body-data"].position.x + negativeCoordinate.x) - (playerData.state.previousPosition.x + playerData.state.force.x * (tickDelay / gameData.lastTickDelay)), (obstacleData["body-data"].position.y + negativeCoordinate.y) - (playerData.state.previousPosition.y + playerData.state.force.y * (tickDelay / gameData.lastTickDelay))) - 90) * (5000 + gameData.weapons[gameData.players[permanentID].guns[gameData.players[permanentID].state.activeWeaponIndex]].view ** 1.15))
+          }
+        );
+
+        shadow.push(
+          {
+            x: obstacleData["body-data"].position.x + negativeCoordinate.x,
+            y: obstacleData["body-data"].position.y + negativeCoordinate.y
+          }
+        );
+
+        if(shadowLog.length == 0) {
+          shadowLog = CSG.fromPolygons([shadow]);
+        } else {
+          shadowLog = shadowLog.union(CSG.fromPolygons([shadow]));
+        }
+          
+        fill("#333333");
+        beginShape();
+        vertex(positiveCoordinate.x, positiveCoordinate.y);
+        vertex(positiveCoordinate.x - (cos(-atan2((obstacleData["body-data"].position.x + positiveCoordinate.x) - (playerData.state.previousPosition.x + playerData.state.force.x * (tickDelay / gameData.lastTickDelay)), (obstacleData["body-data"].position.y + positiveCoordinate.y) - (playerData.state.previousPosition.y + playerData.state.force.y * (tickDelay / gameData.lastTickDelay))) - 90) * (5000 + gameData.weapons[gameData.players[permanentID].guns[gameData.players[permanentID].state.activeWeaponIndex]].view ** 1.15)), positiveCoordinate.y - (sin(-atan2((obstacleData["body-data"].position.x + positiveCoordinate.x) - (playerData.state.previousPosition.x + playerData.state.force.x * (tickDelay / gameData.lastTickDelay)), (obstacleData["body-data"].position.y + positiveCoordinate.y) - (playerData.state.previousPosition.y + playerData.state.force.y * (tickDelay / gameData.lastTickDelay))) - 90) * (5000 + gameData.weapons[gameData.players[permanentID].guns[gameData.players[permanentID].state.activeWeaponIndex]].view ** 1.15)));
+        vertex(negativeCoordinate.x - (cos(-atan2((obstacleData["body-data"].position.x + negativeCoordinate.x) - (playerData.state.previousPosition.x + playerData.state.force.x * (tickDelay / gameData.lastTickDelay)), (obstacleData["body-data"].position.y + negativeCoordinate.y) - (playerData.state.previousPosition.y + playerData.state.force.y * (tickDelay / gameData.lastTickDelay))) - 90) * (5000 + gameData.weapons[gameData.players[permanentID].guns[gameData.players[permanentID].state.activeWeaponIndex]].view ** 1.15)), negativeCoordinate.y - (sin(-atan2((obstacleData["body-data"].position.x + negativeCoordinate.x) - (playerData.state.previousPosition.x + playerData.state.force.x * (tickDelay / gameData.lastTickDelay)), (obstacleData["body-data"].position.y + negativeCoordinate.y) - (playerData.state.previousPosition.y + playerData.state.force.y * (tickDelay / gameData.lastTickDelay))) - 90) * (5000 + gameData.weapons[gameData.players[permanentID].guns[gameData.players[permanentID].state.activeWeaponIndex]].view ** 1.15)));
+        vertex(negativeCoordinate.x, negativeCoordinate.y);
+        endShape();
+        break;
+    }
+    pop();
+  }
+  /*if(shadowLog.length != 0) {
+    fill("#33333380");
+    beginShape();
+    for(let i = 0; i < shadowLog.segments.length; i++) {
+      vertex(shadowLog.segments[i].vertices[0].x, shadowLog.segments[i].vertices[0].y);
+      if(Math.round((i + 1) / 4) * 4 == i + 1) {
+        vertex(shadowLog.segments[i - 3].vertices[0].x, shadowLog.segments[i - 3].vertices[0].y);
+      }
+    }
+    //vertex(shadowLog.segments[shadowLog.segments.length - 1].vertices[0].x, shadowLog.segments[shadowLog.segments.length - 1].vertices[0].y);
+    endShape();
+  }*/
+}
+
+function displayPlayerFog() {
+  const playerData = gameData.players[permanentID],
+  currentWeapon = gameData.weapons[playerData.guns[playerData.state.activeWeaponIndex]],
+  tickDelay = syncedMS,
+  playerAngle = atan2(mouseY - height / 2, mouseX - width / 2) + 180;
+  for(let i = 0; i < gameData.users.length; i++) {
+    if(gameData.players[gameData.users[i]].health > 0 && gameData.users[i] != permanentID) {
+      let object = gameData.players[gameData.users[i]],
+      objectCoordinates = {x: (object.state.previousPosition.x + object.state.force.x * (tickDelay / gameData.lastTickDelay)), y: (object.state.previousPosition.y + object.state.force.y * (tickDelay / gameData.lastTickDelay))},
+      playerObjectAngle = -atan2(objectCoordinates.x - (playerData.state.previousPosition.x + playerData.state.force.x * (tickDelay / gameData.lastTickDelay)), objectCoordinates.y - (playerData.state.previousPosition.y + playerData.state.force.y * (tickDelay / gameData.lastTickDelay))) + 90;
+      let playerObjectDistance = Math.sqrt(squaredDist({x: (playerData.state.previousPosition.x + playerData.state.force.x * (tickDelay / gameData.lastTickDelay)), y: (playerData.state.previousPosition.y + playerData.state.force.y * (tickDelay / gameData.lastTickDelay))}, objectCoordinates)),
+      radius = 125,
+      secondAngle = asin((radius * sin(90)) / playerObjectDistance),
+      finalAngle = 90 - secondAngle,
+      negativeCoordinate = {x: cos(playerObjectAngle - finalAngle + 180) * radius, y: sin(playerObjectAngle - finalAngle + 180) * radius},
+      positiveCoordinate = {x: cos(playerObjectAngle + finalAngle + 180) * radius, y: sin(playerObjectAngle + finalAngle + 180) * radius};
+      push();
+      translate(objectCoordinates.x, objectCoordinates.y);
+      fill("#333333");
+      beginShape();
+      vertex(positiveCoordinate.x, positiveCoordinate.y);
+      vertex(positiveCoordinate.x - (cos(-atan2((objectCoordinates.x + positiveCoordinate.x) - (playerData.state.previousPosition.x + playerData.state.force.x * (tickDelay / gameData.lastTickDelay)), (objectCoordinates.y + positiveCoordinate.y) - (playerData.state.previousPosition.y + playerData.state.force.y * (tickDelay / gameData.lastTickDelay))) - 90) * (5000 + gameData.weapons[gameData.players[permanentID].guns[gameData.players[permanentID].state.activeWeaponIndex]].view ** 1.15)), positiveCoordinate.y - (sin(-atan2((objectCoordinates.x + positiveCoordinate.x) - (playerData.state.previousPosition.x + playerData.state.force.x * (tickDelay / gameData.lastTickDelay)), (objectCoordinates.y + positiveCoordinate.y) - (playerData.state.previousPosition.y + playerData.state.force.y * (tickDelay / gameData.lastTickDelay))) - 90) * (5000 + gameData.weapons[gameData.players[permanentID].guns[gameData.players[permanentID].state.activeWeaponIndex]].view ** 1.15)));
+      vertex(negativeCoordinate.x - (cos(-atan2((objectCoordinates.x + negativeCoordinate.x) - (playerData.state.previousPosition.x + playerData.state.force.x * (tickDelay / gameData.lastTickDelay)), (objectCoordinates.y + negativeCoordinate.y) - (playerData.state.previousPosition.y + playerData.state.force.y * (tickDelay / gameData.lastTickDelay))) - 90) * (5000 + gameData.weapons[gameData.players[permanentID].guns[gameData.players[permanentID].state.activeWeaponIndex]].view ** 1.15)), negativeCoordinate.y - (sin(-atan2((objectCoordinates.x + negativeCoordinate.x) - (playerData.state.previousPosition.x + playerData.state.force.x * (tickDelay / gameData.lastTickDelay)), (objectCoordinates.y + negativeCoordinate.y) - (playerData.state.previousPosition.y + playerData.state.force.y * (tickDelay / gameData.lastTickDelay))) - 90) * (5000 + gameData.weapons[gameData.players[permanentID].guns[gameData.players[permanentID].state.activeWeaponIndex]].view ** 1.15)));
+      vertex(negativeCoordinate.x, negativeCoordinate.y);
+      endShape();
+      pop();
+      /*push();
+      translate(0, 0, 1);
+      fill("red");
+      beginShape();
+      vertex(objectCoordinates.x + positiveCoordinate.x, objectCoordinates.y + positiveCoordinate.y);
+      vertex(objectCoordinates.x, objectCoordinates.y);
+      vertex((playerData.state.previousPosition.x + playerData.state.force.x * (tickDelay / gameData.lastTickDelay)), (playerData.state.previousPosition.y + playerData.state.force.y * (tickDelay / gameData.lastTickDelay)));
+      endShape();
+      pop();*/
+    }1
+  }
 }
 
 function displayPoint() {
@@ -348,21 +470,24 @@ function displayPoint() {
 
 function displayWorld() {
   if (assetsAreLoaded) {
+    rectMode(CENTER);
     syncedMS = Date.now() - gameData.timeStamp;
     interpolateCamera();
     cameraLocation = queuedCameraLocation;
     camera(cameraLocation.x, cameraLocation.y, cameraLocation.z + sin(frameCount * 1.5) * 10, cameraLocation.targetX, cameraLocation.targetY, cameraLocation.targetZ);
     background(gameData.mapData.config["background-colour"]);
-    rectMode(CORNER);
+    fill(gameData.mapData.config["ground-colour"]);
+    rect(gameData.mapData.config["map-dimensions"].width / 2, gameData.mapData.config["map-dimensions"].height / 2, gameData.mapData.config["map-dimensions"].width, gameData.mapData.config["map-dimensions"].height);
     image(assetsLoaded[gameData.mapData.config["ground-image"]], gameData.mapData.config["map-dimensions"].width / 2, gameData.mapData.config["map-dimensions"].height / 2, gameData.mapData.config["map-dimensions"].width, gameData.mapData.config["map-dimensions"].height);
-    rectMode(CENTER);
     if(gameData.mapData.config.gamemode == "hardpoint") {
       displayPoint();
     }
     displayBullets();
     displayParticles();
+    //displayPlayerFog();
     displayGuns();
-    displayPlayers();
+    displayPlayers(); 
+    //displayFog();
     displayObstacles();
     if(queuedCameraLocation.z != gameData.weapons[gameData.players[permanentID].guns[gameData.players[permanentID].state.activeWeaponIndex]].view + 2000) {
       queuedCameraLocation.z += Math.round((gameData.weapons[gameData.players[permanentID].guns[gameData.players[permanentID].state.activeWeaponIndex]].view + 2000 - queuedCameraLocation.z) / 6)

@@ -1,6 +1,12 @@
 {
     "updates": [
         {
+            "version": "0.1.7",
+            "title": "Misc. Changes",
+            "date": "December 19, 2023",
+            "content": "- Tweaks to dm_dunes<br>- Bullet tracers are now interpolatated to appear to move through space<br>- Crates are less rounded"
+        },
+        {
             "version": "0.1.6.5",
             "title": "Menu additions",
             "date": "November 1, 2023",

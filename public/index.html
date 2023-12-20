@@ -6,6 +6,8 @@
 
   <script src="scripts/p5.js"></script>
 
+  <script src="scripts/csg2d.js"></script>
+
   <script src="scripts/howler.core.min.js"></script>
 
   <link rel="stylesheet" type="text/css" href="style.css">
@@ -29,7 +31,7 @@
     </div>
     <div id="mainmmenu-boxes-container" style="width: 100%; height: calc(14.5vw + 14.5vh);">
       <div id="mainmenu-left-container" style="width: calc(16vw + 16vh); height: calc(14.5vw + 14.5vh); transform: skew(-14deg); float: left; margin-left: calc(50% - ((16vw + 16vh) * 2) + (6vw + 6vh)); background-color: #3333331e;">
-        <p id="changelog-text" style='opacity: 0.75; user-select: text; padding-left: calc(2vw + 2vh); padding-right: calc(2vw + 2vh); width: calc(12vw + 12vh); word-wrap: break-word; transform: skew(calc(0deg)); translate: none; display: block; font-family: "source-sans-pro"; font-size: calc(1.4vw + 1.4vh); color: rgb(240, 240, 240); text-align: center; margin: auto; overflow-y: scroll; max-height: 100%; margin-top: 0px;'><br>CHANGELOG:</p>
+        <p id="changelog-text" style='opacity: 0.75; user-select: text; padding-left: calc(2vw + 2vh); padding-right: calc(2vw + 2vh); width: calc(12vw + 12vh); word-wrap: break-word; transform: skew(calc(0deg)); translate: none; display: block; font-family: "source-sans-pro"; font-size: calc(1.4vw + 1.4vh); color: rgb(240, 240, 240); text-align: center; margin: auto; overflow-y: scroll; max-height: 100%; margin-top: 0px;'><br>CHANGELOG:<br></p>
       </div>
       <div id="mainmenu-middle-container" style="float: left; width: calc(16vw + 16vh); height: calc(12.5vw + 12.5vh); padding-top: calc(2vw + 2vh); transform: skew(calc(-14deg)); margin-left: calc(2vw + 2vh); background-color: #3333331e">
         <input id="nickname-input" placeholder="NICKNAME" style="margin-top: 0px;" maxlength="16"></input>
@@ -45,7 +47,7 @@
     </div>
   </div>
 
-  <div id="hud" style='display: none; cursor: url("/assets/misc/crosshair.png") 64 64, auto;'>
+  <div id="hud" style='display: none; cursor: url("/assets/misc/crosshair.png") 32 32, auto;'>
     <div id="gun-hud" style="display: none;">
       <div id="ammocount-backing" class="ammocount-backing" style="bottom: calc(1vw + 1vh);">
         <p id="ammocount" style='color: #333333; font-size: calc(1.5vw + 1.5vh); transform: none; margin-top: 0px; margin-left: calc(-2vw + -2vh); font-family: "source-sans-pro"; text-align: center;'></p>
@@ -59,9 +61,9 @@
       <div id="melee-backing" class="gun-backing" style="bottom: calc(4vw + 4vh);">
         <img id="melee" class="gun"></img>
       </div>
-      <p id="healthbar" style="background-color: #e63128b6; position: absolute; height: calc(2vw + 2vh); bottom: calc(1vw + 1vh); right: calc(6.5vw + 6.5vh); transform: skew(-14deg); z-index: 1; transition: ease-in-out 0.025s; text-align: right;"></p>
-      <p id="healthbar-opposite" style="background-color: #498ee967; position: absolute; width: calc(6vw + 6vh); height: calc(2vw + 2vh); bottom: calc(1vw + 1vh); right: calc(16.5vw + 16.5vh); transform: skew(-14deg); z-index: 1; transition: ease-in-out 0.025s;"></p>
-      <p id="healthbar-text" style="font-family: 'source-sans-pro'; margin-top: calc(-0.5vw - 0.5vh); color: #333333; font-size: calc(1.5vw + 1.5vh); position: absolute; height: calc(2vw + 2vh); bottom: calc(1vw + 1vh); right: calc(6.5vw + 6.5vh); z-index: 1; transition: ease-in-out 0.025s; text-align: right;"></p>
+      <p id="healthbar" style="background-color: #e63128b6; position: absolute; height: calc(2vw + 2vh); bottom: calc(1vw + 1vh); right: calc(6.5vw + 6.5vh); transform: skew(-14deg); z-index: 1; transition: ease-in-out 0.025s;transition: ease-in-out 0.3s;"></p>
+      <p id="healthbar-opposite" style="background-color: #498ee967; position: absolute; width: calc(6vw + 6vh); height: calc(2vw + 2vh); bottom: calc(1vw + 1vh); right: calc(16.5vw + 16.5vh); transform: skew(-14deg); z-index: 1;transition: ease-in-out 0.3s;"></p>
+      <p id="healthbar-text" style="font-family: 'source-sans-pro'; margin-top: calc(-0.5vw - 0.5vh); color: #333333; font-size: calc(1.5vw + 1.5vh); position: absolute; height: calc(2vw + 2vh); bottom: calc(1vw + 1vh); right: calc(6.5vw + 6.5vh); z-index: 1; transition: ease-in-out 0.3s; text-align: right;"></p>
       <div id="reloadcolumn" style="display: none; background-color: #498ee9b6; position: absolute; width: calc(2vw + 2vh); bottom: calc(1vw + 1vh); right: calc(15.5vw + 15.5vh); transform: skew(-14deg); z-index: 1; transition: linear 0.01s;"></div>
     </div>
     <div id="stats" style="display: none; background-color: #333333d6; position: absolute; width: calc(6vw + 6vh); height: calc(3vw + 3vh); left: calc(1.5vw + 1.5vh); top: calc(1vw + 1vh); transform: skew(-14deg); z-index: 1;">
@@ -73,7 +75,7 @@
     <div id="blue-score-container" class="individual-score-container" style="background-color: #498ee9b6; left: calc(50% - (6vw + 6vh));">
       <p id="blue-score" class="score"style='color: #333333; font-size: calc(1.75vw + 1.75vh); transform: none; margin-top: calc(0.1vw + 0.1vh); margin-left: 0px; width: calc(4vw + 4vh); text-align: center; font-family: "source-sans-pro";'>0</p>
     </div>
-    <div id="time-left-container" class="individual-score-container" style="background-color: #498ee967; left: calc(50% - (1.1vw + 1.1vh)); width: calc(2.5vw + 2.5vh); height: calc(1.25vw + 1.25vh); top: calc(1.625vw + 1.625vh);">
+    <div id="time-left-container" class="individual-score-container" style="background-color: #498ee967; left: calc(50% - (1.2vw + 1.2vh)); width: calc(2.5vw + 2.5vh); height: calc(1.25vw + 1.25vh); top: calc(1.625vw + 1.625vh);">
       <p id="time-left" class="score"style='color: #333333; font-size: calc(0.8vw + 0.8vh); transform: none; margin-top: calc(0.1vw + 0.1vh); margin-left: 0px; width: calc(2.5vw + 2.5vh); text-align: center; font-family: "source-sans-pro";'>1:34</p>
     </div>
     <div id="red-score-container" class="individual-score-container" style="background-color: #e63128b6; right: calc(50% - (6vw + 6vh));">

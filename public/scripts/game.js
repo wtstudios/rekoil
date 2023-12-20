@@ -26,8 +26,8 @@ let socket,
   state = "menu-main",
   permanentID,
   syncedMS,
-  changelogAPI;
-
+  changelogAPI,
+  shadowBuffer;
 
 function mousePressed() {
   if(assetsAreLoaded && state.includes("ingame") && mouseButton == LEFT) {
