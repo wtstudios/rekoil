@@ -1,0 +1,338 @@
+{
+  "config": {
+    "map-name": "dm_rust",
+    "gamemode": "deathmatch",
+    "ground-colour": "#94643d",
+    "ground-image": "/assets/environment/dm_dunes-backing.svg",
+    "background-colour": "#8a5f3c",
+    "map-dimensions": {
+      "width": 7915,
+      "height": 7929
+    },
+    "spawns": {
+      "blue": [
+        {
+          "x": 435,
+          "y": 1715,
+          "team": "blue"
+        },
+        {
+          "x": 6815,
+          "y": 1265,
+          "team": "blue"
+        },
+        {
+          "x": 3475,
+          "y": 985,
+          "team": "blue"
+        }
+      ],
+      "red": [
+        {
+          "x": 985,
+          "y": 3400,
+          "team": "red"
+        },
+        {
+          "x": 3815,
+          "y": 6980,
+          "team": "red"
+        },
+        {
+          "x": 6300,
+          "y": 7000,
+          "team": "red"
+        }
+      ]
+    },
+    "loadouts": {
+      "assault": ["SCAR-L", "T509", "Bayonet"],
+      "breach": ["SLP", "T509", "Bayonet"],
+      "scout": ["Ballista", "T509", "Bayonet"]
+    },
+    "point": {
+      "position": {
+        "x": -2500,
+        "y": -5000
+      }
+    }
+  },
+  "obstacles": [
+    {
+      "body-data": {
+        "position": {
+          "x": 1400,
+          "y": 2400
+        },
+        "type": "rectangle",
+        "dimensions": {
+          "width": 1680,
+          "height": 1380
+        },
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+          "chamfer": { "radius": 30 },
+          "tag": "#958575"
+        }
+      },
+      "display-data": {
+        "src": "/assets/environment/industrialbuilding1.svg",
+        "dimensions": {
+          "width": 1780,
+          "height": 1480
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 0
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 5400,
+          "y": 2400
+        },
+        "type": "rectangle",
+        "dimensions": {
+          "width": 2430,
+          "height": 930
+        },
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+          "chamfer": { "radius": 30 },
+          "tag": "#958575"
+        }
+      },
+      "display-data": {
+        "src": "/assets/environment/industrialbuilding2.svg",
+        "dimensions": {
+          "width": 2530,
+          "height": 1030
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 0
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 4400,
+          "y": 3500
+        },
+        "type": "rectangle",
+        "dimensions": {
+          "width": 530,
+          "height": 390
+        },
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+          "chamfer": { "radius": 30 },
+          "tag": "#958575"
+        }
+      },
+      "display-data": {
+        "src": "/assets/environment/dirtbox.svg",
+        "dimensions": {
+          "width": 630,
+          "height": 490
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 0
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 3000, 
+          "y": 3000
+        },
+        "type": "rectangle",
+        "dimensions": {
+          "width": 430,
+          "height": 430
+        },
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+          "chamfer": { "radius": 90 },
+          "tag": "#9a7742"
+        }
+      },
+      "display-data": {
+        "src": "/assets/environment/metalcrate2.svg",
+        "dimensions": {
+          "width": 450,
+          "height": 450
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 90
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": -50,
+          "y": 3964.5
+        },
+        "type": "rectangle",
+        "dimensions": {
+          "width": 110,
+          "height": 7929
+        },
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+          "tag": "none"
+        }
+      },
+      "display-data": {
+        "src": "/assets/misc/blank.svg",
+        "dimensions": {
+          "width": 0,
+          "height": 7929
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 0
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 7965,
+          "y": 3964.5
+        },
+        "type": "rectangle",
+        "dimensions": {
+          "width": 110,
+          "height": 7929
+        },
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+          "tag": "none"
+        }
+      },
+      "display-data": {
+        "src": "/assets/misc/blank.svg",
+        "dimensions": {
+          "width": 0,
+          "height": 0
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 0
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 3957.5,
+          "y": -50
+        },
+        "type": "rectangle",
+        "dimensions": {
+          "width": 7915,
+          "height": 110
+        },
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+          "tag": "none"
+        }
+      },
+      "display-data": {
+        "src": "/assets/misc/blank.svg",
+        "dimensions": {
+          "width": 0,
+          "height": 0
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 0
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 3957.5,
+          "y": 7979
+        },
+        "type": "rectangle",
+        "dimensions": {
+          "width": 7915,
+          "height": 110
+        },
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+          "tag": "none"
+        }
+      },
+      "display-data": {
+        "src": "/assets/misc/blank.svg",
+        "dimensions": {
+          "width": 0,
+          "height": 0
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 0
+        },
+        "layer": 1
+      }
+    }
+  ]
+}

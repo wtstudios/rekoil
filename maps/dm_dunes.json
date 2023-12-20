@@ -180,7 +180,7 @@
           "restitution": 0,
           "density": 1,
           "angle": 0,
-          "chamfer": { "radius": 35 },
+          "chamfer": { "radius": 5 },
           "tag": "#d6c19e"
         }
       },
@@ -215,7 +215,7 @@
           "restitution": 0,
           "density": 1,
           "angle": 0,
-          "chamfer": { "radius": 90 },
+          "chamfer": { "radius": 10 },
           "tag": "#9a7742"
         }
       },
@@ -250,7 +250,7 @@
           "restitution": 0,
           "density": 1,
           "angle": 0,
-          "chamfer": { "radius": 90 },
+          "chamfer": { "radius": 10 },
           "tag": "#9a7742"
         }
       },
@@ -390,7 +390,7 @@
           "restitution": 0,
           "density": 1,
           "angle": 0,
-          "chamfer": { "radius": 35 },
+          "chamfer": { "radius": 5 },
           "tag": "#d6c19e"
         }
       },
@@ -460,7 +460,7 @@
           "restitution": 0,
           "density": 1,
           "angle": 0,
-          "chamfer": { "radius": 35 },
+          "chamfer": { "radius": 5 },
           "tag": "#d6c19e"
         }
       },
@@ -565,7 +565,7 @@
           "restitution": 0,
           "density": 1,
           "angle": 0,
-          "chamfer": { "radius": 35 },
+          "chamfer": { "radius": 5 },
           "tag": "#d6c19e"
         }
       },
@@ -600,7 +600,7 @@
           "restitution": 0,
           "density": 1,
           "angle": 0,
-          "chamfer": { "radius": 35 },
+          "chamfer": { "radius": 5 },
           "tag": "#d6c19e"
         }
       },
@@ -635,7 +635,7 @@
           "restitution": 0,
           "density": 1,
           "angle": 0,
-          "chamfer": { "radius": 35 },
+          "chamfer": { "radius": 5 },
           "tag": "#d6c19e"
         }
       },
@@ -670,7 +670,7 @@
           "restitution": 0,
           "density": 1,
           "angle": 0,
-          "chamfer": { "radius": 35 },
+          "chamfer": { "radius": 5 },
           "tag": "#d6c19e"
         }
       },
@@ -740,7 +740,7 @@
           "restitution": 0,
           "density": 1,
           "angle": 0.785398,
-          "chamfer": { "radius": 90 },
+          "chamfer": { "radius": 10 },
           "tag": "#9a7742"
         }
       },
@@ -915,7 +915,7 @@
           "restitution": 0,
           "density": 1,
           "angle": 0,
-          "chamfer": { "radius": 90 },
+          "chamfer": { "radius": 10 },
           "tag": "#9a7742"
         }
       },
@@ -950,7 +950,7 @@
           "restitution": 0,
           "density": 1,
           "angle": 0,
-          "chamfer": { "radius": 90 },
+          "chamfer": { "radius": 10 },
           "tag": "#9a7742"
         }
       },
@@ -985,7 +985,7 @@
           "restitution": 0,
           "density": 1,
           "angle": 0,
-          "chamfer": { "radius": 90 },
+          "chamfer": { "radius": 10 },
           "tag": "#9a7742"
         }
       },
@@ -1020,7 +1020,7 @@
           "restitution": 0,
           "density": 1,
           "angle": 0,
-          "chamfer": { "radius": 90 },
+          "chamfer": { "radius": 10 },
           "tag": "#9a7742"
         }
       },
@@ -1055,7 +1055,7 @@
           "restitution": 0,
           "density": 1,
           "angle": 0,
-          "chamfer": { "radius": 90 },
+          "chamfer": { "radius": 10 },
           "tag": "#9a7742"
         }
       },
@@ -1090,7 +1090,7 @@
           "restitution": 0,
           "density": 1,
           "angle": 0,
-          "chamfer": { "radius": 90 },
+          "chamfer": { "radius": 10 },
           "tag": "#9a7742"
         }
       },
@@ -1125,7 +1125,7 @@
           "restitution": 0,
           "density": 1,
           "angle": 0,
-          "chamfer": { "radius": 90 },
+          "chamfer": { "radius": 10 },
           "tag": "#9a7742"
         }
       },
@@ -1160,7 +1160,7 @@
           "restitution": 0,
           "density": 1,
           "angle": 0,
-          "chamfer": { "radius": 90 },
+          "chamfer": { "radius": 10 },
           "tag": "#9a7742"
         }
       },
@@ -1195,7 +1195,7 @@
           "restitution": 0,
           "density": 1,
           "angle": 0,
-          "chamfer": { "radius": 90 },
+          "chamfer": { "radius": 10 },
           "tag": "#9a7742"
         }
       },
@@ -1230,7 +1230,7 @@
           "restitution": 0,
           "density": 1,
           "angle": 0,
-          "chamfer": { "radius": 90 },
+          "chamfer": { "radius": 10 },
           "tag": "#9a7742"
         }
       },
@@ -1265,7 +1265,7 @@
           "restitution": 0,
           "density": 1,
           "angle": 0,
-          "chamfer": { "radius": 90 },
+          "chamfer": { "radius": 10 },
           "tag": "#9a7742"
         }
       },
@@ -1300,7 +1300,7 @@
           "restitution": 0,
           "density": 1,
           "angle": 0,
-          "chamfer": { "radius": 90 },
+          "chamfer": { "radius": 10 },
           "tag": "#9a7742"
         }
       },
@@ -1335,7 +1335,7 @@
           "restitution": 0,
           "density": 1,
           "angle": 0,
-          "chamfer": { "radius": 90 },
+          "chamfer": { "radius": 10 },
           "tag": "#9a7742"
         }
       },
@@ -1370,7 +1370,7 @@
           "restitution": 0,
           "density": 1,
           "angle": 0,
-          "chamfer": { "radius": 90 },
+          "chamfer": { "radius": 10 },
           "tag": "#9a7742"
         }
       },
@@ -1405,7 +1405,7 @@
           "restitution": 0,
           "density": 1,
           "angle": 0,
-          "chamfer": { "radius": 90 },
+          "chamfer": { "radius": 10 },
           "tag": "#9a7742"
         }
       },
@@ -1440,7 +1440,7 @@
           "restitution": 0,
           "density": 1,
           "angle": 0,
-          "chamfer": { "radius": 90 },
+          "chamfer": { "radius": 10 },
           "tag": "#9a7742"
         }
       },
@@ -1475,7 +1475,7 @@
           "restitution": 0,
           "density": 1,
           "angle": 0,
-          "chamfer": { "radius": 90 },
+          "chamfer": { "radius": 10 },
           "tag": "#9a7742"
         }
       },
@@ -1510,7 +1510,7 @@
           "restitution": 0,
           "density": 1,
           "angle": 0,
-          "chamfer": { "radius": 70 },
+          "chamfer": { "radius": 10 },
           "tag": "#9a7742"
         }
       },
@@ -1545,7 +1545,7 @@
           "restitution": 0,
           "density": 1,
           "angle": 0,
-          "chamfer": { "radius": 70 },
+          "chamfer": { "radius": 10 },
           "tag": "#9a7742"
         }
       },
@@ -1580,7 +1580,7 @@
           "restitution": 0,
           "density": 1,
           "angle": 0,
-          "chamfer": { "radius": 70 },
+          "chamfer": { "radius": 10 },
           "tag": "#9a7742"
         }
       },
@@ -1615,7 +1615,7 @@
           "restitution": 0,
           "density": 1,
           "angle": 0,
-          "chamfer": { "radius": 70 },
+          "chamfer": { "radius": 10 },
           "tag": "#9a7742"
         }
       },
@@ -1650,7 +1650,7 @@
           "restitution": 0,
           "density": 1,
           "angle": 0,
-          "chamfer": { "radius": 70 },
+          "chamfer": { "radius": 10 },
           "tag": "#9a7742"
         }
       },
@@ -1685,7 +1685,7 @@
           "restitution": 0,
           "density": 1,
           "angle": 0,
-          "chamfer": { "radius": 70 },
+          "chamfer": { "radius": 10 },
           "tag": "#9a7742"
         }
       },
@@ -1720,7 +1720,7 @@
           "restitution": 0,
           "density": 1,
           "angle": 0,
-          "chamfer": { "radius": 70 },
+          "chamfer": { "radius": 10 },
           "tag": "#9a7742"
         }
       },
@@ -1755,7 +1755,7 @@
           "restitution": 0,
           "density": 1,
           "angle": 0,
-          "chamfer": { "radius": 70 },
+          "chamfer": { "radius": 10 },
           "tag": "#9a7742"
         }
       },
@@ -1790,7 +1790,7 @@
           "restitution": 0,
           "density": 1,
           "angle": 0,
-          "chamfer": { "radius": 70 },
+          "chamfer": { "radius": 10 },
           "tag": "#9a7742"
         }
       },
@@ -1825,7 +1825,7 @@
           "restitution": 0,
           "density": 1,
           "angle": 0,
-          "chamfer": { "radius": 70 },
+          "chamfer": { "radius": 10 },
           "tag": "#9a7742"
         }
       },
@@ -1860,7 +1860,7 @@
           "restitution": 0,
           "density": 1,
           "angle": 0,
-          "chamfer": { "radius": 70 },
+          "chamfer": { "radius": 10 },
           "tag": "#9a7742"
         }
       },
@@ -1895,7 +1895,7 @@
           "restitution": 0,
           "density": 1,
           "angle": 0,
-          "chamfer": { "radius": 70 },
+          "chamfer": { "radius": 10 },
           "tag": "#9a7742"
         }
       },
@@ -1930,7 +1930,7 @@
           "restitution": 0,
           "density": 1,
           "angle": 0,
-          "chamfer": { "radius": 70 },
+          "chamfer": { "radius": 10 },
           "tag": "#9a7742"
         }
       },
@@ -1948,76 +1948,7 @@
         "layer": 1
       }
     },
-    {
-      "body-data": {
-        "position": {
-          "x": 4200,
-          "y": 5138.65
-        },
-        "type": "rectangle",
-        "dimensions": {
-          "width": 280,
-          "height": 280
-        },
-        "options": {
-          "isStatic": true,
-          "friction": 1,
-          "restitution": 0,
-          "density": 1,
-          "angle": 0,
-          "chamfer": { "radius": 70 },
-          "tag": "#9a7742"
-        }
-      },
-      "display-data": {
-        "src": "/assets/environment/crate1.svg",
-        "dimensions": {
-          "width": 300,
-          "height": 300
-        },
-        "offset": {
-          "x": 0,
-          "y": 0,
-          "angle": 0
-        },
-        "layer": 1
-      }
-    },
-    {
-      "body-data": {
-        "position": {
-          "x": 3800,
-          "y": 5538.65
-        },
-        "type": "rectangle",
-        "dimensions": {
-          "width": 280,
-          "height": 280
-        },
-        "options": {
-          "isStatic": true,
-          "friction": 1,
-          "restitution": 0,
-          "density": 1,
-          "angle": 0,
-          "chamfer": { "radius": 70 },
-          "tag": "#9a7742"
-        }
-      },
-      "display-data": {
-        "src": "/assets/environment/crate1.svg",
-        "dimensions": {
-          "width": 300,
-          "height": 300
-        },
-        "offset": {
-          "x": 0,
-          "y": 0,
-          "angle": 180
-        },
-        "layer": 1
-      }
-    },
+
     {
       "body-data": {
         "position": {
@@ -2035,7 +1966,7 @@
           "restitution": 0,
           "density": 1,
           "angle": 0,
-          "chamfer": { "radius": 70 },
+          "chamfer": { "radius": 10 },
           "tag": "#9a7742"
         }
       },
@@ -2070,7 +2001,7 @@
           "restitution": 0,
           "density": 1,
           "angle": 0,
-          "chamfer": { "radius": 70 },
+          "chamfer": { "radius": 10 },
           "tag": "#9a7742"
         }
       },
@@ -2105,7 +2036,7 @@
           "restitution": 0,
           "density": 1,
           "angle": 0,
-          "chamfer": { "radius": 70 },
+          "chamfer": { "radius": 10 },
           "tag": "#9a7742"
         }
       },
@@ -2140,7 +2071,7 @@
           "restitution": 0,
           "density": 1,
           "angle": 0,
-          "chamfer": { "radius": 70 },
+          "chamfer": { "radius": 10 },
           "tag": "#9a7742"
         }
       },
@@ -2175,7 +2106,7 @@
           "restitution": 0,
           "density": 1,
           "angle": 0,
-          "chamfer": { "radius": 70 },
+          "chamfer": { "radius": 10 },
           "tag": "#9a7742"
         }
       },
@@ -2210,7 +2141,7 @@
           "restitution": 0,
           "density": 1,
           "angle": 0,
-          "chamfer": { "radius": 70 },
+          "chamfer": { "radius": 10 },
           "tag": "#9a7742"
         }
       },
@@ -2245,7 +2176,7 @@
           "restitution": 0,
           "density": 1,
           "angle": 0,
-          "chamfer": { "radius": 70 },
+          "chamfer": { "radius": 10 },
           "tag": "#9a7742"
         }
       },
