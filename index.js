@@ -564,7 +564,7 @@ function newConnection(socket) {
         }
       }
       if(!alreadyExists) {
-        console.log("New client at IP address " + socket.handshake.address);
+        console.log("New client at IP address " + socket.conn.remoteAddress);
         gameData.usersOnline++;
         gameData.users.push(socket.id);
         let spawnpoint;
