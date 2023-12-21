@@ -3,7 +3,7 @@
     "map-name": "dm_rust",
     "gamemode": "deathmatch",
     "ground-colour": "#94643d",
-    "ground-image": "/assets/environment/dm_dunes-backing.svg",
+    "ground-image": "/assets/misc/blank.svg",
     "background-colour": "#8a5f3c",
     "map-dimensions": {
       "width": 7915,

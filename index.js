@@ -564,7 +564,7 @@ function newConnection(socket) {
         }
       }
       if(!alreadyExists) {
-        console.log("New client. " + (gameData.usersOnline + 1) + " Users online.");
+        console.log("New client at IP address " + socket.handshake.address);
         gameData.usersOnline++;
         gameData.users.push(socket.id);
         let spawnpoint;
@@ -599,7 +599,7 @@ function newConnection(socket) {
           if (gameData.players[socket.id]) {
             gameData.teamNumbers[gameData.players[socket.id].team]--;
             gameData.usersOnline--;
-            console.log(gameData.usersOnline + " Users connected. 1 user has disconnected.");
+            console.log("1 user has disconnected. " + gameData.usersOnline + " players remain connected.");
             Composite.remove(world, gameData.players[socket.id].body);
             gameData.players[socket.id] = void 0;
             for (let i = 0; i < gameData.users.length; i++) {
