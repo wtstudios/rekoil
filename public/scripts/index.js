@@ -1,4 +1,4 @@
-// HM2023
+// made by henry macdougall
 
 let resizeTimer;
 window.addEventListener("resize", () => {
