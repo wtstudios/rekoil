@@ -1,6 +1,12 @@
 {
     "updates": [
         {
+            "version": "0.1.8",
+            "title": "Balancing changes",
+            "date": "December 26, 2023",
+            "content": "- New weapon: X45 Automatic Pistol, sniper class sidearm<br>- Buffed sniper fire delay<br>- Nerfed sniper magazine capacity<br>- Redid some sound effects<br>- Added tutorial to main menu<br>- Added line of sight mechanic"
+        },
+        {
             "version": "0.1.7",
             "title": "Misc. Changes",
             "date": "December 19, 2023",
@@ -32,7 +38,7 @@
         },
         {
             "version": "0.1.3",
-            "title": "Yeah, more tweaks.",
+            "title": "More tweaks.",
             "date": "August 12, 2023",
             "content": "- Tweaked movement<br>- Added some features to debug mode<br>- Miscellaneous optimizations<br>- Added moving and standing accuracies for weapons<br>- Updated weapon icons<br>- Added sounds for firing and reloading weapons"
         },

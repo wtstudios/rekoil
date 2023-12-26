@@ -40,9 +40,9 @@
     {
       "name": "Ballista",
       "type": "rifle",
-      "magSize": 5,
+      "magSize": 3,
       "view": 1200,
-      "fireDelay": 95,
+      "fireDelay": 60,
       "spread": {
         "standing": 0.5,
         "moving": 15
@@ -134,18 +134,54 @@
       "recoilImpulse": [
         {
           "x": 0,
-          "y": 40
+          "y": 25
         },
         {
           "x": 0,
-          "y": 40
+          "y": 25
         },
         {
           "x": 0,
-          "y": 40
+          "y": 25
         }
       ],
       "lifeTime": 20
+    },
+    {
+      "name": "FNX45",
+      "magSize": 15,
+      "view": 0,
+      "fireDelay": 3,
+      "spread": {
+        "standing": 6,
+        "moving": 14
+      },
+      "damage": 9,
+      "bulletsPerShot": 1,
+      "handPositions": [{ "x": -30, "y": -115 }, { "x": 25, "y": -120 }],
+      "images": { "topdownSRC": "/assets/weapons/fnx_topdown.svg", "lootSRC": "/assets/weapons/fnx_loot.svg", "offset": { "x": 0, "y": -335 } },
+      "reloadLength": 80,
+      "roundsPerReload": "all",
+      "playerDensity": 0.018,          
+      "sounds": {
+        "fire": "/assets/audio/guns/fnx_fire.mp3",
+        "reload": "/assets/audio/guns/509_reload.mp3"
+      },
+      "recoilImpulse": [
+        {
+          "x": 0,
+          "y": 35
+        },
+        {
+          "x": 0,
+          "y": 35
+        },
+        {
+          "x": 0,
+          "y": 35
+        }
+      ],
+      "lifeTime": 30
     },
     {
       "name": "Bayonet",
