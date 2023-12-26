@@ -48,7 +48,7 @@
     "loadouts": {
       "assault": ["SCAR-L", "T509", "Bayonet"],
       "breach": ["SLP", "T509", "Bayonet"],
-      "scout": ["Ballista", "T509", "Bayonet"]
+      "scout": ["Ballista", "FNX45", "Bayonet"]
     },
     "point": {
       "position": {
@@ -2208,7 +2208,7 @@
           "restitution": 0,
           "density": 1,
           "angle": 0,
-
+          "chamfer": { "radius": 0 },
           "tag": "#a17756"
         }
       },
@@ -2240,7 +2240,7 @@
           "restitution": 0,
           "density": 1,
           "angle": 0,
-
+          "chamfer": { "radius": 0 },
           "tag": "#a17756"
         }
       },
@@ -2272,7 +2272,7 @@
           "restitution": 0,
           "density": 1,
           "angle": 0,
-
+          "chamfer": { "radius": 0 },
           "tag": "#a17756"
         }
       },
@@ -2304,7 +2304,7 @@
           "restitution": 0,
           "density": 1,
           "angle": 0,
-
+          "chamfer": { "radius": 0 },
           "tag": "#a17756"
         }
       },
@@ -2336,7 +2336,7 @@
           "restitution": 0,
           "density": 1,
           "angle": 0,
-
+          "chamfer": { "radius": 0 },
           "tag": "#a17756"
         }
       },
@@ -2368,7 +2368,7 @@
           "restitution": 0,
           "density": 1,
           "angle": 0,
-
+          "chamfer": { "radius": 0 },
           "tag": "#a17756"
         }
       },
@@ -2400,7 +2400,7 @@
           "restitution": 0,
           "density": 1,
           "angle": 0,
-
+          "chamfer": { "radius": 0 },
           "tag": "#a17756"
         }
       },
@@ -2435,6 +2435,7 @@
           "restitution": 0,
           "density": 1,
           "angle": 0,
+          "chamfer": { "radius": 0 },
           "tag": "none"
         }
       },
@@ -2469,6 +2470,7 @@
           "restitution": 0,
           "density": 1,
           "angle": 0,
+          "chamfer": { "radius": 0 },
           "tag": "none"
         }
       },
@@ -2503,6 +2505,7 @@
           "restitution": 0,
           "density": 1,
           "angle": 0,
+          "chamfer": { "radius": 0 },
           "tag": "none"
         }
       },
@@ -2537,6 +2540,7 @@
           "restitution": 0,
           "density": 1,
           "angle": 0,
+          "chamfer": { "radius": 0 },
           "tag": "none"
         }
       },

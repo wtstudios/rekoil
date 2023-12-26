@@ -231,8 +231,13 @@ function initialize() {
   Composite.clear(world, false);
   imageBodyList = [];
   for (let i = 0; i < gameData.mapData.obstacles.length; i++) {
-    const obstacle = gameData.mapData.obstacles[i]["body-data"];
-    let body;
+    let obstacle = gameData.mapData.obstacles[i]["body-data"],
+    body;
+    if(obstacle.options.chamfer) {
+      gameData.mapData.obstacles[i]["display-data"].chamfer = obstacle.options.chamfer.radius;
+    } else {
+      gameData.mapData.obstacles[i]["display-data"].chamfer = 0;
+    }
     switch (obstacle.type) {
       case "rectangle":
         body = Bodies.rectangle(obstacle.position.x, obstacle.position.y, obstacle.dimensions.width, obstacle.dimensions.height, obstacle.options);
@@ -565,7 +570,7 @@ function newConnection(socket) {
         }
       }
       if(!alreadyExists) {
-        console.log("New client at IP address " + socket.request.connection._peername.address);
+        console.log("New client at IP address " + data.timestamp);
         gameData.usersOnline++;
         gameData.users.push(socket.id);
         let spawnpoint;
