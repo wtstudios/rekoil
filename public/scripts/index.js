@@ -823,7 +823,7 @@ function displayWorld() {
     syncedMS = Date.now() - gameData.timeStamp;
     interpolateCamera();
     cameraLocation = queuedCameraLocation;
-    camera(cameraLocation.x, cameraLocation.y, 3000 + cameraLocation.z + sin(frameCount * 1.5) * 10, cameraLocation.targetX, cameraLocation.targetY, cameraLocation.targetZ);
+    camera(cameraLocation.x, cameraLocation.y, cameraLocation.z + sin(frameCount * 1.5) * 10, cameraLocation.targetX, cameraLocation.targetY, cameraLocation.targetZ);
     background(gameData.mapData.config["background-colour"]);
     fill(gameData.mapData.config["ground-colour"]);
     rect(gameData.mapData.config["map-dimensions"].width / 2, gameData.mapData.config["map-dimensions"].height / 2, gameData.mapData.config["map-dimensions"].width, gameData.mapData.config["map-dimensions"].height);

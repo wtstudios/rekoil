@@ -558,7 +558,7 @@ updateObjectRenderLists = setInterval(function() {
       player.state.objectRenderList.push(collisionList[i].bodyA.tag / 1);
     }
   }
-}, 5000);
+}, 500);
 
 io.sockets.on("connection", newConnection);
 
