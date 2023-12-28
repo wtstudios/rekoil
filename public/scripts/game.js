@@ -226,6 +226,7 @@ function setupGame() {
     gameData.queuedSounds = data.queuedSounds;
     gameData.timeStamp = Date.now();
     gameData.lastTickDelay = data.lastTickDelay;
+    gameData.scoreboard = data.scoreboard;
     const timestamp = secondsToTimestamp(gameData.secondsLeft);
     if(document.getElementById("time-left").textContent != timestamp) {
       document.getElementById("time-left").textContent = timestamp;

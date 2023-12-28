@@ -176,6 +176,10 @@ lightishblue {
   color: #498ee9;
 }
 
+lightishred {
+  color: #e63128e9;
+}
+
 .resize-animation-stopper * {
   animation: none !important;
   transition: none !important;

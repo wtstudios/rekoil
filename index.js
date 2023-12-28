@@ -174,7 +174,7 @@ class playerLike {
     hasStarted: false,
     objectRenderList: [],
     ping: 0,
-    force: {x: 0, y: 0}
+    force: {x: 0, y: 0},
   };
 
   constructor(body, angle, guns, health, view, team, platform) {
@@ -188,7 +188,7 @@ class playerLike {
     this.state.isMoving = false;
     this.platform = platform;
     this.state.position = body.position;
-    this.state.previousPosition = {x: body.position.x / 1, y: body.position.y / 1}
+    this.state.previousPosition = {x: body.position.x / 1, y: body.position.y / 1};
   }
   destroy() {
     this.#body = void 0;
@@ -205,6 +205,7 @@ let gameData = {
   objects: [],
   bullets: [],
   particles: [],
+  scoreboard: {},
   point: {},
   usersOnline: 0,
   users: [],
@@ -387,7 +388,7 @@ function updatePlayer(player, delay) {
                     gameData.players[gameData.users[i]].state.hasStarted = false;
                     Composite.remove(world, gameData.players[gameData.users[i]].body);
                     gameData.players[gameData.users[i]].keys = [];
-                    gameData.currentRoundScore[player.team]+=5;
+                    gameData.currentRoundScore[player.team] += 1;
                     gameData.players[gameData.users[i]].state.mag[0] = gameData.weapons[gameData.players[gameData.users[i]].guns[0]].magSize;
                     gameData.players[gameData.users[i]].state.mag[1] = gameData.weapons[gameData.players[gameData.users[i]].guns[1]].magSize;
                     gameData.players[gameData.users[i]].state.isReloading = false;
@@ -424,7 +425,7 @@ function updatePlayer(player, delay) {
                     gameData.players[gameData.users[i]].state.hasStarted = false;
                     Composite.remove(world, gameData.players[gameData.users[i]].body);
                     gameData.players[gameData.users[i]].keys = [];
-                    gameData.currentRoundScore[player.team]+=5;
+                    gameData.currentRoundScore[player.team] += 1;
                     gameData.players[gameData.users[i]].state.mag[0] = gameData.weapons[gameData.players[gameData.users[i]].guns[0]].magSize;
                     gameData.players[gameData.users[i]].state.mag[1] = gameData.weapons[gameData.players[gameData.users[i]].guns[1]].magSize;
                     gameData.players[gameData.users[i]].state.isReloading = false;
@@ -460,7 +461,7 @@ function updatePlayer(player, delay) {
                   gameData.players[gameData.users[i]].state.hasStarted = false;
                   Composite.remove(world, gameData.players[gameData.users[i]].body);
                   gameData.players[gameData.users[i]].keys = [];
-                  gameData.currentRoundScore[player.team] += 5;
+                  gameData.currentRoundScore[player.team] += 1;
                   gameData.players[gameData.users[i]].state.mag[0] = gameData.weapons[gameData.players[gameData.users[i]].guns[0]].magSize;
                   gameData.players[gameData.users[i]].state.mag[1] = gameData.weapons[gameData.players[gameData.users[i]].guns[1]].magSize;                    
                   gameData.players[gameData.users[i]].state.isReloading = false;
@@ -530,6 +531,7 @@ function updateGame() {
         secondsLeft: gameData.secondsLeft,
         users: gameData.users,
         point: gameData.point,
+        scoreboard: gameData.scoreboard,
         currentRoundScore: gameData.currentRoundScore,
         certificate: gameData.certificate,
         queuedSounds: gameData.queuedSounds,
@@ -556,7 +558,7 @@ updateObjectRenderLists = setInterval(function() {
       player.state.objectRenderList.push(collisionList[i].bodyA.tag / 1);
     }
   }
-}, 500);
+}, 5000);
 
 io.sockets.on("connection", newConnection);
 
@@ -599,6 +601,13 @@ function newConnection(socket) {
         );
         gameData.players[socket.id].state.mag[gameData.players[socket.id].state.activeWeaponIndex] = gameData.weapons[gameData.players[socket.id].guns[gameData.players[socket.id].state.activeWeaponIndex]].magSize;
         gameData.players[socket.id].state.spawnpoint = spawnpoint;
+
+        gameData.scoreboard[socket.id] = {
+          kills: 0,
+          deaths: 0,
+          score: 0,
+          damage: 0
+        };
         socket.emit("load-world", gameData);
 
         socket.on("disconnect", function() {
@@ -608,6 +617,7 @@ function newConnection(socket) {
             console.log("1 user has disconnected. " + gameData.usersOnline + " players remain connected.");
             Composite.remove(world, gameData.players[socket.id].body);
             gameData.players[socket.id] = void 0;
+            gameData.scoreboard[socket.id] = void 0;
             for (let i = 0; i < gameData.users.length; i++) {
               if (gameData.users[i] === socket.id) {
                 gameData.users.splice(i, 1);
@@ -679,10 +689,17 @@ function newConnection(socket) {
 
               const spawn = gameData.mapData.config.spawns[player.team][Math.floor(Math.random() * gameData.mapData.config.spawns[player.team].length)];
 
-              Body.setPosition(player.body, {x: spawn.x, y: spawn.y})
+              Body.setPosition(player.body, {x: spawn.x, y: spawn.y});
+              player.state.previousPosition = {x: spawn.x, y: spawn.y};
               Composite.add(world, player.body);
 
               gameData.shouldUpdateUI = true;
+
+              player.state.objectRenderList = [];
+              const collisionList = Matter.Query.collides(Bodies.rectangle(player.state.position.x, player.state.position.y, 5000 + gameData.weapons[player.guns[player.state.activeWeaponIndex]].view ** 1.15, 3000 + gameData.weapons[player.guns[player.state.activeWeaponIndex]].view ** 1.15), imageBodyList);
+              for (let i = 0; i < collisionList.length; i++) {
+                player.state.objectRenderList.push(collisionList[i].bodyA.tag / 1);
+              }
             }
           }
           catch { }
