@@ -200,7 +200,7 @@ let gameData = {
   teamNumbers: { "blue": 0, "red": 0 },
   roundsWonScore: {"blue": 0, "red": 0},
   currentRoundScore: { "blue": 0, "red": 0 },
-  secondsLeft: 5,
+  secondsLeft: 360,
   players: {},
   objects: [],
   bullets: [],
