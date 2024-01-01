@@ -6,6 +6,8 @@
 
 // PRESTO
 
+const Filter = require("bad-words");
+
 require('dotenv').config();
 
 const ciqlJson = require("ciql-json");
@@ -215,7 +217,8 @@ let gameData = {
   loadouts: ciqlJson.open("maps/dm_dunes.json").data.config.loadouts,
   lastTickDelay: tickRate,
   shouldUpdateUI: false,
-  shouldUpdateScoreboard: false
+  shouldUpdateScoreboard: false,
+  usernameFilter: new Filter({placeHolder: "*"})
 };
 
 function squaredDist(ptA, ptB) {
@@ -599,7 +602,8 @@ function newConnection(socket) {
           alreadyExists = true;
         }
       }
-      if(!alreadyExists) {
+      if(gameData.usernameFilter.isProfane(data.nickname + "")) console.log("Inappropriate username blocked from entry");
+      if(!alreadyExists && !gameData.usernameFilter.isProfane(data.nickname + "")) {
         console.log("New client at IP address " + data.timestamp);
         gameData.usersOnline++;
         gameData.users.push(socket.id);
