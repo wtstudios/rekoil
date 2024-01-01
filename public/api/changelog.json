@@ -1,8 +1,14 @@
 {
     "updates": [
         {
+            "version": "0.1.8.1",
+            "title": "Scoreboard, bugfixes, and more",
+            "date": "December 31, 2023",
+            "content": "- Added scoreboard (Press tab to toggle)<br>- Added a game recap after every round<br>- Tweaked line of sight mechanic"
+        },
+        {
             "version": "0.1.8",
-            "title": "New Weapon + Balancing changes",
+            "title": "New Item + Balancing changes",
             "date": "December 26, 2023",
             "content": "- New weapon: X45 Automatic Pistol, sniper class sidearm<br>- Buffed sniper fire delay<br>- Nerfed sniper magazine capacity<br>- Redid some sound effects<br>- Added tutorial to main menu<br>- Added line of sight mechanic"
         },
@@ -13,7 +19,7 @@
             "content": "- Tweaks to dm_dunes<br>- Bullet tracers are now interpolatated to appear to move through space<br>- Crates are less rounded"
         },
         {
-            "version": "0.1.6.5",
+            "version": "0.1.6.1",
             "title": "Menu additions",
             "date": "November 1, 2023",
             "content": "- This changelog has been added to the main menu<br>- Various improvements and additions to UI"

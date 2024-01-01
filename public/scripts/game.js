@@ -56,6 +56,7 @@ function keyReleased() {
 function keyPressed() {
   if(assetsAreLoaded) {
     keys[keyCode] = true;
+    keys[9] = false;
     socket.emit("move-key-change", {keys: keys});
 
     if(keys[49]) {
@@ -89,6 +90,26 @@ function keyPressed() {
     }
   }
 }
+
+window.addEventListener("keydown", e => {
+  if (e.keyCode == 9) {
+      e.preventDefault();
+      if(document.getElementById("scoreboard-container").style.display == "block") {
+        document.getElementById("scoreboard-container").style.display = "none";
+      } else {
+        document.getElementById("scoreboard-container").style.display = "block";
+      }
+      return false;
+  }
+});
+
+window.addEventListener("keyup", e => {
+  if (e.keyCode == 9) {
+      e.preventDefault();
+      //document.getElementById("scoreboard-container").style.display = "none";
+      return false;
+  }
+});
 
 document.getElementById("connect-button").addEventListener("click", function() {connectToRemoteServer();});
 
@@ -166,6 +187,7 @@ function setupGame() {
     for(let i = 0; i < data.mapData.obstacles.length; i++) {
       assetsLoaded[data.mapData.obstacles[i]["display-data"].src] = loadImage(data.mapData.obstacles[i]["display-data"].src);
     }
+    gameData.decals = [];
     assetsAreLoaded = true;
     state = "ingame-weaponselect";
     queuedCameraLocation = {
@@ -227,10 +249,15 @@ function setupGame() {
     gameData.timeStamp = Date.now();
     gameData.lastTickDelay = data.lastTickDelay;
     gameData.scoreboard = data.scoreboard;
+    gameData.shouldUpdateScoreboard = data.shouldUpdateScoreboard;
     const timestamp = secondsToTimestamp(gameData.secondsLeft);
     if(document.getElementById("time-left").textContent != timestamp) {
       document.getElementById("time-left").textContent = timestamp;
     }
+    if(data.secondsLeft < 1 && ("NEXT GAME IN " + (data.secondsLeft + 10) + "...") != document.getElementById("end-of-game-nextgame-start-countdown").textContent) {
+      document.getElementById("end-of-game-nextgame-start-countdown").textContent = "NEXT GAME IN " + (data.secondsLeft + 10) + "...";
+    }
+    if(data.shouldUpdateScoreboard) updateScoreboard(gameData);
     for(let i = 0; i < data.bullets.length; i++) {
       let angle = Math.atan2(data.bullets[i].collisionSurface[0].y - data.bullets[i].collisionSurface[1].y, data.bullets[i].collisionSurface[0].x - data.bullets[i].collisionSurface[1].x) + Math.PI / 2;
       angle = angle + (angle - data.bullets[i].angle * Math.PI / 180);

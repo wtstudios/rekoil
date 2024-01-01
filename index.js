@@ -200,7 +200,7 @@ let gameData = {
   teamNumbers: { "blue": 0, "red": 0 },
   roundsWonScore: {"blue": 0, "red": 0},
   currentRoundScore: { "blue": 0, "red": 0 },
-  secondsLeft: 360,
+  secondsLeft: 5,
   players: {},
   objects: [],
   bullets: [],
@@ -214,7 +214,8 @@ let gameData = {
   weapons: {},
   loadouts: ciqlJson.open("maps/dm_dunes.json").data.config.loadouts,
   lastTickDelay: tickRate,
-  shouldUpdateUI: false
+  shouldUpdateUI: false,
+  shouldUpdateScoreboard: false
 };
 
 function squaredDist(ptA, ptB) {
@@ -247,7 +248,9 @@ function initialize() {
         body = Bodies.circle(obstacle.position.x, obstacle.position.y, obstacle.radius, obstacle.options);
       break;
     }
+    body.tag = JSON.stringify({colour: body.tag});
     Composite.add(world, body);
+    console
     imageBodyList.push(
       Bodies.rectangle(
         obstacle.position.x + gameData.mapData.obstacles[i]["display-data"].offset.x, 
@@ -291,7 +294,8 @@ updatePoint = setInterval(function() {
     gameData.point.state = "uncontested";
     if(collisions[0]) {
       for(let i = 0; i < collisions.length; i++) {
-        gameData.point.teamNumbers[collisions[i].bodyA.tag]++;
+        gameData.point.teamNumbers[JSON.parse(collisions[i].bodyA.tag).colour]++;
+        gameData.scoreboard[JSON.parse(collisions[i].bodyA.tag).id].score += 50;
       }
       if(gameData.point.teamNumbers.red > gameData.point.teamNumbers.blue) {
         gameData.currentRoundScore.red++;
@@ -300,16 +304,32 @@ updatePoint = setInterval(function() {
         gameData.currentRoundScore.blue++;
         gameData.point.state = "blue";
       }
+      gameData.shouldUpdateUI = true;
+      gameData.shouldUpdateScoreboard = true;
     } 
-    gameData.shouldUpdateUI = true;
   }
 }, 2000),
 updateSecondsLeft = setInterval(function() {
   if(gameData.users.length > 0) {
     gameData.secondsLeft--;
   }
-  if(gameData.secondsLeft < -20) {
+  if(gameData.secondsLeft < -10) {
+    initialize();
     gameData.secondsLeft = 360;
+    gameData.shouldUpdateUI = true;
+    gameData.shouldUpdateScoreboard = true;
+    gameData.currentRoundScore = { "blue": 0, "red": 0 };
+  }
+  if(gameData.secondsLeft == 0) {
+    gameData.shouldUpdateUI = true;
+  }
+  if(gameData.secondsLeft < 1) {
+    for(let i = 0; i < gameData.users.length; i++) {
+      gameData.players[gameData.users[i]].keys = [];
+      gameData.players[gameData.users[i]].health = 0;
+      gameData.players[gameData.users[i]].state.hasStarted = false;
+      Composite.remove(world, gameData.players[gameData.users[i]].body);
+    }
   }
 }, 1000);
 
@@ -323,7 +343,7 @@ function updatePlayerPrev() {
   }
 }
 
-function updatePlayer(player, delay) {
+function updatePlayer(player, delay, id) {
   const w = !!player.keys[83],
     a = !!player.keys[65],
     s = !!player.keys[87],
@@ -373,11 +393,13 @@ function updatePlayer(player, delay) {
         if(collisions[0]) {
           const ray = functions.raycast(Composite.allBodies(world), position, { x: player.state.position.x + Math.cos(Math.atan2(collisions[0].bodyA.position.y - position.y, collisions[0].bodyA.position.x - position.x)) * 300, y: player.state.position.y + Math.sin(Math.atan2(collisions[0].bodyA.position.y - position.y, collisions[0].bodyA.position.x - position.x)) * 300 }, true);
           if(ray[1] && ray[1].body == collisions[0].bodyA) {
-            gameData.particles.push(new particle({x: ray[1].point.x / 1, y: ray[1].point.y / 1}, Math.random() * 360, player.state.angle * Math.PI / 180 + (Math.random() - 2) * 1 + Math.PI / 2, ray[1].body.tag, 250, "/assets/misc/particle.svg", 100, "residue"));
-            if(collisions[0].bodyA.tag != player.body.tag) {
+            gameData.particles.push(new particle({x: ray[1].point.x / 1, y: ray[1].point.y / 1}, Math.random() * 360, player.state.angle * Math.PI / 180 + (Math.random() - 2) * 1 + Math.PI / 2, JSON.parse(ray[1].body.tag).colour, 250, "/assets/misc/particle.svg", 100, "residue"));
+            if(JSON.parse(collisions[0].bodyA.tag).colour != JSON.parse(player.body.tag).colour) {
               for(let i = 0; i < gameData.users.length; i++) {
                 if(gameData.players[gameData.users[i]].body == collisions[0].bodyA) {
                   gameData.players[gameData.users[i]].health -= currentWeapon.damage;
+                  gameData.shouldUpdateScoreboard = true;
+                  gameData.scoreboard[id].damage += currentWeapon.damage;
                   if (gameData.players[gameData.users[i]].health < 1) {   
                     for(let k = 0; k < 7; k++) {
                       const angle = Math.random() * Math.PI * 2;
@@ -389,6 +411,9 @@ function updatePlayer(player, delay) {
                     Composite.remove(world, gameData.players[gameData.users[i]].body);
                     gameData.players[gameData.users[i]].keys = [];
                     gameData.currentRoundScore[player.team] += 1;
+                    gameData.scoreboard[id].kills++;
+                    gameData.scoreboard[id].score += 100;
+                    gameData.scoreboard[gameData.users[i]].deaths++;
                     gameData.players[gameData.users[i]].state.mag[0] = gameData.weapons[gameData.players[gameData.users[i]].guns[0]].magSize;
                     gameData.players[gameData.users[i]].state.mag[1] = gameData.weapons[gameData.players[gameData.users[i]].guns[1]].magSize;
                     gameData.players[gameData.users[i]].state.isReloading = false;
@@ -406,26 +431,26 @@ function updatePlayer(player, delay) {
             let angle = ((player.state.angle + (activeWeaponSpread / currentWeapon.bulletsPerShot) * (j - Math.floor(currentWeapon.bulletsPerShot / 2))) + (Math.random() - 0.5) * activeWeaponSpread / 30) * Math.PI / 180 - Math.PI;
             let ray = functions.raycast(Composite.allBodies(world), position, { x: player.state.position.x + Math.cos(angle) * bulletLength, y: player.state.position.y + Math.sin(angle) * bulletLength }, true);
             let finish = ray[1].point;
-            /*if(ray[1].body.tag != "none") {
-              let vertsAngle = Math.atan2(ray[1].verts[0].y - ray[1].verts[1].y, ray[1].verts[0].x - ray[1].verts[1].x) + Math.PI * 2.5;
-              gameData.particles.push(new particle({x: ray[1].point.x / 1, y: ray[1].point.y / 1}, Math.random() * 360, (vertsAngle), ray[1].body.tag, 250, "/assets/misc/particle.svg", 100, "residue"));
-            }*/
             for (let i = 0; i < gameData.users.length; i++) {
               if (gameData.players[gameData.users[i]].body == ray[1].body && gameData.players[gameData.users[i]] != player) {
                 finish = ray[1].point;
                 if (gameData.players[gameData.users[i]].team != player.team) {
                   gameData.players[gameData.users[i]].health -= currentWeapon.damage;
+                  gameData.shouldUpdateScoreboard = true;
+                  gameData.scoreboard[id].damage += currentWeapon.damage;
                   if (gameData.players[gameData.users[i]].health < 1) {    
                     for(let k = 0; k < 7; k++) {
                       const angle = Math.random() * Math.PI * 2;
                       gameData.particles.push(new particle({x: (gameData.players[gameData.users[i]].state.position.x / 1) + Math.cos(angle) * 100, y: (gameData.players[gameData.users[i]].state.position.y / 1) + Math.sin(angle) * 100}, Math.random() * 360, angle, gameData.players[gameData.users[i]].team, 250, "/assets/misc/particle.svg", 100, "residue"));
                     }  
                     gameData.players[gameData.users[i]].health = 0;
-                    //Body.setPosition(gameData.players[gameData.users[i]].body, gameData.players[gameData.users[i]].state.spawnpoint);
                     gameData.players[gameData.users[i]].state.hasStarted = false;
                     Composite.remove(world, gameData.players[gameData.users[i]].body);
                     gameData.players[gameData.users[i]].keys = [];
                     gameData.currentRoundScore[player.team] += 1;
+                    gameData.scoreboard[id].kills++;
+                    gameData.scoreboard[id].score += 100;
+                    gameData.scoreboard[gameData.users[i]].deaths++;
                     gameData.players[gameData.users[i]].state.mag[0] = gameData.weapons[gameData.players[gameData.users[i]].guns[0]].magSize;
                     gameData.players[gameData.users[i]].state.mag[1] = gameData.weapons[gameData.players[gameData.users[i]].guns[1]].magSize;
                     gameData.players[gameData.users[i]].state.isReloading = false;
@@ -437,21 +462,19 @@ function updatePlayer(player, delay) {
             if(j == 0) {
               shouldEjectCartridge = true;
             }
-            gameData.bullets.push(new bullet({ start: player.state.position, finish: finish }, player.team, player.state.angle + (activeWeaponSpread / currentWeapon.bulletsPerShot) * (j - Math.floor(currentWeapon.bulletsPerShot / 2)), currentWeapon.lifeTime, [{x: ray[1].verts[0].x, y: ray[1].verts[0].y, colour: ray[1].body.tag}, {x: ray[1].verts[1].x, y: ray[1].verts[1].y, colour: ray[1].body.tag}], shouldEjectCartridge));
+            gameData.bullets.push(new bullet({ start: player.state.position, finish: finish }, player.team, player.state.angle + (activeWeaponSpread / currentWeapon.bulletsPerShot) * (j - Math.floor(currentWeapon.bulletsPerShot / 2)), currentWeapon.lifeTime, [{x: ray[1].verts[0].x, y: ray[1].verts[0].y, colour: JSON.parse(ray[1].body.tag).colour}, {x: ray[1].verts[1].x, y: ray[1].verts[1].y, colour: JSON.parse(ray[1].body.tag).colour}], shouldEjectCartridge));
           }
           player.state.fireTimer = 0;
         } else {
           let ray = functions.raycast(Composite.allBodies(world), position, { x: player.state.position.x + Math.cos((player.state.angle + randomAngleOffset) * Math.PI / 180 - Math.PI) * bulletLength, y: player.state.position.y + Math.sin((player.state.angle + randomAngleOffset) * Math.PI / 180 - Math.PI) * bulletLength }, true);
           let finish = ray[1].point;
-          /*if(ray[1].body.tag != "none") {
-            let vertsAngle = Math.atan2(ray[1].verts[0].y - ray[1].verts[1].y, ray[1].verts[0].x - ray[1].verts[1].x) + Math.PI * 2.5;
-            gameData.particles.push(new particle({x: ray[1].point.x / 1, y: ray[1].point.y / 1}, Math.random() * 360, (vertsAngle), ray[1].body.tag, 250, "/assets/misc/particle.svg", 100, "residue"));
-          }*/
           for (let i = 0; i < gameData.users.length; i++) {
             if (gameData.players[gameData.users[i]].body == ray[1].body && gameData.players[gameData.users[i]] != player) {
               finish = ray[1].point;
               if (gameData.players[gameData.users[i]].team != player.team) {
                 gameData.players[gameData.users[i]].health -= currentWeapon.damage;
+                gameData.shouldUpdateScoreboard = true;
+                gameData.scoreboard[id].damage += currentWeapon.damage;
                 if (gameData.players[gameData.users[i]].health < 1) {
                   for(let k = 0; k < 7; k++) {
                     const angle = Math.random() * Math.PI * 2;
@@ -462,6 +485,9 @@ function updatePlayer(player, delay) {
                   Composite.remove(world, gameData.players[gameData.users[i]].body);
                   gameData.players[gameData.users[i]].keys = [];
                   gameData.currentRoundScore[player.team] += 1;
+                  gameData.scoreboard[id].kills++;
+                  gameData.scoreboard[id].score += 100;
+                  gameData.scoreboard[gameData.users[i]].deaths++;
                   gameData.players[gameData.users[i]].state.mag[0] = gameData.weapons[gameData.players[gameData.users[i]].guns[0]].magSize;
                   gameData.players[gameData.users[i]].state.mag[1] = gameData.weapons[gameData.players[gameData.users[i]].guns[1]].magSize;                    
                   gameData.players[gameData.users[i]].state.isReloading = false;
@@ -469,7 +495,7 @@ function updatePlayer(player, delay) {
               }
             }
           }
-          gameData.bullets.push(new bullet({ start: player.state.position, finish: finish }, player.team, player.state.angle + randomAngleOffset, currentWeapon.lifeTime, [{x: ray[1].verts[0].x, y: ray[1].verts[0].y, colour: ray[1].body.tag}, {x: ray[1].verts[1].x, y: ray[1].verts[1].y, colour: ray[1].body.tag}], true));
+          gameData.bullets.push(new bullet({ start: player.state.position, finish: finish }, player.team, player.state.angle + randomAngleOffset, currentWeapon.lifeTime, [{x: ray[1].verts[0].x, y: ray[1].verts[0].y, colour: JSON.parse(ray[1].body.tag).colour}, {x: ray[1].verts[1].x, y: ray[1].verts[1].y, colour: JSON.parse(ray[1].body.tag).colour}], true));
           player.state.fireTimer = 0;
         }
         player.state.recoilTimer = 1;
@@ -520,7 +546,7 @@ function updateGame() {
         }
         gameData.shouldUpdateUI = true;
       }
-      updatePlayer(player, tickDelay);
+      updatePlayer(player, tickDelay, gameData.users[x]);
     }
     for(let x = 0; x < gameData.users.length; x++) {
       io.to(gameData.users[x]).emit("world-update", {
@@ -536,13 +562,15 @@ function updateGame() {
         certificate: gameData.certificate,
         queuedSounds: gameData.queuedSounds,
         lastTickDelay: gameData.lastTickDelay,
-        shouldUpdateUI: gameData.shouldUpdateUI
+        shouldUpdateUI: gameData.shouldUpdateUI,
+        shouldUpdateScoreboard: gameData.shouldUpdateScoreboard
       });
     }
     gameData.bullets = [],
     gameData.particles = [];
     gameData.queuedSounds = [];
     gameData.shouldUpdateUI = false;
+    gameData.shouldUpdateScoreboard = false;
     updatePlayerPrev();
   }
 }
@@ -590,7 +618,7 @@ function newConnection(socket) {
             inertia: 1,
             density: 0.015,
             frictionAir: 0.25,
-            tag: spawnpoint.team  
+            tag: JSON.stringify({colour: spawnpoint.team, id: socket.id}) 
           }),
           0,
           gameData.loadouts["assault"],
@@ -603,11 +631,13 @@ function newConnection(socket) {
         gameData.players[socket.id].state.spawnpoint = spawnpoint;
 
         gameData.scoreboard[socket.id] = {
+          nickname: data.nickname || "Player " + gameData.usersOnline,
           kills: 0,
           deaths: 0,
           score: 0,
           damage: 0
         };
+        gameData.shouldUpdateScoreboard = true;
         socket.emit("load-world", gameData);
 
         socket.on("disconnect", function() {
@@ -618,14 +648,14 @@ function newConnection(socket) {
             Composite.remove(world, gameData.players[socket.id].body);
             gameData.players[socket.id] = void 0;
             gameData.scoreboard[socket.id] = void 0;
+            gameData.shouldUpdateScoreboard = true;
             for (let i = 0; i < gameData.users.length; i++) {
               if (gameData.users[i] === socket.id) {
                 gameData.users.splice(i, 1);
               }
             }
             if(gameData.users.length == 0) {
-              gameData.currentRoundScore["blue"] = 0;
-              gameData.currentRoundScore["red"] = 0;
+              gameData.currentRoundScore = { "blue": 0, "red": 0 };
               gameData.secondsLeft = 360;
             }
           }
@@ -633,10 +663,9 @@ function newConnection(socket) {
         socket.on("move-key-change", (data) => {
           try {
             let player = gameData.players[socket.id];
-            if(player.health > 0) {
+            if(player.health > 0 && gameData.secondsLeft > 0) {
               if(player.state.hasStarted) {
                 player.keys = data.keys;
-    
                 if(player.keys[82] && player.state.mag[player.state.activeWeaponIndex] < gameData.weapons[player.guns[player.state.activeWeaponIndex]].magSize && !player.state.isReloading) {
                   player.state.isReloading = true;
                   gameData.queuedSounds.push({path: gameData.weapons[player.guns[player.state.activeWeaponIndex]].sounds.reload, origin: player.state.position});

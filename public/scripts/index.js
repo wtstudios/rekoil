@@ -24,7 +24,7 @@ function requestConnectToGame() {
   } else {
     platform = "desktop";
   }
-  socket.emit("play-request", {platform: platform, timestamp: JSON.parse(serverWeightMeasure).ip});
+  socket.emit("play-request", {platform: platform, timestamp: JSON.parse(serverWeightMeasure).ip, nickname: document.getElementById("nickname-input").value});
 
   document.getElementById("select-breach").addEventListener("click", function() {changeGun("breach");});
   document.getElementById("select-assault").addEventListener("click", function() {changeGun("assault");});
@@ -43,6 +43,10 @@ function changeGun(gun) {
 
   document.getElementById("character-body").src = "assets/player/pose-" + gun + ".svg";
   gameData.selectedClass = gun;
+
+  document.getElementById("main").src = gameData.weapons[gameData.mapData.config.loadouts[gun][0]].images.lootSRC;
+  document.getElementById("pistol").src = gameData.weapons[gameData.mapData.config.loadouts[gun][1]].images.lootSRC;
+  document.getElementById("melee").src = gameData.weapons[gameData.mapData.config.loadouts[gun][2]].images.lootSRC;
 }
 
 function restrict(number, min, max) {
@@ -78,6 +82,22 @@ function squaredDist(ptA, ptB) {
   return (ptB.x - ptA.x) ** 2 + (ptB.y - ptA.y) ** 2;
 }
 
+function countingSort(arr, min, max) { // credit to arnorhs (https://https://github.com/arnorhs) (modified by me)
+  var i, z = 0, count = [];
+  for (i = min; i <= max; i++) {
+      count[i] = 0;
+  }
+  for (i=0; i < arr.length; i++) {
+      count[arr[i]]++;
+  }
+  for (i = min; i <= max; i++) {
+      while (count[i]-- > 0) {
+          arr[z++] = i;
+      }
+  }
+  return arr;
+}
+
 function secondsToTimestamp(seconds) {
   if(seconds < 0) {
     return "0:00";
@@ -87,6 +107,42 @@ function secondsToTimestamp(seconds) {
   } else {
     return Math.floor(gameData.secondsLeft / 60) + ":" + (gameData.secondsLeft - (Math.floor(gameData.secondsLeft / 60) * 60));
   }
+}
+
+function updateScoreboard(data) {
+  //try {
+    let scoreList = [],
+    highestScore = 0;
+
+    for(let i = 0; i < data.users.length; i++) {
+      scoreList.push(data.scoreboard[data.users[i]].score);
+      if(data.scoreboard[data.users[i]].score > highestScore) {
+        highestScore = data.scoreboard[data.users[i]].score;
+      }
+    }
+
+    let orderedByScore = countingSort(scoreList, 0, highestScore),
+    remainingUsers = JSON.parse(JSON.stringify(data.users)),
+    listInnerHTML = "<tr id='scoreboard-headers' style='background-color: #498ee9b6; text-align: center;'><th>NICKNAME</th><th>SCORE</th><th>KILLS</th><th>DEATHS</th><th>DAMAGE</th></tr>";
+
+    for(let i = orderedByScore.length - 1; i > -1; i--) {
+      for(let j = 0; j < remainingUsers.length; j++) {
+        if(data.scoreboard[remainingUsers[j]].score == orderedByScore[i]) {
+          let teamColour = "#e9494f67";
+          if (gameData.players[remainingUsers[j]].team == gameData.players[permanentID].team) {
+            teamColour = "#498fe967";
+          }
+          let newScoreboardRow = "<tr style='background-color: " + teamColour + "; text-align: center;'><td>" + data.scoreboard[remainingUsers[j]].nickname + "</th><td>" + data.scoreboard[remainingUsers[j]].score + "</th><td>" + data.scoreboard[remainingUsers[j]].kills + "</th><td>" + data.scoreboard[remainingUsers[j]].deaths + "</th><td>" + data.scoreboard[remainingUsers[j]].damage + "</th></tr>";
+
+          listInnerHTML = listInnerHTML + newScoreboardRow;
+
+          remainingUsers.splice(j, 1);
+          j--;
+        }
+      }
+    }
+    document.getElementById("scoreboard").innerHTML = listInnerHTML;
+  //} catch {}
 }
 
 function updateGunHUD(data) {
@@ -129,10 +185,45 @@ function updateHUD(data) {
       break;
     }
   }
-  if(data.players[permanentID].health > 0) {
-  } else {
+  if(data.players[permanentID].health < 1 && data.secondsLeft > 0) {
     document.getElementById("weapon-selection").style.display = "block";
     document.getElementById("gun-hud").style.display = "none";
+  } else if(document.getElementById("weapon-selection").style.display != "none") {
+    document.getElementById("weapon-selection").style.display == "none";
+  }
+  if(data.secondsLeft < 1) {
+    document.getElementById("gun-hud").style.display = "none";
+    document.getElementById("blue-score-container").style.display = "none";
+    document.getElementById("time-left-container").style.display = "none";
+    document.getElementById("red-score-container").style.display = "none";
+    document.getElementById("scoreboard-container").style.display = "block";
+    document.getElementById("end-of-game-page-container").style.display = "block";
+    switch(data.players[permanentID].team) {
+      case "blue":
+        if(data.currentRoundScore["blue"] > data.currentRoundScore["red"]) {
+          document.getElementById("end-of-game-winloss-text").textContent = "VICTORY";
+        } else if(data.currentRoundScore["blue"] < data.currentRoundScore["red"]) {
+          document.getElementById("end-of-game-winloss-text").textContent = "DEFEAT";
+        } else if(data.currentRoundScore["blue"] == data.currentRoundScore["red"]) {
+          document.getElementById("end-of-game-winloss-text").textContent = "TIE";
+        }
+      break;
+      case "red":
+        if(data.currentRoundScore["blue"] < data.currentRoundScore["red"]) {
+          document.getElementById("end-of-game-winloss-text").textContent = "VICTORY";
+        } else if(data.currentRoundScore["blue"] > data.currentRoundScore["red"]) {
+          document.getElementById("end-of-game-winloss-text").textContent = "DEFEAT";
+        } else if(data.currentRoundScore["blue"] == data.currentRoundScore["red"]) {
+          document.getElementById("end-of-game-winloss-text").textContent = "TIE";
+        }
+      break;
+    }
+  } else if(document.getElementById("blue-score-container").style.display != "block") {
+    document.getElementById("blue-score-container").style.display = "block";
+    document.getElementById("time-left-container").style.display = "block";
+    document.getElementById("red-score-container").style.display = "block";
+    document.getElementById("scoreboard-container").style.display = "none";
+    document.getElementById("end-of-game-page-container").style.display = "none";
   }
 }
 
@@ -203,7 +294,7 @@ function displayObstacles() {
 
 function displayGuns() {
   for (let i = 0; i < gameData.users.length; i++) {
-    if(gameData.players[gameData.users[i]].health > 0) {
+    if(gameData.players[gameData.users[i]].health > 0 || gameData.secondsLeft < 1) {
       const playerData = gameData.players[gameData.users[i]],
       gun = gameData.weapons[playerData.guns[playerData.state.activeWeaponIndex]],
       tickDelay = syncedMS;
@@ -279,7 +370,7 @@ function displayBullets() {
 
 function displayPlayers() {
   for (let i = 0; i < gameData.users.length; i++) {
-    if(gameData.players[gameData.users[i]].health > 0) {
+    if(gameData.players[gameData.users[i]].health > 0 || gameData.secondsLeft < 1) {
       const playerData = gameData.players[gameData.users[i]],
       tickDelay = syncedMS;
       push();
@@ -340,7 +431,7 @@ function displayFog() {
       case "rectangle":
         let playerCoordinates = {x: (playerData.state.previousPosition.x + playerData.state.force.x * (tickDelay / gameData.lastTickDelay)), y: (playerData.state.previousPosition.y + playerData.state.force.y * (tickDelay / gameData.lastTickDelay))},
         relativePositionState = {x: "middle", y: "middle"},
-        points = {point1: {}, point2: {}},
+        points = {point1: {}, point2: {}, optional1: {exists: false}, optional2: {exists: false} },
         rectShadow = [];
         if(obstacleData["body-data"].options.angle == 0) {
           if(playerCoordinates.x < obstacleData["body-data"].position.x - obstacleData["body-data"].dimensions.width / 2) {
@@ -498,7 +589,7 @@ function displayFog() {
             shadowLog = shadowLog.union(CSG.fromPolygons([rectShadow]));
           }*/
 
-          translate(0, 0, 0.1);
+          translate(0, 0, 0.15);
           fill("#333333");
           beginShape();
           vertex(points.point1.x, points.point1.y);

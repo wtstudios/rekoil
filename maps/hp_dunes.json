@@ -38,7 +38,7 @@
     "loadouts": {
       "assault": ["SCAR-L", "T509", "Bayonet"],
       "breach": ["SLP", "T509", "Bayonet"],
-      "scout": ["Ballista", "T509", "Bayonet"]
+      "scout": ["Ballista", "FNX45", "Bayonet"]
     },
     "point": {
       "position": {
@@ -1881,8 +1881,8 @@
       "display-data": {
         "src": "/assets/misc/blank.svg",
         "dimensions": {
-          "width": 1,
-          "height": 1
+          "width": 110,
+          "height": 10100
         },
         "offset": {
           "x": 0,
@@ -1915,8 +1915,8 @@
       "display-data": {
         "src": "/assets/misc/blank.svg",
         "dimensions": {
-          "width": 1,
-          "height": 1
+          "width": 110,
+          "height": 10100
         },
         "offset": {
           "x": 0,
@@ -1949,8 +1949,8 @@
       "display-data": {
         "src": "/assets/misc/blank.svg",
         "dimensions": {
-          "width": 1,
-          "height": 1
+          "width": 5100,
+          "height": 110
         },
         "offset": {
           "x": 0,
@@ -1983,8 +1983,8 @@
       "display-data": {
         "src": "/assets/misc/blank.svg",
         "dimensions": {
-          "width": 1,
-          "height": 1
+          "width": 5100,
+          "height": 110
         },
         "offset": {
           "x": 0,

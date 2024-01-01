@@ -89,7 +89,6 @@
           <img id="character-body" src="assets/player/pose-assault.svg" style="width: 100%; position: absolute; animation: float 4.5s ease-in-out infinite;"></img>
         </div>
 
-
       </div>
       <div id="weapons-list" style="background-color: #3333331e; right: calc(5vw + 15vh); top: calc(50% - ((4 * (2.66vw + 8vh)) + (3 * (1vw + 3vh)) + (2 * (2vw + 2vh))) / 2); width: calc(10vw + 22vh); height: calc((4 * (2.66vw + 8vh)) + (3 * (1vw + 3vh)) + (2 * (2vw + 2vh))); position: absolute; transform: skew(-14deg);">
         <div id="weapons-list-wrapper-individual" style="transform: skew(14deg);">
@@ -111,6 +110,17 @@
           <button id="respawn-button" style="background-color: #e63128b6; margin-top: calc(1vw + 3vh); height: calc(2.66vw + 8vh); width: calc(6vw + 18vh); transform: skew(-14deg); font-family: source-sans-pro; color: #333333; font-size: calc(1.7vw + 1.7vh);">SPAWN</button>
         </div>
       </div>
+
+    </div>
+    <div id="end-of-game-page-container" style="width: 100%; height: 100%; z-index: 1; background-color: #3333338e; position: absolute; left: 0px; top: 0px; pointer-events: none; display: none;">
+      <div id="end-of-game-winloss-text-container" style="z-index: 1; width: 100%; position: absolute; top: 0px;">
+        <p id="end-of-game-winloss-text" style="font-size: calc(7vw + 7vh); z-index: 1; max-width: calc(30vw + 30vh); padding-top: calc(2vw + 2vh); letter-spacing: calc(0.1vw + 0.1vh);">VICTORY</p>
+        <p id="end-of-game-nextgame-start-countdown" style="font-size: calc(1.5vw + 1.5vh); z-index: 1; max-width: calc(30vw + 30vh); bottom: 50%; font-family: source-sans-pro; transform: skew(-14deg) translateY(-50%);">NEXT GAME IN 10...</p>
+      </div>
+    </div>
+    <div id="scoreboard-container" style="z-index: 1; width: 100%; height: 100%; position: absolute; pointer-events: none; left: 0px; top: 0px; display: none;">
+      <table id="scoreboard" style="width: calc(29vw + 29vh); left: calc(((100%) - (29vw + 29vh)) / 2); border-spacing: 0px; top: calc(10vw + 10vh); font-family: source-sans-pro; color: #333333; font-size: calc(0.9vw + 0.9vh); margin: 0; position: absolute; top: 50%; transform: skew(-14deg);">
+      </table>
     </div>
   </div>
 

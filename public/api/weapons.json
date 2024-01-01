@@ -44,7 +44,7 @@
       "view": 1200,
       "fireDelay": 60,
       "spread": {
-        "standing": 0.5,
+        "standing": 0.25,
         "moving": 15
       },
       "damage": 70,
