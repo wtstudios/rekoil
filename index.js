@@ -198,7 +198,7 @@ class playerLike {
 }
 
 let gameData = {
-  mapData: ciqlJson.open("maps/hp_dunes.json").data,
+  mapData: ciqlJson.open("maps/dm_dunes.json").data,
   teamNumbers: { "blue": 0, "red": 0 },
   roundsWonScore: {"blue": 0, "red": 0},
   currentRoundScore: { "blue": 0, "red": 0 },
@@ -214,7 +214,7 @@ let gameData = {
   certificate: "",
   queuedSounds: [],
   weapons: {},
-  loadouts: ciqlJson.open("maps/hp_dunes.json").data.config.loadouts,
+  loadouts: ciqlJson.open("maps/dm_dunes.json").data.config.loadouts,
   lastTickDelay: tickRate,
   shouldUpdateUI: false,
   shouldUpdateScoreboard: false,
