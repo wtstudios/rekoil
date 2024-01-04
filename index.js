@@ -378,7 +378,7 @@ function updatePlayer(player, delay, id) {
     });
   }
 
-  player.state.isMoving = !!Math.round(body.velocity.x) || !!Math.round(body.velocity.y);
+  player.state.isMoving = !!Math.floor(Math.abs(player.state.force.x)) || !!Math.floor(Math.abs(player.state.force.y));
 
   if(player.keys[950]) {
     const position = { x: player.state.position.x, y: player.state.position.y },
