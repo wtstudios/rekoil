@@ -198,7 +198,7 @@ class playerLike {
 }
 
 let gameData = {
-  mapData: ciqlJson.open("maps/dm_dunes.json").data,
+  mapData: ciqlJson.open("maps/dm_rust.json").data,
   teamNumbers: { "blue": 0, "red": 0 },
   roundsWonScore: {"blue": 0, "red": 0},
   currentRoundScore: { "blue": 0, "red": 0 },
@@ -320,6 +320,15 @@ updateSecondsLeft = setInterval(function() {
     initialize();
     gameData.secondsLeft = 360;
     gameData.shouldUpdateUI = true;
+    for(let i = 0; i < gameData.users.length; i++) {
+      gameData.scoreboard[gameData.users[i]] = {
+        nickname: gameData.scoreboard[gameData.users[i]].nickname,
+        kills: 0,
+        deaths: 0,
+        score: 0,
+        damage: 0
+      };
+    }
     gameData.shouldUpdateScoreboard = true;
     gameData.currentRoundScore = { "blue": 0, "red": 0 };
   }
@@ -518,7 +527,7 @@ function updateGame() {
   if (gameData.usersOnline > 0) {
     let time = Date.now();
     
-    const tickDelay = ((time - lastTime) / ((25 / tickRate) * tickRate));
+    const tickDelay = ((time - lastTime) / 25);
     gameData.lastTickDelay = (time - lastTime);
 
     lastTime = Date.now();
