@@ -79,12 +79,12 @@
       "type": "shotgun",
       "magSize": 4,
       "view": 0,
-      "fireDelay": 40,
+      "fireDelay": 25,
       "spread": {
-        "standing": 20,
-        "moving": 24
+        "standing": 24,
+        "moving": 27
       },
-      "damage": 15,
+      "damage": 20,
       "bulletsPerShot": 5,
       "handPositions": [{ "x": -25, "y": -255 }, { "x": 25, "y": -120 }],
       "images": { "topdownSRC": "/assets/weapons/slp_topdown.svg", "lootSRC": "/assets/weapons/slp_loot.svg", "offset": { "x": 0, "y": -320 } },
@@ -113,6 +113,7 @@
     },
     {
       "name": "T509",
+      "type": "pistol",
       "magSize": 12,
       "view": 0,
       "fireDelay": 9,
@@ -149,6 +150,7 @@
     },
     {
       "name": "FNX45",
+      "type": "pistol",
       "magSize": 15,
       "view": 0,
       "fireDelay": 3,
@@ -188,7 +190,7 @@
       "type": "melee",
       "view": 0,
       "fireDelay": 10,
-      "damage": 55,
+      "damage": 45,
       "damageArea": {
         "position": {
           "x": 0,
@@ -226,7 +228,7 @@
       "type": "melee",
       "view": 0,
       "fireDelay": 10,
-      "damage": 55,
+      "damage": 45,
       "damageArea": {
         "position": {
           "x": 0,
