@@ -4,7 +4,7 @@
       "name": "SCAR-L",
       "type": "rifle",
       "magSize": 20,
-      "view": 0,
+      "view": 500,
       "fireDelay": 5,
       "spread": {
         "standing": 2.5,
