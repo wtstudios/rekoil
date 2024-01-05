@@ -613,7 +613,7 @@ function newConnection(socket) {
       }
       if(gameData.usernameFilter.isProfane(data.nickname + "")) console.log("Inappropriate username blocked from entry");
       if(!alreadyExists && !gameData.usernameFilter.isProfane(data.nickname + "")) {
-        console.log("1 New client");
+        console.log(data.nickname + " Has connected");
         gameData.usersOnline++;
         gameData.users.push(socket.id);
         let spawnpoint;
