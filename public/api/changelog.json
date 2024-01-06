@@ -1,6 +1,12 @@
 {
     "updates": [
         {
+            "version": "0.1.8.3",
+            "title": "Balance changes",
+            "date": "January 5, 2024",
+            "content": "- Buffed SCAR damage from 17 – 20<br>-Nerfed T509 damage from 25 – 24<br>- Buffed X45 damage from 9 – 10<br>- You can now switch weapons with the scroll wheel"
+        },
+        {
             "version": "0.1.8.2",
             "title": "Balance changes",
             "date": "January 4, 2024",
