@@ -368,12 +368,12 @@ function updatePlayer(player, delay, id) {
   if(w || s) {
     Body.setVelocity(body, {
       x: body.velocity.x,
-      y: +(w ^ s) && (((a ^ d) ? 0.7071 : 1) * [-1, 1][+w] * base * delay / 1.5 / (body.density / 0.15))
+      y: +(w ^ s) && (((a ^ d) ? 0.7071 : 1) * [-1, 1][+w] * base * delay / 1.75 / (body.density / 0.15))
     });
   }
   if(a || d) {
     Body.setVelocity(body, {
-      x: +(a ^ d) && (((w ^ s) ? 0.7071 : 1) * [-1, 1][+d] * base * delay / 1.5 / (body.density / 0.15)),
+      x: +(a ^ d) && (((w ^ s) ? 0.7071 : 1) * [-1, 1][+d] * base * delay / 1.75 / (body.density / 0.15)),
       y: body.velocity.y
     });
   }
@@ -527,7 +527,7 @@ function updateGame() {
   if (gameData.usersOnline > 0) {
     let time = Date.now();
     
-    const tickDelay = ((time - lastTime) / 25);
+    const tickDelay = ((time - lastTime) / (1000 / tickRate));
     gameData.lastTickDelay = (time - lastTime);
 
     lastTime = Date.now();
@@ -613,7 +613,7 @@ function newConnection(socket) {
       }
       if(gameData.usernameFilter.isProfane(data.nickname + "")) console.log("Inappropriate username blocked from entry");
       if(!alreadyExists && !gameData.usernameFilter.isProfane(data.nickname + "")) {
-        console.log(data.nickname + " Has connected");
+        console.log(data.nickname || "Unnamed user" + " Has connected");
         gameData.usersOnline++;
         gameData.users.push(socket.id);
         let spawnpoint;
@@ -753,10 +753,3 @@ function newConnection(socket) {
     }
   });
 }
-
-
-
-
-
-
-
