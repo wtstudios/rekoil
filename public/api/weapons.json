@@ -5,7 +5,7 @@
       "type": "rifle",
       "magSize": 20,
       "view": 500,
-      "fireDelay": 5,
+      "fireDelay": 7,
       "spread": {
         "standing": 2.5,
         "moving": 10
@@ -14,7 +14,7 @@
       "bulletsPerShot": 1,
       "handPositions": [{ "x": -25, "y": -270 }, { "x": 25, "y": -120 }],
       "images": { "topdownSRC": "/assets/weapons/scar_topdown.svg", "lootSRC": "/assets/weapons/scar_loot.svg", "offset": { "x": 0, "y": -290 } },
-      "reloadLength": 80,
+      "reloadLength": 100,
       "roundsPerReload": "all",
       "playerDensity": 0.02,
       "sounds": {
@@ -42,7 +42,7 @@
       "type": "rifle",
       "magSize": 3,
       "view": 1200,
-      "fireDelay": 60,
+      "fireDelay": 72,
       "spread": {
         "standing": 0.25,
         "moving": 15
@@ -51,7 +51,7 @@
       "bulletsPerShot": 1,
       "handPositions": [{ "x": -25, "y": -300 }, { "x": 25, "y": -120 }],
       "images": { "topdownSRC": "/assets/weapons/ballista_topdown.svg", "lootSRC": "/assets/weapons/ballista_loot.svg", "offset": { "x": 0, "y": -390 } },
-      "reloadLength": 150,
+      "reloadLength": 195,
       "roundsPerReload": "all",
       "playerDensity": 0.022,          
       "sounds": {
@@ -79,7 +79,7 @@
       "type": "shotgun",
       "magSize": 4,
       "view": 0,
-      "fireDelay": 25,
+      "fireDelay": 32,
       "spread": {
         "standing": 24,
         "moving": 27
@@ -88,7 +88,7 @@
       "bulletsPerShot": 5,
       "handPositions": [{ "x": -25, "y": -255 }, { "x": 25, "y": -120 }],
       "images": { "topdownSRC": "/assets/weapons/slp_topdown.svg", "lootSRC": "/assets/weapons/slp_loot.svg", "offset": { "x": 0, "y": -320 } },
-      "reloadLength": 45,
+      "reloadLength": 60,
       "roundsPerReload": 1,
       "playerDensity": 0.02,          
       "sounds": {
@@ -116,7 +116,7 @@
       "type": "pistol",
       "magSize": 12,
       "view": 0,
-      "fireDelay": 9,
+      "fireDelay": 11,
       "spread": {
         "standing": 1.5,
         "moving": 8
@@ -125,7 +125,7 @@
       "bulletsPerShot": 1,
       "handPositions": [{ "x": -30, "y": -115 }, { "x": 25, "y": -120 }],
       "images": { "topdownSRC": "/assets/weapons/509_topdown.svg", "lootSRC": "/assets/weapons/509_loot.svg", "offset": { "x": 0, "y": -335 } },
-      "reloadLength": 70,
+      "reloadLength": 85,
       "roundsPerReload": "all",
       "playerDensity": 0.018,          
       "sounds": {
@@ -153,7 +153,7 @@
       "type": "pistol",
       "magSize": 15,
       "view": 0,
-      "fireDelay": 3,
+      "fireDelay": 4,
       "spread": {
         "standing": 6,
         "moving": 14
@@ -162,7 +162,7 @@
       "bulletsPerShot": 1,
       "handPositions": [{ "x": -30, "y": -115 }, { "x": 25, "y": -120 }],
       "images": { "topdownSRC": "/assets/weapons/fnx_topdown.svg", "lootSRC": "/assets/weapons/fnx_loot.svg", "offset": { "x": 0, "y": -335 } },
-      "reloadLength": 80,
+      "reloadLength": 85,
       "roundsPerReload": "all",
       "playerDensity": 0.018,          
       "sounds": {
@@ -186,10 +186,47 @@
       "lifeTime": 30
     },
     {
+      "name": "Desert Eagle",
+      "type": "pistol",
+      "magSize": 7,
+      "view": 0,
+      "fireDelay": 13,
+      "spread": {
+        "standing": 3,
+        "moving": 20
+      },
+      "damage": 35,
+      "bulletsPerShot": 1,
+      "handPositions": [{ "x": -30, "y": -115 }, { "x": 25, "y": -120 }],
+      "images": { "topdownSRC": "/assets/weapons/deagle_topdown.svg", "lootSRC": "/assets/weapons/deagle_loot.svg", "offset": { "x": 0, "y": -335 } },
+      "reloadLength": 85,
+      "roundsPerReload": "all",
+      "playerDensity": 0.02,          
+      "sounds": {
+        "fire": "/assets/audio/guns/deagle_fire.mp3",
+        "reload": "/assets/audio/guns/509_reload.mp3"
+      },
+      "recoilImpulse": [
+        {
+          "x": 0,
+          "y": 35
+        },
+        {
+          "x": 0,
+          "y": 35
+        },
+        {
+          "x": 0,
+          "y": 35
+        }
+      ],
+      "lifeTime": 40
+    },
+    {
       "name": "Bayonet",
       "type": "melee",
       "view": 0,
-      "fireDelay": 10,
+      "fireDelay": 15,
       "damage": 45,
       "damageArea": {
         "position": {
@@ -227,7 +264,7 @@
       "name": "Survival Knife",
       "type": "melee",
       "view": 0,
-      "fireDelay": 10,
+      "fireDelay": 15,
       "damage": 45,
       "damageArea": {
         "position": {

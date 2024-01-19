@@ -1,6 +1,12 @@
 {
     "updates": [
         {
+            "version": "0.1.9",
+            "title": "New Item",
+            "date": "January 18, 2024",
+            "content": "- Added Desert Eagle – 20<br>-Reworked fire delay system – 24<br>- Misc. Optimizations"
+        },
+        {
             "version": "0.1.8.3",
             "title": "Balance changes",
             "date": "January 5, 2024",
