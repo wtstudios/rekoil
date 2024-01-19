@@ -47,7 +47,7 @@
     },
     "loadouts": {
       "assault": ["SCAR-L", "T509", "Bayonet"],
-      "breach": ["SLP", "T509", "Bayonet"],
+      "breach": ["SLP", "Desert Eagle", "Bayonet"],
       "scout": ["Ballista", "FNX45", "Bayonet"]
     },
     "point": {
