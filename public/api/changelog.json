@@ -1,10 +1,16 @@
 {
     "updates": [
         {
+            "version": "0.1.9.1",
+            "title": "Graphical Tweak",
+            "date": "January 20, 2024",
+            "content": "- Changed X45 Autopistol sideview image <br>- Buffed X45 mag size (15 – 17)"
+        },
+        {
             "version": "0.1.9",
             "title": "New Item",
             "date": "January 18, 2024",
-            "content": "- Added Desert Eagle – 20<br>-Reworked fire delay system – 24<br>- Misc. Optimizations"
+            "content": "- Added Desert Eagle<br>-Reworked fire delay system<br>- Misc. Optimizations"
         },
         {
             "version": "0.1.8.3",

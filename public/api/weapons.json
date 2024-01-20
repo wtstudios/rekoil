@@ -81,8 +81,8 @@
       "view": 0,
       "fireDelay": 32,
       "spread": {
-        "standing": 24,
-        "moving": 27
+        "standing": 18,
+        "moving": 24
       },
       "damage": 20,
       "bulletsPerShot": 5,
@@ -151,7 +151,7 @@
     {
       "name": "FNX45",
       "type": "pistol",
-      "magSize": 15,
+      "magSize": 17,
       "view": 0,
       "fireDelay": 4,
       "spread": {
