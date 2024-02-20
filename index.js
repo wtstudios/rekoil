@@ -198,7 +198,7 @@ class playerLike {
 }
 
 let gameData = {
-  mapData: ciqlJson.open("maps/dm_dunes.json").data,
+  mapData: ciqlJson.open("maps/dm_rust.json").data,
   teamNumbers: { "blue": 0, "red": 0 },
   roundsWonScore: {"blue": 0, "red": 0},
   currentRoundScore: { "blue": 0, "red": 0 },
