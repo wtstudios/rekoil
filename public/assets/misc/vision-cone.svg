@@ -2,13 +2,13 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="10mm"
-   height="10mm"
-   viewBox="0 0 10 10"
+   width="2000mm"
+   height="2000mm"
+   viewBox="0 0 2000 2000"
    version="1.1"
    id="svg5"
    inkscape:version="1.3 (0e150ed, 2023-07-21)"
-   sodipodi:docname="cartridge.svg"
+   sodipodi:docname="vision-cone.svg"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -23,14 +23,14 @@
      inkscape:pagecheckerboard="0"
      inkscape:document-units="mm"
      showgrid="false"
-     inkscape:zoom="9.3296015"
-     inkscape:cx="36.228771"
-     inkscape:cy="21.276364"
-     inkscape:window-width="1312"
-     inkscape:window-height="724"
+     inkscape:zoom="0.041518122"
+     inkscape:cx="1083.8641"
+     inkscape:cy="3913.9535"
+     inkscape:window-width="1440"
+     inkscape:window-height="784"
      inkscape:window-x="0"
      inkscape:window-y="25"
-     inkscape:window-maximized="0"
+     inkscape:window-maximized="1"
      inkscape:current-layer="layer1"
      inkscape:showpageshadow="2"
      inkscape:deskcolor="#d1d1d1" />
@@ -40,13 +40,9 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1">
-    <rect
-       style="fill:#333333;stroke:#959595;stroke-width:0;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:831.496"
-       id="rect846"
-       width="3.0000021"
-       height="7.0000048"
-       x="3.499999"
-       y="1.4999976"
-       ry="0" />
+    <path
+       id="path1"
+       style="fill:#ffffff;fill-opacity:1;stroke-width:15;stroke-linecap:round"
+       d="M 292.89311,292.89337 A 1000,1000 0 0 0 76.120344,1382.6832 1000,1000 0 0 0 999.9999,2000 1000,1000 0 0 0 1923.8794,1382.6832 1000,1000 0 0 0 1707.1066,292.89337 l -583.3634,583.36284 a 175,175 0 0 1 0,5.2e-4 175,175 0 0 1 51.2563,123.74337 175,175 0 0 1 -174.9996,174.9996 175,175 0 0 1 -175.0002,-174.9996 175,175 0 0 1 51.5715,-123.42866 z" />
   </g>
 </svg>

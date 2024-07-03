@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="0 0 100 99.999999"
+   version="1.1"
+   id="svg1"
+   sodipodi:docname="discord-mark-white.svg"
+   width="100"
+   height="100"
+   inkscape:version="1.3 (0e150ed, 2023-07-21)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1" />
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="0.92577538"
+     inkscape:cx="-45.907464"
+     inkscape:cy="29.164742"
+     inkscape:window-width="1312"
+     inkscape:window-height="431"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg1" />
+  <path
+     fill="#fff"
+     d="m 78.461808,24.130775 a 67.81723,67.81723 0 0 0 -16.917222,-5.204804 46.475602,46.475602 0 0 0 -2.167056,4.405057 62.999401,62.999401 0 0 0 -18.774698,0 46.675539,46.675539 0 0 0 -2.167056,-4.405057 68.294498,68.294498 0 0 0 -16.930121,5.217703 C 10.799368,39.983817 7.897061,55.430538 9.3482143,70.657973 v 0 a 68.191305,68.191305 0 0 0 20.7482677,10.416055 50.11316,50.11316 0 0 0 4.443754,-7.165471 44.127959,44.127959 0 0 1 -6.997784,-3.340878 c 0.586911,-0.425671 1.160923,-0.864243 1.715586,-1.289914 a 48.739401,48.739401 0 0 0 41.483635,0 c 0.561112,0.457919 1.135124,0.89649 1.715585,1.289914 a 44.295647,44.295647 0 0 1 -7.010682,3.347328 49.66169,49.66169 0 0 0 4.443753,7.159021 67.881725,67.881725 0 0 0 20.761167,-10.409606 v 0 C 92.354182,53.005499 87.742739,37.70067 78.461808,24.130775 Z M 36.378363,61.293198 c -4.04388,0 -7.384758,-3.669805 -7.384758,-8.184505 0,-4.5147 3.224785,-8.216753 7.371859,-8.216753 4.147074,0 7.462153,3.702053 7.391207,8.216753 -0.07095,4.514699 -3.257033,8.184505 -7.378308,8.184505 z m 27.242984,0 c -4.05033,0 -7.378308,-3.669805 -7.378308,-8.184505 0,-4.5147 3.224785,-8.216753 7.378308,-8.216753 4.153523,0 7.442804,3.702053 7.371859,8.216753 -0.07095,4.514699 -3.250583,8.184505 -7.371859,8.184505 z"
+     id="path1"
+     style="fill:#ffffff;fill-opacity:1;stroke-width:0.999999" />
+</svg>

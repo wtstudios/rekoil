@@ -23,11 +23,11 @@
      inkscape:pagecheckerboard="0"
      inkscape:document-units="mm"
      showgrid="false"
-     inkscape:zoom="0.76240752"
-     inkscape:cx="624.33801"
-     inkscape:cy="529.90033"
+     inkscape:zoom="1.5915075"
+     inkscape:cx="1005.6503"
+     inkscape:cy="567.70076"
      inkscape:window-width="1440"
-     inkscape:window-height="777"
+     inkscape:window-height="768"
      inkscape:window-x="0"
      inkscape:window-y="25"
      inkscape:window-maximized="1"
@@ -35,7 +35,14 @@
      inkscape:showpageshadow="2"
      inkscape:deskcolor="#d1d1d1" />
   <defs
-     id="defs16728" />
+     id="defs16728">
+    <rect
+       x="0"
+       y="-177.97614"
+       width="882.46503"
+       height="177.97614"
+       id="rect1" />
+  </defs>
   <g
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
@@ -472,5 +479,15 @@
        cy="129.66263"
        rx="5.3706427"
        ry="5.3706403" />
+    <text
+       xml:space="preserve"
+       transform="matrix(0.15914462,0,-0.04658222,0.15914462,245.93294,140.78033)"
+       id="text1"
+       style="font-style:normal;font-weight:normal;font-size:33.3333px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect1);display:inline;fill:#333333;fill-opacity:0.2;stroke:none"><tspan
+         x="0"
+         y="-147.56558"
+         id="tspan4"><tspan
+           style="font-family:'Bebas Neue';-inkscape-font-specification:'Bebas Neue'"
+           id="tspan1">RkT Ballista            .308</tspan></tspan></text>
   </g>
 </svg>
