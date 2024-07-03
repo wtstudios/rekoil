@@ -5,6 +5,7 @@
     "ground-colour": "#dabb7f",
     "ground-image": "/assets/environment/dm_dunes-backing.svg",
     "background-colour": "#caa975",
+    "background-src": "dm_dunes.svg",
     "map-dimensions": {
       "width": 7915,
       "height": 7929
@@ -48,7 +49,9 @@
     "loadouts": {
       "assault": ["SCAR-L", "T509", "Bayonet"],
       "breach": ["SLP", "Desert Eagle", "Bayonet"],
-      "scout": ["Ballista", "FNX45", "Bayonet"]
+      "recon": ["VKR", "Desert Eagle", "Bayonet"],
+      "scout": ["Mk18", "FNX45", "Bayonet"],
+      "sniper": ["Ballista", "FNX45", "Bayonet"]
     },
     "point": {
       "position": {
