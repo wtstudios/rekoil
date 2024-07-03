@@ -5,7 +5,8 @@
       "type": "rifle",
       "magSize": 20,
       "view": 500,
-      "fireDelay": 7,
+      "fireDelay": 4,
+      "fireMode": "auto",
       "spread": {
         "standing": 2.5,
         "moving": 10
@@ -38,22 +39,99 @@
       "lifeTime": 30
     },
     {
+      "name": "Mk18",
+      "type": "rifle",
+      "magSize": 8,
+      "view": 800,
+      "fireDelay": 9,
+      "fireMode": "semi",
+      "spread": {
+        "standing": 1,
+        "moving": 2.5
+      },
+      "damage": 62,
+      "bulletsPerShot": 1,
+      "handPositions": [{ "x": -25, "y": -270 }, { "x": 25, "y": -120 }],
+      "images": { "topdownSRC": "/assets/weapons/mk18_topdown.svg", "lootSRC": "/assets/weapons/mk18_loot.svg", "offset": { "x": 0, "y": -330 } },
+      "reloadLength": 100,
+      "roundsPerReload": "all",
+      "playerDensity": 0.0215,
+      "sounds": {
+        "fire": "/assets/audio/guns/mk18_fire.mp3",
+        "reload": "/assets/audio/guns/mk18_reload.mp3"
+      },
+      "recoilImpulse": [
+        {
+          "x": 0,
+          "y": 30
+        },
+        {
+          "x": 0,
+          "y": 30
+        },
+        {
+          "x": 0,
+          "y": 30
+        }
+      ],
+      "lifeTime": 40
+    },
+    {
+      "name": "VKR",
+      "type": "smg",
+      "magSize": 15,
+      "view": 0,
+      "fireDelay": 2,
+      "fireMode": "auto",
+      "spread": {
+        "standing": 4.5,
+        "moving": 8
+      },
+      "damage": 16,
+      "bulletsPerShot": 1,
+      "handPositions": [{ "x": -25, "y": -210 }, { "x": 25, "y": -120 }],
+      "images": { "topdownSRC": "/assets/weapons/scar_topdown.svg", "lootSRC": "/assets/weapons/vector_loot.svg", "offset": { "x": 0, "y": -270 } },
+      "reloadLength": 100,
+      "roundsPerReload": "all",
+      "playerDensity": 0.0195,
+      "sounds": {
+        "fire": "/assets/audio/guns/vector_fire.mp3",
+        "reload": "/assets/audio/guns/vector_reload.mp3"
+      },
+      "recoilImpulse": [
+        {
+          "x": 0,
+          "y": 40
+        },
+        {
+          "x": 0,
+          "y": 40
+        },
+        {
+          "x": 0,
+          "y": 40
+        }
+      ],
+      "lifeTime": 25
+    },
+    {
       "name": "Ballista",
       "type": "rifle",
-      "magSize": 3,
-      "view": 1200,
+      "magSize": 1,
+      "view": 1000,
       "fireDelay": 72,
+      "fireMode": "semi",
       "spread": {
         "standing": 0.25,
         "moving": 15
       },
-      "damage": 70,
+      "damage": 110,
       "bulletsPerShot": 1,
       "handPositions": [{ "x": -25, "y": -300 }, { "x": 25, "y": -120 }],
       "images": { "topdownSRC": "/assets/weapons/ballista_topdown.svg", "lootSRC": "/assets/weapons/ballista_loot.svg", "offset": { "x": 0, "y": -390 } },
       "reloadLength": 195,
       "roundsPerReload": "all",
-      "playerDensity": 0.022,          
+      "playerDensity": 0.0235,          
       "sounds": {
         "fire": "/assets/audio/guns/ballista_fire.mp3",
         "reload": "/assets/audio/guns/ballista_reload.mp3"
@@ -79,7 +157,8 @@
       "type": "shotgun",
       "magSize": 4,
       "view": 0,
-      "fireDelay": 32,
+      "fireDelay": 18,
+      "fireMode": "semi",
       "spread": {
         "standing": 18,
         "moving": 24
@@ -88,7 +167,7 @@
       "bulletsPerShot": 5,
       "handPositions": [{ "x": -25, "y": -255 }, { "x": 25, "y": -120 }],
       "images": { "topdownSRC": "/assets/weapons/slp_topdown.svg", "lootSRC": "/assets/weapons/slp_loot.svg", "offset": { "x": 0, "y": -320 } },
-      "reloadLength": 60,
+      "reloadLength": 45,
       "roundsPerReload": 1,
       "playerDensity": 0.02,          
       "sounds": {
@@ -116,7 +195,8 @@
       "type": "pistol",
       "magSize": 12,
       "view": 0,
-      "fireDelay": 11,
+      "fireDelay": 7,
+      "fireMode": "semi",
       "spread": {
         "standing": 1.5,
         "moving": 8
@@ -154,6 +234,7 @@
       "magSize": 17,
       "view": 0,
       "fireDelay": 4,
+      "fireMode": "auto",
       "spread": {
         "standing": 6,
         "moving": 14
@@ -190,7 +271,8 @@
       "type": "pistol",
       "magSize": 7,
       "view": 0,
-      "fireDelay": 13,
+      "fireDelay": 7,
+      "fireMode": "semi",
       "spread": {
         "standing": 3,
         "moving": 20
@@ -204,7 +286,7 @@
       "playerDensity": 0.02,          
       "sounds": {
         "fire": "/assets/audio/guns/deagle_fire.mp3",
-        "reload": "/assets/audio/guns/509_reload.mp3"
+        "reload": "/assets/audio/guns/deagle_reload.mp3"
       },
       "recoilImpulse": [
         {
@@ -227,6 +309,7 @@
       "type": "melee",
       "view": 0,
       "fireDelay": 15,
+      "fireMode": "semi",
       "damage": 45,
       "damageArea": {
         "position": {
@@ -265,6 +348,7 @@
       "type": "melee",
       "view": 0,
       "fireDelay": 15,
+      "fireMode": "semi",
       "damage": 45,
       "damageArea": {
         "position": {

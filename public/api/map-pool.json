@@ -1,0 +1,8 @@
+{
+    "pool": [
+        "dm_dunes",
+        "dm_rust",
+        "hp_dunes",
+        "hp_freight"
+    ]
+}

@@ -34,6 +34,19 @@ p {
   transform: skew(calc(-14deg));
 }
 
+a {
+  color: rgb(240, 240, 240);
+  font-family: "bebas";
+  font-size: calc(2.5vw + 2.5vh);
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  display: block;
+  align-items: center;
+  text-align: center;
+}
+
 button {
   display: block;
   background-color: #498ee967;
@@ -134,7 +147,7 @@ input::placeholder {
 
 .select-weapon {
   background-color: #498ee9b6;
-  height: calc(2.66vw + 8vh);
+  height: calc(2vw + 6.2vh);
   width: calc(6vw + 18vh);
   left: calc(2vw + 2vh);
   z-index: 1;
