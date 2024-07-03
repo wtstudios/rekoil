@@ -8,7 +8,7 @@
    version="1.1"
    id="svg8079"
    sodipodi:docname="industrialbuilding2.svg"
-   inkscape:version="1.3 (0e150ed6c4, 2023-07-21)"
+   inkscape:version="1.3 (0e150ed, 2023-07-21)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -24,13 +24,13 @@
      inkscape:pagecheckerboard="0"
      inkscape:document-units="mm"
      showgrid="false"
-     inkscape:zoom="0.13794671"
-     inkscape:cx="2508.2149"
-     inkscape:cy="2475.5937"
-     inkscape:window-width="1920"
-     inkscape:window-height="1009"
-     inkscape:window-x="-8"
-     inkscape:window-y="-8"
+     inkscape:zoom="0.03833428"
+     inkscape:cx="4708.5793"
+     inkscape:cy="4786.8383"
+     inkscape:window-width="1440"
+     inkscape:window-height="784"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
      inkscape:window-maximized="1"
      inkscape:current-layer="layer1"
      inkscape:showpageshadow="2"
@@ -112,6 +112,72 @@
          id="path48-4"
          style="fill:#958575;stroke:#333333;stroke-width:15;stroke-linecap:round"
          d="m -609.24326,-961.12917 h 26.42825 c 14.83937,0 26.78586,11.94649 26.78586,26.78591 v 146.42825 c 0,14.83939 -11.94649,26.78589 -26.78586,26.78589 h -26.42825 c -14.83937,0 -26.78589,-11.9465 -26.78589,-26.78589 v -146.42825 c 0,-14.83942 11.94652,-26.78591 26.78589,-26.78591 z m -80.00003,0 h 26.42825 c 14.83937,0 26.78586,11.94649 26.78586,26.78591 v 146.42825 c 0,14.83939 -11.94649,26.78589 -26.78586,26.78589 h -26.42825 c -14.83937,0 -26.78588,-11.9465 -26.78588,-26.78589 v -146.42825 c 0,-14.83942 11.94651,-26.78591 26.78588,-26.78591 z m -80,0 h 26.42823 c 14.83939,0 26.78589,11.94649 26.78589,26.78591 v 146.42825 c 0,14.83939 -11.9465,26.78589 -26.78589,26.78589 h -26.42823 c -14.83936,0 -26.78588,-11.9465 -26.78588,-26.78589 v -146.42825 c 0,-14.83942 11.94652,-26.78591 26.78588,-26.78591 z" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath40-1-7">
+      <rect
+         style="fill:#333333;fill-opacity:1;stroke:#333333;stroke-width:0;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:0.1"
+         id="rect40-7-1"
+         width="269.67844"
+         height="352.67978"
+         x="1152.9198"
+         y="-42.146" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath40-8">
+      <rect
+         style="fill:#333333;fill-opacity:1;stroke:#333333;stroke-width:0;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:0.1"
+         id="rect40-78"
+         width="269.67844"
+         height="352.67978"
+         x="1152.9198"
+         y="-42.146" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath40-1-1">
+      <rect
+         style="fill:#333333;fill-opacity:1;stroke:#333333;stroke-width:0;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:0.1"
+         id="rect40-7-6"
+         width="269.67844"
+         height="352.67978"
+         x="1152.9198"
+         y="-42.146" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath40-12">
+      <rect
+         style="fill:#333333;fill-opacity:1;stroke:#333333;stroke-width:0;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:0.1"
+         id="rect40-0"
+         width="269.67844"
+         height="352.67978"
+         x="1152.9198"
+         y="-42.146" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath40-1-1-3">
+      <rect
+         style="fill:#333333;fill-opacity:1;stroke:#333333;stroke-width:0;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:0.1"
+         id="rect40-7-6-2"
+         width="269.67844"
+         height="352.67978"
+         x="1152.9198"
+         y="-42.146" />
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath40-12-5">
+      <rect
+         style="fill:#333333;fill-opacity:1;stroke:#333333;stroke-width:0;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:0.1"
+         id="rect40-0-6"
+         width="269.67844"
+         height="352.67978"
+         x="1152.9198"
+         y="-42.146" />
     </clipPath>
   </defs>
   <g

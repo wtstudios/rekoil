@@ -8,7 +8,7 @@
    version="1.1"
    id="svg30005"
    inkscape:version="1.3 (0e150ed, 2023-07-21)"
-   sodipodi:docname="wall.svg"
+   sodipodi:docname="metalwall.svg"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -23,14 +23,14 @@
      inkscape:pagecheckerboard="0"
      inkscape:document-units="mm"
      showgrid="false"
-     inkscape:zoom="0.23881699"
-     inkscape:cx="839.55502"
-     inkscape:cy="234.48918"
-     inkscape:window-width="1312"
-     inkscape:window-height="431"
+     inkscape:zoom="0.34977686"
+     inkscape:cx="480.30622"
+     inkscape:cy="626.11346"
+     inkscape:window-width="1440"
+     inkscape:window-height="765"
      inkscape:window-x="0"
      inkscape:window-y="25"
-     inkscape:window-maximized="0"
+     inkscape:window-maximized="1"
      inkscape:current-layer="layer1"
      inkscape:showpageshadow="2"
      inkscape:deskcolor="#d1d1d1" />
@@ -41,7 +41,7 @@
      inkscape:groupmode="layer"
      id="layer1">
     <rect
-       style="fill:#d6c19e;fill-opacity:1;stroke:#333333;stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:#af9780;fill-opacity:1;stroke:#333333;stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
        id="rect8"
        width="400"
        height="79.999893"
@@ -50,39 +50,31 @@
        ry="0" />
     <path
        style="fill:#333333;fill-opacity:0.15;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
-       d="M 12.5,92.49994 37.5,67.5 h 350 l 24.9999,24.99994 z"
+       d="m 12.5,92.49994 40,-39.999941 320,10e-7 39.9999,39.99994 z"
        id="path8"
        sodipodi:nodetypes="ccccc" />
     <path
        style="fill:#333333;fill-opacity:0.05;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
-       d="M 12.5,12.50004 37.5,37.5 h 350 l 24.9999,-24.99996 z"
+       d="m 12.5,12.50004 40,39.999959 320,10e-7 39.9999,-39.99996 z"
        id="path10"
        sodipodi:nodetypes="ccccc" />
     <path
-       style="fill:#333333;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:0.1"
-       d="m 12.499985,12.500053 25.000014,24.999946 v 30 L 12.5,92.499938 Z"
-       id="path1" />
+       style="fill:#333333;fill-opacity:0.1;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 12.499985,12.500053 52.5,52.499999 12.5,92.499938 Z"
+       id="path1"
+       sodipodi:nodetypes="cccc" />
     <path
        style="fill:#333333;fill-opacity:0.1;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="M 412.50002,12.500054 387.5,37.5 v 30 l 25,24.999939 z"
-       id="path1-2" />
+       d="M 412.50002,12.500054 372.5,52.5 l 40,39.999939 z"
+       id="path1-2"
+       sodipodi:nodetypes="cccc" />
     <path
        style="fill:#333333;fill-opacity:1;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 88.253031,92.499947 9.86135,-23.05455 8.339679,9.664678 4.98822,-2.961756 7.71615,16.351628 z"
        id="path2" />
     <path
-       style="fill:#333333;fill-opacity:0.15;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 88.253031,67.5 9.780758,-16.361768 9.582201,11.104897 7.44507,-3.38535 4.09737,8.642221 z"
-       id="path2-5"
-       sodipodi:nodetypes="cccccc" />
-    <path
        style="fill:#333333;fill-opacity:1;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 281.45416,14.261664 -9.45441,21.476712 -4.87492,-21.476712 z"
        id="path3" />
-    <path
-       style="fill:#333333;fill-opacity:0.05;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="M 278.64708,37.5 271.11113,51.430479 265.64425,37.5 Z"
-       id="path3-4"
-       sodipodi:nodetypes="cccc" />
   </g>
 </svg>
