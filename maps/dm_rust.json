@@ -13,35 +13,35 @@
     "spawns": {
       "blue": [
         {
-          "x": 435,
-          "y": 1715,
+          "x": 1095,
+          "y": 495,
           "team": "blue"
         },
         {
-          "x": 6815,
-          "y": 1265,
+          "x": 6940,
+          "y": 450,
           "team": "blue"
         },
         {
-          "x": 3475,
-          "y": 985,
+          "x": 8830,
+          "y": 4250,
           "team": "blue"
         }
       ],
       "red": [
         {
-          "x": 985,
-          "y": 3400,
+          "x": 7750,
+          "y": 9090,
           "team": "red"
         },
         {
-          "x": 3815,
-          "y": 6980,
+          "x": 4700,
+          "y": 9120,
           "team": "red"
         },
         {
-          "x": 6300,
-          "y": 7000,
+          "x": 780,
+          "y": 6740,
           "team": "red"
         }
       ]
@@ -78,7 +78,7 @@
           "restitution": 0,
           "density": 1,
           "angle": 1.5708,
-          "chamfer": { "radius": 0 },
+          "chamfer": { "radius": 10 },
           "tag": "#958575"
         }
       },
@@ -92,6 +92,76 @@
           "x": 0,
           "y": 0,
           "angle": 180
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 3850,
+          "y": 3050
+        },
+        "type": "rectangle",
+        "dimensions": {
+          "width": 280,
+          "height": 280
+        },
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+          "chamfer": { "radius": 10 },
+          "tag": "#958575"
+        }
+      },
+      "display-data": {
+        "src": "/assets/environment/metalcrate1.svg",
+        "dimensions": {
+          "width": 300,
+          "height": 300
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 90
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 3000,
+          "y": 4060
+        },
+        "type": "rectangle",
+        "dimensions": {
+          "width": 910,
+          "height": 1790
+        },
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "chamfer": { "radius": 10 },
+          "density": 1,
+          "angle": 0,
+          "tag": "#958575"
+        }
+      },
+      "display-data": {
+        "src": "/assets/environment/container-rusty.svg",
+        "dimensions": {
+          "width": 1000,
+          "height": 1880
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 0
         },
         "layer": 1
       }
@@ -169,7 +239,7 @@
     {
       "body-data": {
         "position": {
-          "x": 6000,
+          "x": 5200,
           "y": 1200
         },
         "type": "rectangle",
@@ -484,7 +554,7 @@
     {
       "body-data": {
         "position": {
-          "x": 6000,
+          "x": 5200,
           "y": 1550
         },
         "type": "rectangle",
@@ -756,8 +826,8 @@
     {
       "body-data": {
         "position": {
-          "x": 7600,
-          "y": 2040
+          "x": 7100,
+          "y": 2240
         },
         "type": "rectangle",
         "dimensions": {
@@ -791,8 +861,8 @@
     {
       "body-data": {
         "position": {
-          "x": 7350, 
-          "y": 2690
+          "x": 6850, 
+          "y": 2890
         },
         "type": "rectangle",
         "dimensions": {
@@ -826,8 +896,43 @@
     {
       "body-data": {
         "position": {
-          "x": 7740,
-          "y": 2670
+          "x": 7750, 
+          "y": 1990
+        },
+        "type": "rectangle",
+        "dimensions": {
+          "width": 430,
+          "height": 430
+        },
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+          "chamfer": { "radius": 10 },
+          "tag": "#958575"
+        }
+      },
+      "display-data": {
+        "src": "/assets/environment/metalcrate2.svg",
+        "dimensions": {
+          "width": 450,
+          "height": 450
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 90
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 7240,
+          "y": 2870
         },
         "type": "circle",
         "radius": 192.5,
@@ -857,8 +962,1147 @@
     {
       "body-data": {
         "position": {
-          "x": 9560,
-          "y": 5000
+          "x": 9100,
+          "y": 4930
+        },
+        "type": "rectangle",
+        "dimensions": {
+          "width": 1790,
+          "height": 910
+        },
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "chamfer": { "radius": 10 },
+          "density": 1,
+          "angle": 0,
+          "tag": "#958575"
+        }
+      },
+      "display-data": {
+        "src": "/assets/environment/container-rusty.svg",
+        "dimensions": {
+          "width": 1000,
+          "height": 1880
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 270
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 7820,
+          "y": 4570
+        },
+        "type": "rectangle",
+        "dimensions": {
+          "width": 830,
+          "height": 190
+        },
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+          "chamfer": { "radius": 5 },
+          "tag": "#d6c19e"
+        }
+      },
+      "display-data": {
+        "src": "/assets/environment/metalwall.svg",
+        "dimensions": {
+          "width": 850,
+          "height": 210
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 0
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 7020,
+          "y": 4570
+        },
+        "type": "rectangle",
+        "dimensions": {
+          "width": 830,
+          "height": 190
+        },
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+          "chamfer": { "radius": 5 },
+          "tag": "#d6c19e"
+        }
+      },
+      "display-data": {
+        "src": "/assets/environment/metalwall.svg",
+        "dimensions": {
+          "width": 850,
+          "height": 210
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 0
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 6820, 
+          "y": 4290
+        },
+        "type": "rectangle",
+        "dimensions": {
+          "width": 430,
+          "height": 430
+        },
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+          "chamfer": { "radius": 10 },
+          "tag": "#958575"
+        }
+      },
+      "display-data": {
+        "src": "/assets/environment/metalcrate2.svg",
+        "dimensions": {
+          "width": 450,
+          "height": 450
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 90
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 6745, 
+          "y": 3960
+        },
+        "type": "rectangle",
+        "dimensions": {
+          "width": 280,
+          "height": 280
+        },
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+          "chamfer": { "radius": 10 },
+          "tag": "#958575"
+        }
+      },
+      "display-data": {
+        "src": "/assets/environment/metalcrate1.svg",
+        "dimensions": {
+          "width": 300,
+          "height": 300
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 180
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 8020, 
+          "y": 4855
+        },
+        "type": "rectangle",
+        "dimensions": {
+          "width": 430,
+          "height": 430
+        },
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+          "chamfer": { "radius": 10 },
+          "tag": "#958575"
+        }
+      },
+      "display-data": {
+        "src": "/assets/environment/metalcrate2.svg",
+        "dimensions": {
+          "width": 450,
+          "height": 450
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 0
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 8120, 
+          "y": 4290
+        },
+        "type": "rectangle",
+        "dimensions": {
+          "width": 430,
+          "height": 430
+        },
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+          "chamfer": { "radius": 10 },
+          "tag": "#958575"
+        }
+      },
+      "display-data": {
+        "src": "/assets/environment/metalcrate2.svg",
+        "dimensions": {
+          "width": 450,
+          "height": 450
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 270
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 8195, 
+          "y": 3960
+        },
+        "type": "rectangle",
+        "dimensions": {
+          "width": 280,
+          "height": 280
+        },
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+          "chamfer": { "radius": 10 },
+          "tag": "#958575"
+        }
+      },
+      "display-data": {
+        "src": "/assets/environment/metalcrate1.svg",
+        "dimensions": {
+          "width": 300,
+          "height": 300
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 90
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 7790, 
+          "y": 4360
+        },
+        "type": "rectangle",
+        "dimensions": {
+          "width": 280,
+          "height": 280
+        },
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+          "chamfer": { "radius": 10 },
+          "tag": "#958575"
+        }
+      },
+      "display-data": {
+        "src": "/assets/environment/metalcrate1.svg",
+        "dimensions": {
+          "width": 300,
+          "height": 300
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 0
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 8445, 
+          "y": 4360
+        },
+        "type": "rectangle",
+        "dimensions": {
+          "width": 280,
+          "height": 280
+        },
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+          "chamfer": { "radius": 10 },
+          "tag": "#958575"
+        }
+      },
+      "display-data": {
+        "src": "/assets/environment/metalcrate1.svg",
+        "dimensions": {
+          "width": 300,
+          "height": 300
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 270
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 6745, 
+          "y": 4775
+        },
+        "type": "rectangle",
+        "dimensions": {
+          "width": 280,
+          "height": 280
+        },
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+          "chamfer": { "radius": 10 },
+          "tag": "#958575"
+        }
+      },
+      "display-data": {
+        "src": "/assets/environment/metalcrate1.svg",
+        "dimensions": {
+          "width": 300,
+          "height": 300
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 90
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 9900,
+          "y": 5770
+        },
+        "type": "rectangle",
+        "dimensions": {
+          "width": 190,
+          "height": 830
+        },
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+          "chamfer": { "radius": 5 },
+          "tag": "#d6c19e"
+        }
+      },
+      "display-data": {
+        "src": "/assets/environment/metalwall.svg",
+        "dimensions": {
+          "width": 850,
+          "height": 210
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 90
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 9900,
+          "y": 6570
+        },
+        "type": "rectangle",
+        "dimensions": {
+          "width": 190,
+          "height": 830
+        },
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+          "chamfer": { "radius": 5 },
+          "tag": "#d6c19e"
+        }
+      },
+      "display-data": {
+        "src": "/assets/environment/metalwall.svg",
+        "dimensions": {
+          "width": 850,
+          "height": 210
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 90
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 9705,
+          "y": 8100
+        },
+        "type": "rectangle",
+        "dimensions": {
+          "width": 590,
+          "height": 945
+        },
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "chamfer": { "radius": 15 },
+          "density": 1,
+          "angle": 0,
+          "tag": "#958575"
+        }
+      },
+      "display-data": {
+        "src": "/assets/environment/industrialwall2.svg",
+        "dimensions": {
+          "width": 1030,
+          "height": 380
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 90
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 9705,
+          "y": 7400
+        },
+        "type": "rectangle",
+        "dimensions": {
+          "width": 590,
+          "height": 890
+        },
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+          "chamfer": { "radius": 50 },
+          "tag": "#958575"
+        }
+      },
+      "display-data": {
+        "src": "/assets/environment/generator1.svg",
+        "dimensions": {
+          "width": 980,
+          "height": 680
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 90
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 9530,
+          "y": 8900
+        },
+        "type": "rectangle",
+        "dimensions": {
+          "width": 940,
+          "height": 1240
+        },
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+          "chamfer": { "radius": 10 },
+          "tag": "#958575"
+        }
+      },
+      "display-data": {
+        "src": "/assets/environment/industrialbuilding3.svg",
+        "dimensions": {
+          "width": 1330,
+          "height": 1030
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 90
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 9400,
+          "y": 8120
+        },
+        "type": "circle",
+        "radius": 192.5,
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+          "tag": "#baa64c"
+        }
+      },
+      "display-data": {
+        "src": "/assets/environment/toxic-barrel-green.svg",
+        "dimensions": {
+          "width": 490,
+          "height": 490
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 100
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 9700,
+          "y": 9750
+        },
+        "type": "circle",
+        "radius": 192.5,
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+          "tag": "#baa64c"
+        }
+      },
+      "display-data": {
+        "src": "/assets/environment/toxic-barrel-yellow.svg",
+        "dimensions": {
+          "width": 490,
+          "height": 490
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 20
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 8600,
+          "y": 9780
+        },
+        "type": "circle",
+        "radius": 192.5,
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+          "tag": "#baa64c"
+        }
+      },
+      "display-data": {
+        "src": "/assets/environment/toxic-barrel-yellow.svg",
+        "dimensions": {
+          "width": 490,
+          "height": 490
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 90
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 8220,
+          "y": 9680
+        },
+        "type": "circle",
+        "radius": 192.5,
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+          "tag": "#baa64c"
+        }
+      },
+      "display-data": {
+        "src": "/assets/environment/toxic-barrel-grey.svg",
+        "dimensions": {
+          "width": 490,
+          "height": 490
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 145
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 8680,
+          "y": 9420
+        },
+        "type": "rectangle",
+        "dimensions": {
+          "width": 830,
+          "height": 190
+        },
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+          "chamfer": { "radius": 5 },
+          "tag": "#d6c19e"
+        }
+      },
+      "display-data": {
+        "src": "/assets/environment/metalwall.svg",
+        "dimensions": {
+          "width": 850,
+          "height": 210
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 0
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 7880,
+          "y": 9420
+        },
+        "type": "rectangle",
+        "dimensions": {
+          "width": 830,
+          "height": 190
+        },
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+          "chamfer": { "radius": 5 },
+          "tag": "#d6c19e"
+        }
+      },
+      "display-data": {
+        "src": "/assets/environment/metalwall.svg",
+        "dimensions": {
+          "width": 850,
+          "height": 210
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 0
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 6280,
+          "y": 9530
+        },
+        "type": "rectangle",
+        "dimensions": {
+          "width": 2440,
+          "height": 940
+        },
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+          "chamfer": { "radius": 10 },
+          "tag": "#958575"
+        }
+      },
+      "display-data": {
+        "src": "/assets/environment/industrialbuilding2.svg",
+        "dimensions": {
+          "width": 2530,
+          "height": 1030
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 180
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 4680,
+          "y": 9420
+        },
+        "type": "rectangle",
+        "dimensions": {
+          "width": 830,
+          "height": 190
+        },
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+          "chamfer": { "radius": 5 },
+          "tag": "#d6c19e"
+        }
+      },
+      "display-data": {
+        "src": "/assets/environment/metalwall.svg",
+        "dimensions": {
+          "width": 850,
+          "height": 210
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 0
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 2330,
+          "y": 9530
+        },
+        "type": "rectangle",
+        "dimensions": {
+          "width": 3940,
+          "height": 940
+        },
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+          "chamfer": { "radius": 10 },
+          "tag": "#958575"
+        }
+      },
+      "display-data": {
+        "src": "/assets/environment/industrialbuilding6.svg",
+        "dimensions": {
+          "width": 4030,
+          "height": 1030
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 0
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 990,
+          "y": 8950
+        },
+        "type": "rectangle",
+        "dimensions": {
+          "width": 280,
+          "height": 280
+        },
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+          "chamfer": { "radius": 10 },
+          "tag": "#958575"
+        }
+      },
+      "display-data": {
+        "src": "/assets/environment/metalcrate1.svg",
+        "dimensions": {
+          "width": 300,
+          "height": 300
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 180
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 5205,
+          "y": 8950
+        },
+        "type": "rectangle",
+        "dimensions": {
+          "width": 280,
+          "height": 280
+        },
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+          "chamfer": { "radius": 10 },
+          "tag": "#958575"
+        }
+      },
+      "display-data": {
+        "src": "/assets/environment/metalcrate1.svg",
+        "dimensions": {
+          "width": 300,
+          "height": 300
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 90
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 3800,
+          "y": 8080
+        },
+        "type": "rectangle",
+        "dimensions": {
+          "width": 280,
+          "height": 280
+        },
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+          "chamfer": { "radius": 10 },
+          "tag": "#958575"
+        }
+      },
+      "display-data": {
+        "src": "/assets/environment/metalcrate1.svg",
+        "dimensions": {
+          "width": 300,
+          "height": 300
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 270
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 190,
+          "y": 9700
+        },
+        "type": "rectangle",
+        "dimensions": {
+          "width": 295,
+          "height": 400
+        },
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+          "chamfer": { "radius": 30 },
+          "tag": "#958575"
+        }
+      },
+      "display-data": {
+        "src": "/assets/environment/pipestack.svg",
+        "dimensions": {
+          "width": 450,
+          "height": 370
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 90
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 665, 
+          "y": 8880
+        },
+        "type": "rectangle",
+        "dimensions": {
+          "width": 430,
+          "height": 430
+        },
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+          "chamfer": { "radius": 10 },
+          "tag": "#958575"
+        }
+      },
+      "display-data": {
+        "src": "/assets/environment/metalcrate2.svg",
+        "dimensions": {
+          "width": 450,
+          "height": 450
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 90
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 785,
+          "y": 8280
+        },
+        "type": "rectangle",
+        "dimensions": {
+          "width": 190,
+          "height": 830
+        },
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+          "chamfer": { "radius": 5 },
+          "tag": "#d6c19e"
+        }
+      },
+      "display-data": {
+        "src": "/assets/environment/metalwall.svg",
+        "dimensions": {
+          "width": 850,
+          "height": 210
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 90
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 440,
+          "y": 6750
+        },
+        "type": "rectangle",
+        "dimensions": {
+          "width": 275,
+          "height": 945
+        },
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "chamfer": { "radius": 15 },
+          "density": 1,
+          "angle": 0,
+          "tag": "#958575"
+        }
+      },
+      "display-data": {
+        "src": "/assets/environment/industrialwall1.svg",
+        "dimensions": {
+          "width": 1030,
+          "height": 380
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 90
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 1050,
+          "y": 6360
+        },
+        "type": "rectangle",
+        "dimensions": {
+          "width": 280,
+          "height": 280
+        },
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+          "chamfer": { "radius": 10 },
+          "tag": "#958575"
+        }
+      },
+      "display-data": {
+        "src": "/assets/environment/metalcrate1.svg",
+        "dimensions": {
+          "width": 300,
+          "height": 300
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 180
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 440,
+          "y": 7460
         },
         "type": "rectangle",
         "dimensions": {
@@ -872,7 +2116,7 @@
           "density": 1,
           "angle": 0,
           "chamfer": { "radius": 10 },
-          "tag": "#958575"
+          "tag": "#c9a074"
         }
       },
       "display-data": {
@@ -884,7 +2128,7 @@
         "offset": {
           "x": 0,
           "y": 0,
-          "angle": 90
+          "angle": 270
         },
         "layer": 1
       }
@@ -892,13 +2136,79 @@
     {
       "body-data": {
         "position": {
-          "x": 5000,
-          "y": 5000
+          "x": 250,
+          "y": 8800
+        },
+        "type": "circle",
+        "radius": 192.5,
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+          "tag": "#baa64c"
+        }
+      },
+      "display-data": {
+        "src": "/assets/environment/toxic-barrel-yellow.svg",
+        "dimensions": {
+          "width": 490,
+          "height": 490
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 130
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 7400,
+          "y": 7130
         },
         "type": "rectangle",
         "dimensions": {
-          "width": 1830,
-          "height": 1830
+          "width": 1680,
+          "height": 1380
+        },
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 1.5708,
+          "chamfer": { "radius": 10 },
+          "tag": "#958575"
+        }
+      },
+      "display-data": {
+        "src": "/assets/environment/industrialbuilding1.svg",
+        "dimensions": {
+          "width": 1780,
+          "height": 1480
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 270
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 6930,
+          "y": 6140
+        },
+        "type": "rectangle",
+        "dimensions": {
+          "width": 400,
+          "height": 295
         },
         "options": {
           "isStatic": true,
@@ -906,15 +2216,15 @@
           "restitution": 0,
           "density": 1,
           "angle": 0,
-          "chamfer": { "radius": 0 },
+          "chamfer": { "radius": 30 },
           "tag": "#958575"
         }
       },
       "display-data": {
-        "src": "/assets/environment/industrialbuilding5.svg",
+        "src": "/assets/environment/pipestack.svg",
         "dimensions": {
-          "width": 1930,
-          "height": 1930
+          "width": 450,
+          "height": 370
         },
         "offset": {
           "x": 0,
@@ -927,34 +2237,34 @@
     {
       "body-data": {
         "position": {
-          "x": 4100,
-          "y": 4100
+          "x": 900,
+          "y": 4500
         },
         "type": "rectangle",
         "dimensions": {
-          "width": 402,
-          "height": 402
+          "width": 945,
+          "height": 275
         },
         "options": {
           "isStatic": true,
           "friction": 1,
           "restitution": 0,
+          "chamfer": { "radius": 15 },
           "density": 1,
-          "angle": 0.785398,
-          "chamfer": { "radius": 0 },
+          "angle": 0,
           "tag": "#958575"
         }
       },
       "display-data": {
-        "src": "/assets/environment/soilbox.svg",
+        "src": "/assets/environment/industrialwall1.svg",
         "dimensions": {
-          "width": 500,
-          "height": 500
+          "width": 1030,
+          "height": 380
         },
         "offset": {
           "x": 0,
           "y": 0,
-          "angle": 135
+          "angle": 0
         },
         "layer": 1
       }
@@ -962,34 +2272,34 @@
     {
       "body-data": {
         "position": {
-          "x": 5900,
-          "y": 4100
+          "x": 1350,
+          "y": 4500
         },
         "type": "rectangle",
         "dimensions": {
-          "width": 402,
-          "height": 402
+          "width": 590,
+          "height": 890
         },
         "options": {
           "isStatic": true,
           "friction": 1,
           "restitution": 0,
           "density": 1,
-          "angle": 0.785398,
-          "chamfer": { "radius": 0 },
+          "angle": 0,
+          "chamfer": { "radius": 50 },
           "tag": "#958575"
         }
       },
       "display-data": {
-        "src": "/assets/environment/soilbox.svg",
+        "src": "/assets/environment/generator1.svg",
         "dimensions": {
-          "width": 500,
-          "height": 500
+          "width": 980,
+          "height": 680
         },
         "offset": {
           "x": 0,
           "y": 0,
-          "angle": 45
+          "angle": 90
         },
         "layer": 1
       }
@@ -997,34 +2307,34 @@
     {
       "body-data": {
         "position": {
-          "x": 4100,
-          "y": 5900
+          "x": 470,
+          "y": 4535
         },
         "type": "rectangle",
         "dimensions": {
-          "width": 402,
-          "height": 402
+          "width": 940,
+          "height": 3940
         },
         "options": {
           "isStatic": true,
           "friction": 1,
           "restitution": 0,
           "density": 1,
-          "angle": 0.785398,
-          "chamfer": { "radius": 0 },
+          "angle": 0,
+          "chamfer": { "radius": 10 },
           "tag": "#958575"
         }
       },
       "display-data": {
-        "src": "/assets/environment/soilbox.svg",
+        "src": "/assets/environment/industrialbuilding6.svg",
         "dimensions": {
-          "width": 500,
-          "height": 500
+          "width": 4030,
+          "height": 1030
         },
         "offset": {
           "x": 0,
           "y": 0,
-          "angle": 315
+          "angle": 90
         },
         "layer": 1
       }
@@ -1032,34 +2342,209 @@
     {
       "body-data": {
         "position": {
-          "x": 5900,
-          "y": 5900
+          "x": 570,
+          "y": 2180
         },
         "type": "rectangle",
         "dimensions": {
-          "width": 402,
-          "height": 402
+          "width": 190,
+          "height": 830
         },
         "options": {
           "isStatic": true,
           "friction": 1,
           "restitution": 0,
           "density": 1,
-          "angle": 0.785398,
-          "chamfer": { "radius": 0 },
-          "tag": "#958575"
+          "angle": 0,
+          "chamfer": { "radius": 5 },
+          "tag": "#d6c19e"
         }
       },
       "display-data": {
-        "src": "/assets/environment/soilbox.svg",
+        "src": "/assets/environment/metalwall.svg",
         "dimensions": {
-          "width": 500,
-          "height": 500
+          "width": 850,
+          "height": 210
         },
         "offset": {
           "x": 0,
           "y": 0,
-          "angle": 45
+          "angle": 90
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 5200,
+          "y": 3900
+        },
+        "type": "rectangle",
+        "dimensions": {
+          "width": 930,
+          "height": 2430
+        },
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+          "chamfer": { "radius": 10 },
+          "tag": "#958575"
+        }
+      },
+      "display-data": {
+        "src": "/assets/environment/industrialbuilding2.svg",
+        "dimensions": {
+          "width": 2530,
+          "height": 1030
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 270
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 3800,
+          "y": 7500
+        },
+        "type": "rectangle",
+        "dimensions": {
+          "width": 3940,
+          "height": 940
+        },
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+          "chamfer": { "radius": 10 },
+          "tag": "#958575"
+        }
+      },
+      "display-data": {
+        "src": "/assets/environment/industrialbuilding6.svg",
+        "dimensions": {
+          "width": 4030,
+          "height": 1030
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 0
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 2650,
+          "y": 6600
+        },
+        "type": "rectangle",
+        "dimensions": {
+          "width": 920,
+          "height": 920
+        },
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+          "chamfer": { "radius": 10 },
+          "tag": "#958575"
+        }
+      },
+      "display-data": {
+        "src": "/assets/environment/treebox.svg",
+        "dimensions": {
+          "width": 1030,
+          "height": 1030
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 90
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 3300, 
+          "y": 6850
+        },
+        "type": "rectangle",
+        "dimensions": {
+          "width": 430,
+          "height": 430
+        },
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+          "chamfer": { "radius": 10 },
+          "tag": "#958575"
+        }
+      },
+      "display-data": {
+        "src": "/assets/environment/metalcrate2.svg",
+        "dimensions": {
+          "width": 450,
+          "height": 450
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 0
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 4870,
+          "y": 6610
+        },
+        "type": "rectangle",
+        "dimensions": {
+          "width": 1790,
+          "height": 910
+        },
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "chamfer": { "radius": 10 },
+          "density": 1,
+          "angle": 0,
+          "tag": "#958575"
+        }
+      },
+      "display-data": {
+        "src": "/assets/environment/container-rusty.svg",
+        "dimensions": {
+          "width": 1000,
+          "height": 1880
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 90
         },
         "layer": 1
       }
@@ -1156,6 +2641,198 @@
           "x": 0,
           "y": 0,
           "angle": 20
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 9000,
+          "y": 9620
+        },
+        "type": "circle",
+        "radius": 180,
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+          "chamfer": { "radius": 0 },
+          "tag": "#a17756"
+        }
+      },
+      "display-data": {
+        "src": "/assets/environment/drieduptree.svg",
+        "dimensions": {
+          "width": 1000,
+          "height": 1000
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 80
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 7800,
+          "y": 9720
+        },
+        "type": "circle",
+        "radius": 180,
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+          "chamfer": { "radius": 0 },
+          "tag": "#a17756"
+        }
+      },
+      "display-data": {
+        "src": "/assets/environment/drieduptree.svg",
+        "dimensions": {
+          "width": 1000,
+          "height": 1000
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 190
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 4680,
+          "y": 9650
+        },
+        "type": "circle",
+        "radius": 180,
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+          "chamfer": { "radius": 0 },
+          "tag": "#a17756"
+        }
+      },
+      "display-data": {
+        "src": "/assets/environment/drieduptree.svg",
+        "dimensions": {
+          "width": 1000,
+          "height": 1000
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 190
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 180,
+          "y": 9300
+        },
+        "type": "circle",
+        "radius": 180,
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+          "chamfer": { "radius": 0 },
+          "tag": "#a17756"
+        }
+      },
+      "display-data": {
+        "src": "/assets/environment/drieduptree.svg",
+        "dimensions": {
+          "width": 1000,
+          "height": 1000
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 190
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 380,
+          "y": 8200
+        },
+        "type": "circle",
+        "radius": 180,
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+          "chamfer": { "radius": 0 },
+          "tag": "#a17756"
+        }
+      },
+      "display-data": {
+        "src": "/assets/environment/drieduptree.svg",
+        "dimensions": {
+          "width": 1000,
+          "height": 1000
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 50
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 350,
+          "y": 2210
+        },
+        "type": "circle",
+        "radius": 180,
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+          "chamfer": { "radius": 0 },
+          "tag": "#a17756"
+        }
+      },
+      "display-data": {
+        "src": "/assets/environment/drieduptree.svg",
+        "dimensions": {
+          "width": 1000,
+          "height": 1000
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 10
         },
         "layer": 1
       }
