@@ -87,9 +87,9 @@
         "standing": 4.5,
         "moving": 8
       },
-      "damage": 16,
+      "damage": 13,
       "bulletsPerShot": 1,
-      "handPositions": [{ "x": -21, "y": -200 }, { "x": 21, "y": -120 }],
+      "handPositions": [{ "x": -21, "y": -220 }, { "x": 21, "y": -120 }],
       "images": { "topdownSRC": "/assets/weapons/vector_topdown.svg", "lootSRC": "/assets/weapons/vector_loot.svg", "offset": { "x": 0, "y": -320 } },
       "reloadLength": 100,
       "roundsPerReload": "all",
