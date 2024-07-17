@@ -2,7 +2,7 @@
   "weapons": [
     {
       "name": "SCAR-L",
-      "type": "rifle",
+      "type": "gun",
       "magSize": 20,
       "view": 500,
       "fireDelay": 4,
@@ -40,16 +40,16 @@
     },
     {
       "name": "Mk18",
-      "type": "rifle",
+      "type": "gun",
       "magSize": 8,
       "view": 800,
       "fireDelay": 9,
       "fireMode": "semi",
       "spread": {
         "standing": 1,
-        "moving": 2.5
+        "moving": 2
       },
-      "damage": 62,
+      "damage": 65,
       "bulletsPerShot": 1,
       "handPositions": [{ "x": -25, "y": -270 }, { "x": 25, "y": -120 }],
       "images": { "topdownSRC": "/assets/weapons/mk18_topdown.svg", "lootSRC": "/assets/weapons/mk18_loot.svg", "offset": { "x": 0, "y": -330 } },
@@ -78,7 +78,7 @@
     },
     {
       "name": "VKR",
-      "type": "smg",
+      "type": "gun",
       "magSize": 15,
       "view": 0,
       "fireDelay": 2,
@@ -87,10 +87,10 @@
         "standing": 4.5,
         "moving": 8
       },
-      "damage": 13,
+      "damage": 11,
       "bulletsPerShot": 1,
       "handPositions": [{ "x": -21, "y": -220 }, { "x": 21, "y": -120 }],
-      "images": { "topdownSRC": "/assets/weapons/vector_topdown.svg", "lootSRC": "/assets/weapons/vector_loot.svg", "offset": { "x": 0, "y": -320 } },
+      "images": { "topdownSRC": "/assets/weapons/vector_topdown.svg", "lootSRC": "/assets/weapons/vector_loot.svg", "offset": { "x": 0, "y": -295 } },
       "reloadLength": 100,
       "roundsPerReload": "all",
       "playerDensity": 0.0195,
@@ -116,8 +116,8 @@
     },
     {
       "name": "Ballista",
-      "type": "rifle",
-      "magSize": 1,
+      "type": "gun",
+      "magSize": 3,
       "view": 1000,
       "fireDelay": 72,
       "fireMode": "semi",
@@ -125,7 +125,7 @@
         "standing": 0.25,
         "moving": 15
       },
-      "damage": 110,
+      "damage": 78,
       "bulletsPerShot": 1,
       "handPositions": [{ "x": -25, "y": -300 }, { "x": 25, "y": -120 }],
       "images": { "topdownSRC": "/assets/weapons/ballista_topdown.svg", "lootSRC": "/assets/weapons/ballista_loot.svg", "offset": { "x": 0, "y": -390 } },
@@ -154,14 +154,14 @@
     },
     {
       "name": "SLP",
-      "type": "shotgun",
+      "type": "gun",
       "magSize": 4,
       "view": 0,
       "fireDelay": 18,
       "fireMode": "semi",
       "spread": {
-        "standing": 18,
-        "moving": 24
+        "standing": 12,
+        "moving": 20
       },
       "damage": 20,
       "bulletsPerShot": 5,
@@ -192,7 +192,7 @@
     },
     {
       "name": "T509",
-      "type": "pistol",
+      "type": "gun",
       "magSize": 12,
       "view": 0,
       "fireDelay": 7,
@@ -230,7 +230,7 @@
     },
     {
       "name": "FNX45",
-      "type": "pistol",
+      "type": "gun",
       "magSize": 17,
       "view": 0,
       "fireDelay": 4,
@@ -242,7 +242,7 @@
       "damage": 10,
       "bulletsPerShot": 1,
       "handPositions": [{ "x": -30, "y": -115 }, { "x": 25, "y": -120 }],
-      "images": { "topdownSRC": "/assets/weapons/fnx_topdown.svg", "lootSRC": "/assets/weapons/fnx_loot.svg", "offset": { "x": 0, "y": -335 } },
+      "images": { "topdownSRC": "/assets/weapons/fnx_topdown.svg", "lootSRC": "/assets/weapons/fnx_loot.svg", "offset": { "x": 0, "y": -290 } },
       "reloadLength": 85,
       "roundsPerReload": "all",
       "playerDensity": 0.018,          
@@ -268,7 +268,7 @@
     },
     {
       "name": "Desert Eagle",
-      "type": "pistol",
+      "type": "gun",
       "magSize": 7,
       "view": 0,
       "fireDelay": 7,
@@ -280,7 +280,7 @@
       "damage": 35,
       "bulletsPerShot": 1,
       "handPositions": [{ "x": -30, "y": -115 }, { "x": 25, "y": -120 }],
-      "images": { "topdownSRC": "/assets/weapons/deagle_topdown.svg", "lootSRC": "/assets/weapons/deagle_loot.svg", "offset": { "x": 0, "y": -335 } },
+      "images": { "topdownSRC": "/assets/weapons/deagle_topdown.svg", "lootSRC": "/assets/weapons/deagle_loot.svg", "offset": { "x": 0, "y": -285 } },
       "reloadLength": 85,
       "roundsPerReload": "all",
       "playerDensity": 0.02,          
@@ -291,15 +291,15 @@
       "recoilImpulse": [
         {
           "x": 0,
-          "y": 35
+          "y": 50
         },
         {
           "x": 0,
-          "y": 35
+          "y": 50
         },
         {
           "x": 0,
-          "y": 35
+          "y": 50
         }
       ],
       "lifeTime": 40
@@ -308,13 +308,13 @@
       "name": "Bayonet",
       "type": "melee",
       "view": 0,
-      "fireDelay": 15,
+      "fireDelay": 7,
       "fireMode": "semi",
-      "damage": 45,
+      "damage": 32,
       "damageArea": {
         "position": {
           "x": 0,
-          "y": -400
+          "y": 300
         },
         "radius": 200
       },
@@ -324,7 +324,7 @@
       "roundsPerReload": "all",
       "playerDensity": 0.017,          
       "sounds": {
-        "fire": "/assets/audio/guns/melee_fire.mp3",
+        "fire": "/assets/audio/guns/whoosh.mp3",
         "reload": "/assets/audio/guns/509_reload.mp3"
       },
       "recoilImpulse": [
@@ -347,13 +347,13 @@
       "name": "Survival Knife",
       "type": "melee",
       "view": 0,
-      "fireDelay": 15,
+      "fireDelay": 7,
       "fireMode": "semi",
       "damage": 45,
       "damageArea": {
         "position": {
           "x": 0,
-          "y": -400
+          "y": 300
         },
         "radius": 200
       },
@@ -363,7 +363,7 @@
       "roundsPerReload": "all",
       "playerDensity": 0.017,          
       "sounds": {
-        "fire": "/assets/audio/guns/melee_fire.mp3",
+        "fire": "/assets/audio/guns/whoosh.mp3",
         "reload": "/assets/audio/guns/509_reload.mp3"
       },
       "recoilImpulse": [
@@ -378,6 +378,100 @@
         {
           "x": 0,
           "y": -100
+        }
+      ],
+      "lifeTime": 0
+    },
+    {
+      "name": "Smokescreen",
+      "type": "grenade",
+      "view": 0,
+      "fireDelay": 0,
+      "fireMode": "semi",
+      "spread": {
+        "standing": 0,
+        "moving": 4
+      },
+      "damage": 0,
+      "damageArea": {
+        "position": {
+          "x": 0,
+          "y": 0
+        },
+        "radius": 500
+      },
+      "bulletsPerShot": 1,
+      "particleType": "smoke",
+      "projectileSRC": "/assets/weapons/m18_topdown.svg",
+      "throwLength": 1500,
+      "handPositions": [{ "x": -80, "y": -110 }, { "x": 80, "y": -110 }],
+      "images": { "topdownSRC": "/assets/weapons/m18_topdown.svg", "lootSRC": "/assets/weapons/m18_loot.svg", "offset": { "x": 60, "y": -210 } },
+      "reloadLength": 1000,
+      "roundsPerReload": "all",
+      "playerDensity": 0.018,          
+      "sounds": {
+        "fire": "/assets/audio/guns/whoosh.mp3",
+        "reload": "/assets/audio/guns/509_reload.mp3"
+      },
+      "recoilImpulse": [
+        {
+          "x": 0,
+          "y": 0
+        },
+        {
+          "x": 0,
+          "y": 160
+        },
+        {
+          "x": 0,
+          "y": 160
+        }
+      ],
+      "lifeTime": 0
+    },
+    {
+      "name": "Frag",
+      "type": "grenade",
+      "view": 0,
+      "fireDelay": 0,
+      "fireMode": "semi",
+      "spread": {
+        "standing": 0,
+        "moving": 4
+      },
+      "damage": 20,
+      "damageArea": {
+        "position": {
+          "x": 0,
+          "y": 0
+        },
+        "radius": 1000
+      },
+      "bulletsPerShot": 1,
+      "particleType": "explo",
+      "projectileSRC": "/assets/weapons/frag_topdown.svg",
+      "throwLength": 2000,
+      "handPositions": [{ "x": -80, "y": -110 }, { "x": 80, "y": -110 }],
+      "images": { "topdownSRC": "/assets/weapons/frag_topdown.svg", "lootSRC": "/assets/weapons/frag_loot.svg", "offset": { "x": 60, "y": -210 } },
+      "reloadLength": 1000,
+      "roundsPerReload": "all",
+      "playerDensity": 0.018,          
+      "sounds": {
+        "fire": "/assets/audio/guns/whoosh.mp3",
+        "reload": "/assets/audio/guns/509_reload.mp3"
+      },
+      "recoilImpulse": [
+        {
+          "x": 0,
+          "y": 0
+        },
+        {
+          "x": 0,
+          "y": 160
+        },
+        {
+          "x": 0,
+          "y": 160
         }
       ],
       "lifeTime": 0

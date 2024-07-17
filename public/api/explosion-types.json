@@ -1,0 +1,96 @@
+{
+    "types": {
+        "smoke": {
+            "burstLength": 500,
+            "sound": "/assets/audio/guns/smoke_burst.mp3",
+            "particleList": [
+                {
+                    "shape": "circle",
+                    "radius": 500,
+                    "travelDist": 0,
+                    "colour": "#7d7d7d",
+                    "lifetime": 15000,
+                    "angle": 0
+                },
+                {
+                    "shape": "circle",
+                    "radius": 250,
+                    "travelDist": 410,
+                    "colour": "#999999",
+                    "lifetime": 14600,
+                    "angle": 90
+                },
+                {
+                    "shape": "circle",
+                    "radius": 190,
+                    "travelDist": 540,
+                    "colour": "#696969",
+                    "lifetime": 14000,
+                    "angle": 270
+                },
+                {
+                    "shape": "circle",
+                    "radius": 155,
+                    "travelDist": 650,
+                    "colour": "#999999",
+                    "lifetime": 13500,
+                    "angle": 300
+                },
+                {
+                    "shape": "circle",
+                    "radius": 130,
+                    "travelDist": 650,
+                    "colour": "#696969",
+                    "lifetime": 13200,
+                    "angle": 45
+                }
+            ]
+        },
+        "frag": {
+            "burstLength": 500,
+            "sound": "/assets/audio/guns/smoke_burst.mp3",
+            "particleList": [
+                {
+                    "shape": "circle",
+                    "radius": 500,
+                    "travelDist": 0,
+                    "colour": "#7d7d7d",
+                    "lifetime": 15000,
+                    "angle": 0
+                },
+                {
+                    "shape": "circle",
+                    "radius": 250,
+                    "travelDist": 410,
+                    "colour": "#999999",
+                    "lifetime": 14600,
+                    "angle": 90
+                },
+                {
+                    "shape": "circle",
+                    "radius": 190,
+                    "travelDist": 540,
+                    "colour": "#696969",
+                    "lifetime": 14000,
+                    "angle": 270
+                },
+                {
+                    "shape": "circle",
+                    "radius": 155,
+                    "travelDist": 650,
+                    "colour": "#999999",
+                    "lifetime": 13500,
+                    "angle": 300
+                },
+                {
+                    "shape": "circle",
+                    "radius": 130,
+                    "travelDist": 650,
+                    "colour": "#696969",
+                    "lifetime": 13200,
+                    "angle": 45
+                }
+            ]
+        }
+    }
+}

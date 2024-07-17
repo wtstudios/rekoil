@@ -1,14 +1,6 @@
 {
     "pool": [
-        "dm_rust",
-        "dm_rust",
-        "dm_rust",
-        "dm_rust",
-        "dm_rust",
-        "dm_rust",
-        "dm_rust",
-        "dm_rust",
-        "hp_dunes",
-        "dm_dunes"
+        "dm_dunes",
+        "dm_rust"
     ]
 }
