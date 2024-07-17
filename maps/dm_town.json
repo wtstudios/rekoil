@@ -1,0 +1,444 @@
+{
+  "config": {
+    "map-name": "dm_town",
+    "gamemode": "deathmatch",
+    "ground-colour": "#5c7fd0",
+    "ground-image": "/assets/environment/dm_isle.svg",
+    "background-colour": "#5c7fd0",
+    "background-src": "dm_dunes.svg",
+    "map-dimensions": {
+      "width": 10000,
+      "height": 10000
+    },
+    "spawns": {
+      "blue": [
+        {
+          "x": 5000,
+          "y": 5000,
+          "team": "blue"
+        },
+        {
+          "x": 5000,
+          "y": 5000,
+          "team": "blue"
+        },
+        {
+          "x": 5000,
+          "y": 5000,
+          "team": "blue"
+        }
+      ],
+      "red": [
+        {
+          "x": 5000,
+          "y": 5000,
+          "team": "red"
+        },
+        {
+          "x": 5000,
+          "y": 5000,
+          "team": "red"
+        },
+        {
+          "x": 5000,
+          "y": 5000,
+          "team": "red"
+        }
+      ]
+    },
+    "loadouts": {
+      "assault": ["SCAR-L", "T509", "Bayonet", "Smokescreen"],
+      "breach": ["SLP", "Desert Eagle", "Bayonet", "Smokescreen"],
+      "recon": ["VKR", "Desert Eagle", "Bayonet", "Smokescreen"],
+      "scout": ["Mk18", "FNX45", "Bayonet", "Smokescreen"],
+      "sniper": ["Ballista", "FNX45", "Bayonet", "Smokescreen"]
+    },
+    "point": {
+      "position": {
+        "x": -2500,
+        "y": -5000
+      }
+    }
+  },
+  "obstacles": [
+    {
+      "body-data": {
+        "position": {
+          "x": 2200,
+          "y": 3800
+        },
+        "type": "rectangle",
+        "dimensions": {
+          "width": 685,
+          "height": 100
+        },
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+          "chamfer": { "radius": 0 },
+          "tag": "#808080"
+        }
+      },
+      "display-data": {
+        "src": "/assets/environment/chain.svg",
+        "dimensions": {
+          "width": 850,
+          "height": 220
+        },
+        "material": "metal",
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 0
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 1780,
+          "y": 3800
+        },
+        "type": "circle",
+        "radius": 130,
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+          "tag": "#a66d3f"
+        }
+      },
+      "display-data": {
+        "src": "/assets/environment/post.svg",
+        "dimensions": {
+          "width": 370,
+          "height": 370
+        },
+        "material": "wood",
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 90
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 2620,
+          "y": 3800
+        },
+        "type": "circle",
+        "radius": 130,
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+          "tag": "#a66d3f"
+        }
+      },
+      "display-data": {
+        "src": "/assets/environment/post.svg",
+        "dimensions": {
+          "width": 370,
+          "height": 370
+        },
+        "material": "wood",
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 240
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 2500,
+          "y": 5000
+        },
+        "type": "rectangle",
+        "dimensions": {
+          "width": 850,
+          "height": 850
+        },
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+          "chamfer": { "radius": 0 },
+          "tag": "#c9a074"
+        }
+      },
+      "display-data": {
+        "src": "/assets/environment/building2.svg",
+        "dimensions": {
+          "width": 1300,
+          "height": 1300
+        },
+        "material": "stone",
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 0
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 6000,
+          "y": 4000
+        },
+        "type": "circle",
+        "radius": 565,
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+          "tag": "#969696"
+        }
+      },
+      "display-data": {
+        "src": "/assets/environment/silo.svg",
+        "dimensions": {
+          "width": 1230,
+          "height": 1230
+        },
+        "material": "metal",
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 310
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 6000,
+          "y": 3325
+        },
+        "type": "rectangle",
+        "dimensions": {
+          "width": 200,
+          "height": 265
+        },
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+          "tag": "#a66d3f"
+        }
+      },
+      "display-data": {
+        "src": "/assets/environment/ladder.svg",
+        "dimensions": {
+          "width": 354.476,
+          "height": 390
+        },
+        "material": "wood",
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 0
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 5000,
+          "y": 3500
+        },
+        "type": "rectangle",
+        "dimensions": {
+          "width": 530,
+          "height": 280
+        },
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+          "chamfer": { "radius": 10 },
+          "tag": "#9a7742"
+        }
+      },
+      "display-data": {
+        "src": "/assets/environment/longcrate.svg",
+        "dimensions": {
+          "width": 630,
+          "height": 380
+        },
+        "material": "wood",
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 0
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": -50,
+          "y": 5000
+        },
+        "type": "rectangle",
+        "dimensions": {
+          "width": 110,
+          "height": 10500
+        },
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+          "chamfer": { "radius": 0 },
+          "tag": "none"
+        }
+      },
+      "display-data": {
+        "src": "/assets/misc/blank.svg",
+        "dimensions": {
+          "width": 110,
+          "height": 10500
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 0
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 10055,
+          "y": 5000
+        },
+        "type": "rectangle",
+        "dimensions": {
+          "width": 110,
+          "height": 10500
+        },
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+          "chamfer": { "radius": 0 },
+          "tag": "none"
+        }
+      },
+      "display-data": {
+        "src": "/assets/misc/blank.svg",
+        "dimensions": {
+          "width": 110,
+          "height": 10500
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 0
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 5000,
+          "y": -50
+        },
+        "type": "rectangle",
+        "dimensions": {
+          "width": 10500,
+          "height": 110
+        },
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+          "chamfer": { "radius": 0 },
+          "tag": "none"
+        }
+      },
+      "display-data": {
+        "src": "/assets/misc/blank.svg",
+        "dimensions": {
+          "width": 10500,
+          "height": 110
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 0
+        },
+        "layer": 1
+      }
+    },
+    {
+      "body-data": {
+        "position": {
+          "x": 5000,
+          "y": 10055
+        },
+        "type": "rectangle",
+        "dimensions": {
+          "width": 10500,
+          "height": 110
+        },
+        "options": {
+          "isStatic": true,
+          "friction": 1,
+          "restitution": 0,
+          "density": 1,
+          "angle": 0,
+          "chamfer": { "radius": 0 },
+          "tag": "none"
+        }
+      },
+      "display-data": {
+        "src": "/assets/misc/blank.svg",
+        "dimensions": {
+          "width": 10500,
+          "height": 110
+        },
+        "offset": {
+          "x": 0,
+          "y": 0,
+          "angle": 0
+        },
+        "layer": 1
+      }
+    }
+  ]
+}

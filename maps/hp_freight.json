@@ -37,11 +37,11 @@
       ]
     },
     "loadouts": {
-      "assault": ["SCAR-L", "T509", "Bayonet"],
-      "breach": ["SLP", "Desert Eagle", "Bayonet"],
-      "recon": ["VKR", "Desert Eagle", "Bayonet"],
-      "scout": ["Mk18", "FNX45", "Bayonet"],
-      "sniper": ["Ballista", "FNX45", "Bayonet"]
+      "assault": ["SCAR-L", "T509", "Bayonet", "Smokescreen"],
+      "breach": ["SLP", "Desert Eagle", "Bayonet", "Smokescreen"],
+      "recon": ["VKR", "Desert Eagle", "Bayonet", "Smokescreen"],
+      "scout": ["Mk18", "FNX45", "Bayonet", "Smokescreen"],
+      "sniper": ["Ballista", "FNX45", "Bayonet", "Smokescreen"]
     },
     "point": {
       "position": {

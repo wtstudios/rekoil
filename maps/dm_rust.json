@@ -47,11 +47,11 @@
       ]
     },
     "loadouts": {
-      "assault": ["SCAR-L", "T509", "Bayonet"],
-      "breach": ["SLP", "Desert Eagle", "Bayonet"],
-      "recon": ["VKR", "Desert Eagle", "Bayonet"],
-      "scout": ["Mk18", "FNX45", "Bayonet"],
-      "sniper": ["Ballista", "FNX45", "Bayonet"]
+      "assault": ["SCAR-L", "T509", "Bayonet", "Smokescreen"],
+      "breach": ["SLP", "Desert Eagle", "Bayonet", "Smokescreen"],
+      "recon": ["VKR", "Desert Eagle", "Bayonet", "Smokescreen"],
+      "scout": ["Mk18", "FNX45", "Bayonet", "Smokescreen"],
+      "sniper": ["Ballista", "FNX45", "Bayonet", "Smokescreen"]
     },
     "point": {
       "position": {
@@ -88,6 +88,7 @@
           "width": 1780,
           "height": 1480
         },
+        "material": "metal",
         "offset": {
           "x": 0,
           "y": 0,
@@ -123,6 +124,7 @@
           "width": 300,
           "height": 300
         },
+        "material": "metal",
         "offset": {
           "x": 0,
           "y": 0,
@@ -158,6 +160,7 @@
           "width": 1000,
           "height": 1880
         },
+        "material": "metal",
         "offset": {
           "x": 0,
           "y": 0,
@@ -193,6 +196,7 @@
           "width": 1000,
           "height": 1880
         },
+        "material": "metal",
         "offset": {
           "x": 0,
           "y": 0,
@@ -228,6 +232,7 @@
           "width": 1030,
           "height": 380
         },
+        "material": "stone",
         "offset": {
           "x": 0,
           "y": 0,
@@ -263,6 +268,7 @@
           "width": 1030,
           "height": 380
         },
+        "material": "stone",
         "offset": {
           "x": 0,
           "y": 0,
@@ -298,6 +304,7 @@
           "width": 450,
           "height": 450
         },
+        "material": "metal",
         "offset": {
           "x": 0,
           "y": 0,
@@ -333,6 +340,7 @@
           "width": 450,
           "height": 370
         },
+        "material": "wood",
         "offset": {
           "x": 0,
           "y": 0,
@@ -368,6 +376,7 @@
           "width": 300,
           "height": 300
         },
+        "material": "metal",
         "offset": {
           "x": 0,
           "y": 0,
@@ -403,6 +412,7 @@
           "width": 1030,
           "height": 380
         },
+        "material": "stone",
         "offset": {
           "x": 0,
           "y": 0,
@@ -438,6 +448,7 @@
           "width": 1030,
           "height": 380
         },
+        "material": "stone",
         "offset": {
           "x": 0,
           "y": 0,
@@ -473,6 +484,7 @@
           "width": 1000,
           "height": 1880
         },
+        "material": "metal",
         "offset": {
           "x": 0,
           "y": 0,
@@ -508,6 +520,7 @@
           "width": 450,
           "height": 450
         },
+        "material": "metal",
         "offset": {
           "x": 0,
           "y": 0,
@@ -543,6 +556,7 @@
           "width": 1330,
           "height": 1030
         },
+        "material": "metal",
         "offset": {
           "x": 0,
           "y": 0,
@@ -578,6 +592,7 @@
           "width": 980,
           "height": 680
         },
+        "material": "metal",
         "offset": {
           "x": 0,
           "y": 0,
@@ -613,6 +628,7 @@
           "width": 2530,
           "height": 1030
         },
+        "material": "metal",
         "offset": {
           "x": 0,
           "y": 0,
@@ -648,6 +664,7 @@
           "width": 850,
           "height": 210
         },
+        "material": "stone",
         "offset": {
           "x": 0,
           "y": 0,
@@ -679,6 +696,7 @@
           "width": 490,
           "height": 490
         },
+        "material": "metal",
         "offset": {
           "x": 0,
           "y": 0,
@@ -710,6 +728,7 @@
           "width": 490,
           "height": 490
         },
+        "material": "metal",
         "offset": {
           "x": 0,
           "y": 0,
@@ -745,6 +764,7 @@
           "width": 450,
           "height": 450
         },
+        "material": "metal",
         "offset": {
           "x": 0,
           "y": 0,
@@ -780,6 +800,7 @@
           "width": 300,
           "height": 300
         },
+        "material": "metal",
         "offset": {
           "x": 0,
           "y": 0,
@@ -815,6 +836,7 @@
           "width": 2530,
           "height": 1030
         },
+        "material": "metal",
         "offset": {
           "x": 0,
           "y": 0,
@@ -850,6 +872,7 @@
           "width": 1030,
           "height": 1030
         },
+        "material": "metal",
         "offset": {
           "x": 0,
           "y": 0,
@@ -885,6 +908,7 @@
           "width": 450,
           "height": 450
         },
+        "material": "metal",
         "offset": {
           "x": 0,
           "y": 0,
@@ -920,6 +944,7 @@
           "width": 450,
           "height": 450
         },
+        "material": "metal",
         "offset": {
           "x": 0,
           "y": 0,
@@ -951,6 +976,7 @@
           "width": 490,
           "height": 490
         },
+        "material": "wood",
         "offset": {
           "x": 0,
           "y": 0,
@@ -986,6 +1012,7 @@
           "width": 1000,
           "height": 1880
         },
+        "material": "metal",
         "offset": {
           "x": 0,
           "y": 0,
@@ -1021,6 +1048,7 @@
           "width": 850,
           "height": 210
         },
+        "material": "stone",
         "offset": {
           "x": 0,
           "y": 0,
@@ -1056,6 +1084,7 @@
           "width": 850,
           "height": 210
         },
+        "material": "stone",
         "offset": {
           "x": 0,
           "y": 0,
@@ -1091,6 +1120,7 @@
           "width": 450,
           "height": 450
         },
+        "material": "metal",
         "offset": {
           "x": 0,
           "y": 0,
@@ -1126,6 +1156,7 @@
           "width": 300,
           "height": 300
         },
+        "material": "metal",
         "offset": {
           "x": 0,
           "y": 0,
@@ -1161,6 +1192,7 @@
           "width": 450,
           "height": 450
         },
+        "material": "metal",
         "offset": {
           "x": 0,
           "y": 0,
@@ -1196,6 +1228,7 @@
           "width": 450,
           "height": 450
         },
+        "material": "metal",
         "offset": {
           "x": 0,
           "y": 0,
@@ -1231,6 +1264,7 @@
           "width": 300,
           "height": 300
         },
+        "material": "metal",
         "offset": {
           "x": 0,
           "y": 0,
@@ -1266,6 +1300,7 @@
           "width": 300,
           "height": 300
         },
+        "material": "metal",
         "offset": {
           "x": 0,
           "y": 0,
@@ -1301,6 +1336,7 @@
           "width": 300,
           "height": 300
         },
+        "material": "metal",
         "offset": {
           "x": 0,
           "y": 0,
@@ -1336,6 +1372,7 @@
           "width": 300,
           "height": 300
         },
+        "material": "metal",
         "offset": {
           "x": 0,
           "y": 0,
@@ -1371,6 +1408,7 @@
           "width": 850,
           "height": 210
         },
+        "material": "stone",
         "offset": {
           "x": 0,
           "y": 0,
@@ -1406,6 +1444,7 @@
           "width": 850,
           "height": 210
         },
+        "material": "stone",
         "offset": {
           "x": 0,
           "y": 0,
@@ -1422,7 +1461,7 @@
         },
         "type": "rectangle",
         "dimensions": {
-          "width": 590,
+          "width": 575,
           "height": 945
         },
         "options": {
@@ -1441,6 +1480,7 @@
           "width": 1030,
           "height": 380
         },
+        "material": "stone",
         "offset": {
           "x": 0,
           "y": 0,
@@ -1476,6 +1516,7 @@
           "width": 980,
           "height": 680
         },
+        "material": "metal",
         "offset": {
           "x": 0,
           "y": 0,
@@ -1511,6 +1552,7 @@
           "width": 1330,
           "height": 1030
         },
+        "material": "metal",
         "offset": {
           "x": 0,
           "y": 0,
@@ -1542,6 +1584,7 @@
           "width": 490,
           "height": 490
         },
+        "material": "metal",
         "offset": {
           "x": 0,
           "y": 0,
@@ -1573,6 +1616,7 @@
           "width": 490,
           "height": 490
         },
+        "material": "metal",
         "offset": {
           "x": 0,
           "y": 0,
@@ -1604,6 +1648,7 @@
           "width": 490,
           "height": 490
         },
+        "material": "metal",
         "offset": {
           "x": 0,
           "y": 0,
@@ -1635,6 +1680,7 @@
           "width": 490,
           "height": 490
         },
+        "material": "metal",
         "offset": {
           "x": 0,
           "y": 0,
@@ -1670,6 +1716,7 @@
           "width": 850,
           "height": 210
         },
+        "material": "stone",
         "offset": {
           "x": 0,
           "y": 0,
@@ -1705,6 +1752,7 @@
           "width": 850,
           "height": 210
         },
+        "material": "stone",
         "offset": {
           "x": 0,
           "y": 0,
@@ -1740,6 +1788,7 @@
           "width": 2530,
           "height": 1030
         },
+        "material": "metal",
         "offset": {
           "x": 0,
           "y": 0,
@@ -1775,6 +1824,7 @@
           "width": 850,
           "height": 210
         },
+        "material": "stone",
         "offset": {
           "x": 0,
           "y": 0,
@@ -1810,6 +1860,7 @@
           "width": 4030,
           "height": 1030
         },
+        "material": "metal",
         "offset": {
           "x": 0,
           "y": 0,
@@ -1845,6 +1896,7 @@
           "width": 300,
           "height": 300
         },
+        "material": "metal",
         "offset": {
           "x": 0,
           "y": 0,
@@ -1880,6 +1932,7 @@
           "width": 300,
           "height": 300
         },
+        "material": "metal",
         "offset": {
           "x": 0,
           "y": 0,
@@ -1915,6 +1968,7 @@
           "width": 300,
           "height": 300
         },
+        "material": "metal",
         "offset": {
           "x": 0,
           "y": 0,
@@ -1950,6 +2004,7 @@
           "width": 450,
           "height": 370
         },
+        "material": "wood",
         "offset": {
           "x": 0,
           "y": 0,
@@ -1985,6 +2040,7 @@
           "width": 450,
           "height": 450
         },
+        "material": "metal",
         "offset": {
           "x": 0,
           "y": 0,
@@ -2020,6 +2076,7 @@
           "width": 850,
           "height": 210
         },
+        "material": "stone",
         "offset": {
           "x": 0,
           "y": 0,
@@ -2055,6 +2112,7 @@
           "width": 1030,
           "height": 380
         },
+        "material": "stone",
         "offset": {
           "x": 0,
           "y": 0,
@@ -2090,6 +2148,7 @@
           "width": 300,
           "height": 300
         },
+        "material": "metal",
         "offset": {
           "x": 0,
           "y": 0,
@@ -2125,6 +2184,7 @@
           "width": 1000,
           "height": 1000
         },
+        "material": "metal",
         "offset": {
           "x": 0,
           "y": 0,
@@ -2156,6 +2216,7 @@
           "width": 490,
           "height": 490
         },
+        "material": "metal",
         "offset": {
           "x": 0,
           "y": 0,
@@ -2191,6 +2252,7 @@
           "width": 1780,
           "height": 1480
         },
+        "material": "metal",
         "offset": {
           "x": 0,
           "y": 0,
@@ -2226,6 +2288,7 @@
           "width": 450,
           "height": 370
         },
+        "material": "wood",
         "offset": {
           "x": 0,
           "y": 0,
@@ -2261,6 +2324,7 @@
           "width": 1030,
           "height": 380
         },
+        "material": "stone",
         "offset": {
           "x": 0,
           "y": 0,
@@ -2296,6 +2360,7 @@
           "width": 980,
           "height": 680
         },
+        "material": "metal",
         "offset": {
           "x": 0,
           "y": 0,
@@ -2331,6 +2396,7 @@
           "width": 4030,
           "height": 1030
         },
+        "material": "metal",
         "offset": {
           "x": 0,
           "y": 0,
@@ -2366,6 +2432,7 @@
           "width": 850,
           "height": 210
         },
+        "material": "stone",
         "offset": {
           "x": 0,
           "y": 0,
@@ -2401,6 +2468,7 @@
           "width": 2530,
           "height": 1030
         },
+        "material": "metal",
         "offset": {
           "x": 0,
           "y": 0,
@@ -2436,6 +2504,7 @@
           "width": 4030,
           "height": 1030
         },
+        "material": "metal",
         "offset": {
           "x": 0,
           "y": 0,
@@ -2471,6 +2540,7 @@
           "width": 1030,
           "height": 1030
         },
+        "material": "metal",
         "offset": {
           "x": 0,
           "y": 0,
@@ -2506,6 +2576,7 @@
           "width": 450,
           "height": 450
         },
+        "material": "metal",
         "offset": {
           "x": 0,
           "y": 0,
@@ -2541,6 +2612,7 @@
           "width": 1000,
           "height": 1880
         },
+        "material": "metal",
         "offset": {
           "x": 0,
           "y": 0,
@@ -2605,6 +2677,7 @@
           "width": 1000,
           "height": 1000
         },
+        "material": "wood",
         "offset": {
           "x": 0,
           "y": 0,
@@ -2637,6 +2710,7 @@
           "width": 1000,
           "height": 1000
         },
+        "material": "wood",
         "offset": {
           "x": 0,
           "y": 0,
@@ -2669,6 +2743,7 @@
           "width": 1000,
           "height": 1000
         },
+        "material": "wood",
         "offset": {
           "x": 0,
           "y": 0,
@@ -2701,6 +2776,7 @@
           "width": 1000,
           "height": 1000
         },
+        "material": "wood",
         "offset": {
           "x": 0,
           "y": 0,
@@ -2733,6 +2809,7 @@
           "width": 1000,
           "height": 1000
         },
+        "material": "wood",
         "offset": {
           "x": 0,
           "y": 0,
@@ -2765,6 +2842,7 @@
           "width": 1000,
           "height": 1000
         },
+        "material": "wood",
         "offset": {
           "x": 0,
           "y": 0,
@@ -2797,6 +2875,7 @@
           "width": 1000,
           "height": 1000
         },
+        "material": "wood",
         "offset": {
           "x": 0,
           "y": 0,
@@ -2829,6 +2908,7 @@
           "width": 1000,
           "height": 1000
         },
+        "material": "wood",
         "offset": {
           "x": 0,
           "y": 0,
@@ -2863,6 +2943,7 @@
           "width": 0,
           "height": 0
         },
+        "material": "none",
         "offset": {
           "x": 0,
           "y": 0,
@@ -2897,6 +2978,7 @@
           "width": 0,
           "height": 0
         },
+        "material": "none",
         "offset": {
           "x": 0,
           "y": 0,
@@ -2931,6 +3013,7 @@
           "width": 0,
           "height": 0
         },
+        "material": "none",
         "offset": {
           "x": 0,
           "y": 0,
@@ -2965,6 +3048,7 @@
           "width": 0,
           "height": 0
         },
+        "material": "none",
         "offset": {
           "x": 0,
           "y": 0,

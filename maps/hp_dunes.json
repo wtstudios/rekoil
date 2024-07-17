@@ -37,11 +37,11 @@
       ]
     },
     "loadouts": {
-      "assault": ["SCAR-L", "T509", "Bayonet"],
-      "breach": ["SLP", "Desert Eagle", "Bayonet"],
-      "recon": ["VKR", "Desert Eagle", "Bayonet"],
-      "scout": ["Mk18", "FNX45", "Bayonet"],
-      "sniper": ["Ballista", "FNX45", "Bayonet"]
+      "assault": ["SCAR-L", "T509", "Bayonet", "Smokescreen"],
+      "breach": ["SLP", "Desert Eagle", "Bayonet", "Smokescreen"],
+      "recon": ["VKR", "Desert Eagle", "Bayonet", "Smokescreen"],
+      "scout": ["Mk18", "FNX45", "Bayonet", "Smokescreen"],
+      "sniper": ["Ballista", "FNX45", "Bayonet", "Smokescreen"]
     },
     "point": {
       "position": {
@@ -68,7 +68,7 @@
           "restitution": 0,
           "density": 1,
           "angle": 0,
-          "chamfer": { "radius": 10 },
+          "chamfer": { "radius": 0 },
           "tag": "#c9a074"
         }
       },
@@ -700,7 +700,7 @@
           "friction": 1,
           "restitution": 0,
           "density": 1,
-          "angle": 5.93412,
+          "angle": 0,
           "chamfer": { "radius": 70 },
           "tag": "#9a7742"
         }
@@ -735,7 +735,7 @@
           "friction": 1,
           "restitution": 0,
           "density": 1,
-          "angle": 1.74533,
+          "angle": 0,
           "chamfer": { "radius": 70 },
           "tag": "#9a7742"
         }
@@ -898,7 +898,7 @@
           "friction": 1,
           "restitution": 0,
           "density": 1,
-          "angle": 5.93412,
+          "angle": 0,
           "chamfer": { "radius": 70 },
           "tag": "#9a7742"
         }
@@ -933,7 +933,7 @@
           "friction": 1,
           "restitution": 0,
           "density": 1,
-          "angle": 1.74533039999480177,
+          "angle": 0,
           "chamfer": { "radius": 70 },
           "tag": "#9a7742"
         }
