@@ -385,6 +385,7 @@
     {
       "name": "Smokescreen",
       "type": "grenade",
+      "magSize": 2,
       "view": 0,
       "fireDelay": 0,
       "fireMode": "semi",
@@ -432,6 +433,7 @@
     {
       "name": "Frag",
       "type": "grenade",
+      "magSize": 3,
       "view": 0,
       "fireDelay": 0,
       "fireMode": "semi",
