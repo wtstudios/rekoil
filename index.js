@@ -143,7 +143,7 @@ class weapon {
       this.damageArea = data.damageArea;
       this.lifeTime = 0;
     } else if(data.type == "grenade") {
-      this.magSize = 99;
+      this.magSize = data.magSize;
       this.spread = data.spread;
       this.bulletsPerShot = 1;
       this.reloadLength = 0;
