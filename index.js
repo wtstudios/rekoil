@@ -143,7 +143,7 @@ class weapon {
       this.damageArea = data.damageArea;
       this.lifeTime = 0;
     } else if(data.type == "grenade") {
-      this.magSize = 1;
+      this.magSize = 99;
       this.spread = data.spread;
       this.bulletsPerShot = 1;
       this.reloadLength = 0;
@@ -462,9 +462,10 @@ function updatePlayer(player, delay, id) {
           player.state.fireTimer = 0;
           gameData.bullets.push(new bullet({ start: player.state.position, finish: player.state.position }, player.team, id, player.state.angle, 0, [{x: 0, y: 0, colour: "none", material: "none"}, {x: 1, y: 1, colour: "none", material: "none"}], false));
           if(collisions[0]) {
-            const ray = functions.raycast(Composite.allBodies(world), position, { x: player.state.position.x + Math.cos(Math.atan2(collisions[0].bodyA.position.y - position.y, collisions[0].bodyA.position.x - position.x)) * 300, y: player.state.position.y + Math.sin(Math.atan2(collisions[0].bodyA.position.y - position.y, collisions[0].bodyA.position.x - position.x)) * 300 }, true);
-            if(ray[1] && ray[1].body == collisions[0].bodyA) {
-              gameData.particles.push(new particle({x: ray[1].point.x / 1, y: ray[1].point.y / 1}, Math.random() * 360, player.state.angle * Math.PI / 180 + (Math.random() - 2) * 1 + Math.PI / 2, JSON.parse(ray[1].body.tag).colour, 250, "/assets/misc/particle.svg", 100, "residue", 0));
+            let collisionBodies = playerBodies.concat(justObstacles);
+            const ray = functions.raycast(collisionBodies, position, { x: player.state.position.x + Math.cos(Math.atan2(collisions[0].bodyA.position.y - position.y, collisions[0].bodyA.position.x - position.x)) * 300, y: player.state.position.y + Math.sin(Math.atan2(collisions[0].bodyA.position.y - position.y, collisions[0].bodyA.position.x - position.x)) * 300 }, true);
+            if(ray[0] && ray[0].body == collisions[0].bodyA) {
+              gameData.particles.push(new particle({x: ray[0].point.x / 1, y: ray[0].point.y / 1}, Math.random() * 360, player.state.angle * Math.PI / 180 + (Math.random() - 2) * 1 + Math.PI / 2, JSON.parse(ray[0].body.tag).colour, 250, "/assets/misc/particle.svg", 100, "residue", 0));
               if(JSON.parse(collisions[0].bodyA.tag).colour != JSON.parse(player.body.tag).colour) {
                 for(let i = 0; i < gameData.users.length; i++) {
                   if(gameData.players[gameData.users[i]].body == collisions[0].bodyA) {
@@ -500,11 +501,18 @@ function updatePlayer(player, delay, id) {
           if (currentWeapon.bulletsPerShot > 1) {
             for (let j = 0; j < currentWeapon.bulletsPerShot; j++) {
               let angle = ((player.state.angle + (activeWeaponSpread / currentWeapon.bulletsPerShot) * (j - Math.floor(currentWeapon.bulletsPerShot / 2))) + (Math.random() - 0.5) * activeWeaponSpread / 30) * Math.PI / 180 - Math.PI;
-              let ray = functions.raycast(Composite.allBodies(world), position, { x: player.state.position.x + Math.cos(angle) * bulletLength, y: player.state.position.y + Math.sin(angle) * bulletLength }, true);
-              let finish = ray[1].point;
+              let playerBodies = [];
+              for(let i = 0; i < gameData.users.length; i++) {
+                if(gameData.users[i] != JSON.parse(player.body.tag).id && gameData.players[gameData.users[i]].health > 0) {
+                  playerBodies.push(gameData.players[gameData.users[i]].body);
+                }
+              }
+              let collisionBodies = playerBodies.concat(justObstacles);
+              let ray = functions.raycast(collisionBodies, position, { x: player.state.position.x + Math.cos(angle) * bulletLength, y: player.state.position.y + Math.sin(angle) * bulletLength }, true);
+              let finish = ray[0].point;
               for (let i = 0; i < gameData.users.length; i++) {
-                if (gameData.players[gameData.users[i]].body == ray[1].body && gameData.players[gameData.users[i]] != player) {
-                  finish = ray[1].point;
+                if (gameData.players[gameData.users[i]].body == ray[0].body && gameData.players[gameData.users[i]] != player) {
+                  finish = ray[0].point;
                   if (gameData.players[gameData.users[i]].team != player.team) {
                     gameData.players[gameData.users[i]].health -= currentWeapon.damage;
                     gameData.shouldUpdateScoreboard = true;
@@ -533,15 +541,22 @@ function updatePlayer(player, delay, id) {
               if(j == 0) {
                 shouldEjectCartridge = true;
               }
-              gameData.bullets.push(new bullet({ start: player.state.position, finish: finish }, player.team, id, player.state.angle + (activeWeaponSpread / currentWeapon.bulletsPerShot) * (j - Math.floor(currentWeapon.bulletsPerShot / 2)), currentWeapon.lifeTime, [{x: ray[1].verts[0].x, y: ray[1].verts[0].y, colour: JSON.parse(ray[1].body.tag).colour, material: JSON.parse(ray[1].body.tag).material}, {x: ray[1].verts[1].x, y: ray[1].verts[1].y, colour: JSON.parse(ray[1].body.tag).colour, material: JSON.parse(ray[1].body.tag).material}], shouldEjectCartridge));
+              gameData.bullets.push(new bullet({ start: player.state.position, finish: finish }, player.team, id, player.state.angle + (activeWeaponSpread / currentWeapon.bulletsPerShot) * (j - Math.floor(currentWeapon.bulletsPerShot / 2)), currentWeapon.lifeTime, [{x: ray[0].verts[0].x, y: ray[0].verts[0].y, colour: JSON.parse(ray[0].body.tag).colour, material: JSON.parse(ray[0].body.tag).material}, {x: ray[0].verts[1].x, y: ray[0].verts[1].y, colour: JSON.parse(ray[0].body.tag).colour, material: JSON.parse(ray[0].body.tag).material}], shouldEjectCartridge));
             }
             player.state.fireTimer = 0;
           } else {
-            let ray = functions.raycast(Composite.allBodies(world), position, { x: player.state.position.x + Math.cos((player.state.angle + randomAngleOffset) * Math.PI / 180 - Math.PI) * bulletLength, y: player.state.position.y + Math.sin((player.state.angle + randomAngleOffset) * Math.PI / 180 - Math.PI) * bulletLength }, true);
-            let finish = ray[1].point;
+            let playerBodies = [];
+            for(let i = 0; i < gameData.users.length; i++) {
+              if(gameData.users[i] != JSON.parse(player.body.tag).id && gameData.players[gameData.users[i]].health > 0) {
+                playerBodies.push(gameData.players[gameData.users[i]].body);
+              }
+            }
+            let collisionBodies = playerBodies.concat(justObstacles);
+            let ray = functions.raycast(collisionBodies, position, { x: player.state.position.x + Math.cos((player.state.angle + randomAngleOffset) * Math.PI / 180 - Math.PI) * bulletLength, y: player.state.position.y + Math.sin((player.state.angle + randomAngleOffset) * Math.PI / 180 - Math.PI) * bulletLength }, true);
+            let finish = ray[0].point;
             for (let i = 0; i < gameData.users.length; i++) {
-              if (gameData.players[gameData.users[i]].body == ray[1].body && gameData.players[gameData.users[i]] != player) {
-                finish = ray[1].point;
+              if (gameData.players[gameData.users[i]].body == ray[0].body && gameData.players[gameData.users[i]] != player) {
+                finish = ray[0].point;
                 if (gameData.players[gameData.users[i]].team != player.team) {
                   gameData.players[gameData.users[i]].health -= currentWeapon.damage;
                   gameData.shouldUpdateScoreboard = true;
@@ -566,7 +581,7 @@ function updatePlayer(player, delay, id) {
                 }
               }
             }
-            gameData.bullets.push(new bullet({ start: player.state.position, finish: finish }, player.team, id, player.state.angle + randomAngleOffset, currentWeapon.lifeTime, [{x: ray[1].verts[0].x, y: ray[1].verts[0].y, colour: JSON.parse(ray[1].body.tag).colour, material: JSON.parse(ray[1].body.tag).material}, {x: ray[1].verts[1].x, y: ray[1].verts[1].y, colour: JSON.parse(ray[1].body.tag).colour, material: JSON.parse(ray[1].body.tag).material}], true));
+            gameData.bullets.push(new bullet({ start: player.state.position, finish: finish }, player.team, id, player.state.angle + randomAngleOffset, currentWeapon.lifeTime, [{x: ray[0].verts[0].x, y: ray[0].verts[0].y, colour: JSON.parse(ray[0].body.tag).colour, material: JSON.parse(ray[0].body.tag).material}, {x: ray[0].verts[1].x, y: ray[0].verts[1].y, colour: JSON.parse(ray[0].body.tag).colour, material: JSON.parse(ray[0].body.tag).material}], true));
             player.state.fireTimer = 0;
           }
         } else if(currentWeapon.type == "grenade") {
