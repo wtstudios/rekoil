@@ -42,7 +42,7 @@ let messageLoad = [];
 
 let lastTime = Date.now();
 
-const tickRate = 50;
+let tickRate = 1000 / 20;
 
 const Engine = Matter.Engine,
   World = Matter.World,
@@ -53,9 +53,9 @@ const Engine = Matter.Engine,
   world = engine.world;
 
 let justObstacles = [];
-const runner14832948 = Matter.Runner.run(engine);
+const runner14832948 = Matter.Runner.run(engine, );
 
-let imageBodyList = [];
+let imageBodyList = {nonShootables: [], basic: []};
 
 engine.gravity.y = 0;
 
@@ -78,6 +78,24 @@ class bullet {
     this.collisionSurface = collisionSurface;
     this.tracerLength = squaredDist({x: coordinates.start.x, y: coordinates.start.y}, {x: coordinates.finish.x, y: coordinates.finish.y});
     this.shouldEjectCartridge = shouldEjectCartridge;
+  }
+}
+
+class damageArea {
+  position
+  team;
+  player;
+  timestamp;
+  damage;
+  radius;
+
+  constructor(data) {
+    this.position = data.position;
+    this.team = data.team;
+    this.player = data.player;
+    this.timestamp = data.timestamp;
+    this.damage = data.damage;
+    this.radius = data.radius;
   }
 }
 
@@ -154,6 +172,7 @@ class weapon {
       this.particleType = data.particleType;
       this.projectileSRC = data.projectileSRC;
     }
+    this.dual = data.dual;
     this.view = data.view;
     this.fireDelay = data.fireDelay;
     this.fireMode = data.fireMode;
@@ -163,6 +182,10 @@ class weapon {
     this.playerDensity = data.playerDensity;
     this.recoilImpulse = data.recoilImpulse;
     this.sounds = data.sounds;
+    if(data.dual) {
+      this.fireDelay = data.fireDelay / 2;
+      this.magSize = data.magSize * 2;
+    }
   }
 }
 
@@ -213,11 +236,12 @@ class playerLike {
     mag: [0, 0, 0],
     activeWeaponIndex: 0,
     hasStarted: false,
-    objectRenderList: [],
+    objectRenderList: {nonShootables: [], basic: []},
     ping: 0,
     force: {x: 0, y: 0},
     hasFiredOnClick: false,
-    stepSoundTicker: 0
+    stepSoundTicker: 0,
+    objectRenderListUpdateTicker: 0
   };
 
   constructor(body, angle, guns, health, view, team, platform) {
@@ -241,6 +265,7 @@ class playerLike {
 let gameData = {
   mapData: ciqlJson.open("maps/dm_rust.json").data,
   mapPool: ciqlJson.open("public/api/map-pool.json").data,
+  serverSettings: ciqlJson.open("public/api/server-settings.json").data.settings,
   teamNumbers: { "blue": 0, "red": 0 },
   roundsWonScore: {"blue": 0, "red": 0},
   currentRoundScore: { "blue": 0, "red": 0 },
@@ -249,6 +274,7 @@ let gameData = {
   objects: [],
   bullets: [],
   grenades: [],
+  damageAreas: [],
   particles: [],
   scoreboard: {},
   point: {},
@@ -257,7 +283,7 @@ let gameData = {
   certificate: "",
   queuedSounds: [],
   weapons: {},
-  loadouts: ciqlJson.open("maps/dm_dunes.json").data.config.loadouts,
+  loadouts: ciqlJson.open("public/api/loadouts.json").data.loadouts,
   lastTickDelay: tickRate,
   shouldUpdateUI: false,
   shouldUpdateScoreboard: false,
@@ -268,18 +294,33 @@ function squaredDist(ptA, ptB) {
   return (ptB.x - ptA.x) ** 2 + (ptB.y - ptA.y) ** 2;
 }
 
+function restrict(number, min, max) {
+  if(number < min) {
+    number = min;
+  }
+  if(number > max) {
+    number = max;
+  }
+  return number;
+}
+
 function fillWeapons() {
   const gunAPI = ciqlJson.open("public/api/weapons.json").data.weapons;
   for(let i = 0; i < gunAPI.length; i++) {
     gameData.weapons[gunAPI[i].name] = new weapon(gunAPI[i]);
+  }
+  const customGunAPI = ciqlJson.open("public/api/custom-weapons.json").data.weapons;
+  for(let i = 0; i < customGunAPI.length; i++) {
+    gameData.weapons[customGunAPI[i].name] = new weapon(customGunAPI[i]);
   }
 }
 
 function initialize() {  
   Composite.clear(world, false);
   justObstacles = [];
-  imageBodyList = [];
-  gameData.mapData = ciqlJson.open("maps/" + gameData.mapPool.pool[Math.floor(Math.random() * gameData.mapPool.pool.length)] + ".json").data;
+  imageBodyList = {nonShootables: [], basic: []};
+  gameData.mapData = JSON.parse(JSON.stringify(ciqlJson.open("maps/" + gameData.mapPool.pool[Math.floor(Math.random() * gameData.mapPool.pool.length)] + ".json").data));
+  gameData.mapData.nonShootables = [];
   for (let i = 0; i < gameData.mapData.obstacles.length; i++) {
     let obstacle = gameData.mapData.obstacles[i]["body-data"],
     body;
@@ -299,19 +340,39 @@ function initialize() {
     body.tag = JSON.stringify({colour: body.tag, material: gameData.mapData.obstacles[i]["display-data"].material});
 
     Composite.add(world, body);
-    justObstacles.push(body);
-    imageBodyList.push(
-      Bodies.rectangle(
-        obstacle.position.x + gameData.mapData.obstacles[i]["display-data"].offset.x, 
-        obstacle.position.y + gameData.mapData.obstacles[i]["display-data"].offset.y, 
-        gameData.mapData.obstacles[i]["display-data"].dimensions.width, 
-        gameData.mapData.obstacles[i]["display-data"].dimensions.height, 
-        {
-          angle: (gameData.mapData.obstacles[i]["display-data"].offset.angle * Math.PI / 180),
-          tag: "" + i
-        }
-      )
-    );
+
+    if(!gameData.mapData.obstacles[i]["display-data"].ignoreBulletCollisions) {
+      justObstacles.push(body);
+
+      imageBodyList.basic.push(
+        Bodies.rectangle(
+          obstacle.position.x + gameData.mapData.obstacles[i]["display-data"].offset.x, 
+          obstacle.position.y + gameData.mapData.obstacles[i]["display-data"].offset.y, 
+          gameData.mapData.obstacles[i]["display-data"].dimensions.width, 
+          gameData.mapData.obstacles[i]["display-data"].dimensions.height, 
+          {
+            angle: (gameData.mapData.obstacles[i]["display-data"].offset.angle * Math.PI / 180),
+            tag: "" + i
+          }
+        )
+      );
+    } else {
+      gameData.mapData.nonShootables.push(gameData.mapData.obstacles[i]);
+      imageBodyList.nonShootables.push(
+        Bodies.rectangle(
+          obstacle.position.x + gameData.mapData.obstacles[i]["display-data"].offset.x, 
+          obstacle.position.y + gameData.mapData.obstacles[i]["display-data"].offset.y, 
+          gameData.mapData.obstacles[i]["display-data"].dimensions.width, 
+          gameData.mapData.obstacles[i]["display-data"].dimensions.height, 
+          {
+            angle: (gameData.mapData.obstacles[i]["display-data"].offset.angle * Math.PI / 180),
+            tag: "" + gameData.mapData.nonShootables.length - 1
+          }
+        )
+      );
+      gameData.mapData.obstacles.splice(i, 1);
+      i--;
+    }
   }
   if(gameData.mapData.config.gamemode == "hardpoint") {
     gameData.point = {
@@ -377,6 +438,7 @@ updateSecondsLeft = setInterval(function() {
         score: 0,
         damage: 0
       };
+      updateObjectRenderList(gameData.players[gameData.users[i]]);
     }
     gameData.shouldUpdateScoreboard = true;
     gameData.currentRoundScore = { "blue": 0, "red": 0 };
@@ -417,12 +479,12 @@ function updatePlayer(player, delay, id) {
   if(w || s) {
     Body.setVelocity(body, {
       x: body.velocity.x,
-      y: +(w ^ s) && (((a ^ d) ? 0.7071 : 1) * [-1, 1][+w] * base * delay / 1.75 / (body.density / 0.15))
+      y: +(w ^ s) && (((a ^ d) ? 0.7071 : 1) * [-1, 1][+w] * base * 1.25 / (body.density / 0.15))
     });
   }
   if(a || d) {
     Body.setVelocity(body, {
-      x: +(a ^ d) && (((w ^ s) ? 0.7071 : 1) * [-1, 1][+d] * base * delay / 1.75 / (body.density / 0.15)),
+      x: +(a ^ d) && (((w ^ s) ? 0.7071 : 1) * [-1, 1][+d] * base * 1.25 / (body.density / 0.15)),
       y: body.velocity.y
     });
   }
@@ -431,9 +493,14 @@ function updatePlayer(player, delay, id) {
 
   if(player.state.isMoving) {
     player.state.stepSoundTicker++;
-    if(player.state.stepSoundTicker >= 5) {
+    player.state.objectRenderListUpdateTicker++;
+    if(player.state.stepSoundTicker >= 6) {
       gameData.queuedSounds.push({path: "/assets/audio/footsteps/step" + (Math.round(Math.random() * 7) + 1) + ".mp3", origin: player.state.position});
       player.state.stepSoundTicker = 0;
+    }
+    if(player.state.objectRenderListUpdateTicker >= 18) {
+      updateObjectRenderList(player);
+      player.state.objectRenderListUpdateTicker = 0;
     }
   }
 
@@ -552,7 +619,16 @@ function updatePlayer(player, delay, id) {
               }
             }
             let collisionBodies = playerBodies.concat(justObstacles);
-            let ray = functions.raycast(collisionBodies, position, { x: player.state.position.x + Math.cos((player.state.angle + randomAngleOffset) * Math.PI / 180 - Math.PI) * bulletLength, y: player.state.position.y + Math.sin((player.state.angle + randomAngleOffset) * Math.PI / 180 - Math.PI) * bulletLength }, true);
+            let ray;
+            if(currentWeapon.dual && gameData.serverSettings["dual-wield-realism"]) {
+              if(player.state.mag[player.state.activeWeaponIndex] % 2 == 0) {
+                ray = functions.raycast(collisionBodies, {x: position.x + Math.cos((player.state.angle + 90) * Math.PI / 180 - Math.PI) * currentWeapon.handPositions[0].x, y: position.y + Math.sin((player.state.angle + 90) * Math.PI / 180 - Math.PI) * currentWeapon.handPositions[0].x}, { x: player.state.position.x + Math.cos((player.state.angle + randomAngleOffset) * Math.PI / 180 - Math.PI) * bulletLength + Math.cos((player.state.angle + 90) * Math.PI / 180 - Math.PI) * currentWeapon.handPositions[0].x, y: player.state.position.y + Math.sin((player.state.angle + randomAngleOffset) * Math.PI / 180 - Math.PI) * bulletLength + Math.sin((player.state.angle + 90) * Math.PI / 180 - Math.PI) * currentWeapon.handPositions[0].x }, true);
+              } else {
+                ray = functions.raycast(collisionBodies, {x: position.x + Math.cos((player.state.angle + 90) * Math.PI / 180 - Math.PI) * currentWeapon.handPositions[1].x, y: position.y + Math.sin((player.state.angle + 90) * Math.PI / 180 - Math.PI) * currentWeapon.handPositions[1].x}, { x: player.state.position.x + Math.cos((player.state.angle + randomAngleOffset) * Math.PI / 180 - Math.PI) * bulletLength + Math.cos((player.state.angle - 90) * Math.PI / 180 - Math.PI) * currentWeapon.handPositions[1].x, y: player.state.position.y + Math.sin((player.state.angle + randomAngleOffset) * Math.PI / 180 - Math.PI) * bulletLength + Math.sin((player.state.angle - 90) * Math.PI / 180 - Math.PI) * currentWeapon.handPositions[1].x }, true);
+              }
+            } else {
+              ray = functions.raycast(collisionBodies, position, { x: player.state.position.x + Math.cos((player.state.angle + randomAngleOffset) * Math.PI / 180 - Math.PI) * bulletLength, y: player.state.position.y + Math.sin((player.state.angle + randomAngleOffset) * Math.PI / 180 - Math.PI) * bulletLength }, true);
+            }
             let finish = ray[0].point;
             for (let i = 0; i < gameData.users.length; i++) {
               if (gameData.players[gameData.users[i]].body == ray[0].body && gameData.players[gameData.users[i]] != player) {
@@ -581,17 +657,44 @@ function updatePlayer(player, delay, id) {
                 }
               }
             }
-            gameData.bullets.push(new bullet({ start: player.state.position, finish: finish }, player.team, id, player.state.angle + randomAngleOffset, currentWeapon.lifeTime, [{x: ray[0].verts[0].x, y: ray[0].verts[0].y, colour: JSON.parse(ray[0].body.tag).colour, material: JSON.parse(ray[0].body.tag).material}, {x: ray[0].verts[1].x, y: ray[0].verts[1].y, colour: JSON.parse(ray[0].body.tag).colour, material: JSON.parse(ray[0].body.tag).material}], true));
+            if(currentWeapon.dual) {
+              if(player.state.mag[player.state.activeWeaponIndex] % 2 == 0) {
+                const start = {x: player.state.position.x + Math.cos((player.state.angle + 90) * Math.PI / 180 - Math.PI) * currentWeapon.handPositions[0].x, y: player.state.position.y + Math.sin((player.state.angle + 90) * Math.PI / 180 - Math.PI) * currentWeapon.handPositions[0].x};
+                let angle;
+                if(gameData.serverSettings["dual-wield-realism"]) {
+                  angle = player.state.angle + randomAngleOffset;
+                } else {
+                  angle = (Math.atan2(start.y - finish.y, start.x - finish.x) / Math.PI * 180);
+                }
+                gameData.bullets.push(new bullet({ start: start, finish: finish }, player.team, id, angle, currentWeapon.lifeTime, [{x: ray[0].verts[0].x, y: ray[0].verts[0].y, colour: JSON.parse(ray[0].body.tag).colour, material: JSON.parse(ray[0].body.tag).material}, {x: ray[0].verts[1].x, y: ray[0].verts[1].y, colour: JSON.parse(ray[0].body.tag).colour, material: JSON.parse(ray[0].body.tag).material}], true));
+              } else {
+                const start = {x: player.state.position.x + Math.cos((player.state.angle + 90) * Math.PI / 180 - Math.PI) * currentWeapon.handPositions[1].x, y: player.state.position.y + Math.sin((player.state.angle + 90) * Math.PI / 180 - Math.PI) * currentWeapon.handPositions[1].x};
+                if(gameData.serverSettings["dual-wield-realism"]) {
+                  angle = player.state.angle + randomAngleOffset;
+                } else {
+                  angle = (Math.atan2(start.y - finish.y, start.x - finish.x) / Math.PI * 180);
+                }
+                gameData.bullets.push(new bullet({ start: start, finish: finish }, player.team, id, angle, currentWeapon.lifeTime, [{x: ray[0].verts[0].x, y: ray[0].verts[0].y, colour: JSON.parse(ray[0].body.tag).colour, material: JSON.parse(ray[0].body.tag).material}, {x: ray[0].verts[1].x, y: ray[0].verts[1].y, colour: JSON.parse(ray[0].body.tag).colour, material: JSON.parse(ray[0].body.tag).material}], true));
+              }
+            } else {
+              gameData.bullets.push(new bullet({ start: player.state.position, finish: finish }, player.team, id, player.state.angle + randomAngleOffset, currentWeapon.lifeTime, [{x: ray[0].verts[0].x, y: ray[0].verts[0].y, colour: JSON.parse(ray[0].body.tag).colour, material: JSON.parse(ray[0].body.tag).material}, {x: ray[0].verts[1].x, y: ray[0].verts[1].y, colour: JSON.parse(ray[0].body.tag).colour, material: JSON.parse(ray[0].body.tag).material}], true));
+            }
             player.state.fireTimer = 0;
           }
         } else if(currentWeapon.type == "grenade") {
           player.state.mag[player.state.activeWeaponIndex]--;
-          let ray = functions.raycast(justObstacles, position, { x: player.state.position.x + Math.cos((player.state.angle + randomAngleOffset) * Math.PI / 180 - Math.PI) * currentWeapon.throwLength, y: player.state.position.y + Math.sin((player.state.angle + randomAngleOffset) * Math.PI / 180 - Math.PI) * currentWeapon.throwLength }, true);
-          let finish;
+          let ray = functions.raycast(justObstacles, position, { x: player.state.position.x + Math.cos((player.state.angle + randomAngleOffset) * Math.PI / 180 - Math.PI) * currentWeapon.throwLength, y: player.state.position.y + Math.sin((player.state.angle + randomAngleOffset) * Math.PI / 180 - Math.PI) * currentWeapon.throwLength }, true),
+          finish,
+          damageAreaFinish;
           if(ray[0] && ray[0].point) {
             finish = ray[0].point;
-          } else finish = { x: player.state.position.x + Math.cos((player.state.angle + randomAngleOffset) + 90) * currentWeapon.throwLength, y: player.state.position.y + Math.sin((player.state.angle + randomAngleOffset) + 90) * currentWeapon.throwLength };
-          gameData.grenades.push(new grenade({
+            const actualThrowLength = Math.sqrt(squaredDist(ray[0].point, position)) - 3;
+            damageAreaFinish = { x: player.state.position.x + Math.cos((player.state.angle + randomAngleOffset) * Math.PI / 180 - Math.PI) * actualThrowLength, y: player.state.position.y + Math.sin((player.state.angle + randomAngleOffset) * Math.PI / 180 - Math.PI) * actualThrowLength };
+          } else { 
+            finish = { x: player.state.position.x + Math.cos((player.state.angle + randomAngleOffset) + 90) * currentWeapon.throwLength, y: player.state.position.y + Math.sin((player.state.angle + randomAngleOffset) + 90) * currentWeapon.throwLength };
+            damageAreaFinish = { x: player.state.position.x + Math.cos((player.state.angle + randomAngleOffset) * Math.PI / 180 - Math.PI) * currentWeapon.throwLength, y: player.state.position.y + Math.sin((player.state.angle + randomAngleOffset) * Math.PI / 180 - Math.PI) * currentWeapon.throwLength };
+          }
+            gameData.grenades.push(new grenade({
             coordinates: {
               start: player.state.position,
               finish: finish
@@ -602,7 +705,16 @@ function updatePlayer(player, delay, id) {
             src: currentWeapon.projectileSRC,
             rotation: 0
           }));
+          gameData.damageAreas.push(new damageArea({
+            position: damageAreaFinish,
+            team: player.team,
+            player: JSON.parse(player.body.tag).id,
+            timestamp: Date.now() + 50 * 4 * (Math.sqrt(squaredDist(player.state.position, finish)) / 300),
+            damage: currentWeapon.damage,
+            radius: currentWeapon.damageArea.radius
+          }));
           player.state.fireTimer = 0;
+          gameData.bullets.push(new bullet({ start: player.state.position, finish: player.state.position }, player.team, id, player.state.angle, 0, [{x: 0, y: 0, colour: "none", material: "none"}, {x: 1, y: 1, colour: "none", material: "none"}], false));
         }
         gameData.shouldUpdateUI = true;
         gameData.queuedSounds.push({path: currentWeapon.sounds.fire, origin: player.state.position});
@@ -616,6 +728,78 @@ function updatePlayer(player, delay, id) {
   }
 }
 
+function updateDamageAreas() {
+  for(let i = 0; i < gameData.damageAreas.length; i++) {
+    if(gameData.damageAreas[i].timestamp <= Date.now()) {
+      const areaData = gameData.damageAreas[i];
+      let playerBodies = [];
+      for(let j = 0; j < gameData.users.length; j++) {
+        if(gameData.players[gameData.users[j]].health > 0) {
+          playerBodies.push(Matter.Bodies.circle(gameData.players[gameData.users[j]].body.position.x, gameData.players[gameData.users[j]].body.position.y, 110, {
+            tag: gameData.players[gameData.users[j]].body.tag
+          }));
+        }
+      }
+      const collisions = Matter.Query.collides(Matter.Bodies.circle(areaData.position.x, areaData.position.y, areaData.radius), playerBodies);
+      for(let k = 0; k < collisions.length; k++) {
+        const parsed = JSON.parse(collisions[k].bodyA.tag);
+        if(parsed.colour != areaData.team || parsed.id == areaData.player) {
+          let collisionBodies = playerBodies.concat(justObstacles);
+          const ray = functions.raycast(collisionBodies, areaData.position, collisions[k].bodyA.position, true);
+          if(squaredDist(areaData.position, collisions[k].bodyA.position) <= 8100 || ray[0] && JSON.parse(ray[0].body.tag).id == parsed.id) {
+            const player = gameData.players[parsed.id],
+            damage = Math.ceil(((areaData.radius - restrict(Math.sqrt(squaredDist(areaData.position, player.body.position)) - 50, 0, areaData.radius)) / areaData.radius) * areaData.damage);
+            gameData.shouldUpdateUI = true;
+            gameData.shouldUpdateScoreboard = true;
+            if(parsed.id != areaData.player) {
+              if(player.health <= damage) {
+                for(let v = 0; v < 7; v++) {
+                  const angle = Math.random() * Math.PI * 2;
+                  gameData.particles.push(new particle({x: (player.state.position.x / 1) + Math.cos(angle) * 100, y: (player.state.position.y / 1) + Math.sin(angle) * 100}, Math.random() * 360, angle, player.team, 250, "/assets/misc/particle.svg", 100, "residue", 0));
+                }  
+                gameData.scoreboard[areaData.player].damage += player.health;
+                player.health = 0;
+                player.state.hasStarted = false;
+                Composite.remove(world, player.body);
+                player.keys = [];
+                gameData.currentRoundScore[areaData.team] += 1;
+                gameData.scoreboard[areaData.player].kills++;
+                gameData.scoreboard[areaData.player].score += 100;
+                gameData.scoreboard[parsed.id].deaths++;
+                player.state.mag[0] = gameData.weapons[player.guns[0]].magSize;
+                player.state.mag[1] = gameData.weapons[player.guns[1]].magSize;                    
+                player.state.isReloading = false;
+              } else {
+                gameData.scoreboard[areaData.player].damage += damage;
+                player.health -= damage;
+              }
+            } else {
+              if(player.health <= damage) {
+                for(let v = 0; v < 7; v++) {
+                  const angle = Math.random() * Math.PI * 2;
+                  gameData.particles.push(new particle({x: (player.state.position.x / 1) + Math.cos(angle) * 100, y: (player.state.position.y / 1) + Math.sin(angle) * 100}, Math.random() * 360, angle, player.team, 250, "/assets/misc/particle.svg", 100, "residue", 0));
+                }  
+                player.health = 0;
+                player.state.hasStarted = false;
+                Composite.remove(world, player.body);
+                player.keys = [];
+                gameData.scoreboard[parsed.id].deaths++;
+                player.state.mag[0] = gameData.weapons[player.guns[0]].magSize;
+                player.state.mag[1] = gameData.weapons[player.guns[1]].magSize;                    
+                player.state.isReloading = false;
+              } else {
+                player.health -= damage;
+              }
+            }
+          }
+        }
+      }
+      gameData.damageAreas.splice(i, 1);
+      i--;
+    }
+  }
+}
+
 function updateGame() {
   if (gameData.usersOnline > 0) {
     let time = Date.now();
@@ -623,6 +807,8 @@ function updateGame() {
     const tickDelay = ((time - lastTime) / (1000 / tickRate));
     gameData.lastTickDelay = (time - lastTime);
     lastTime = Date.now();
+    Engine.update(engine, tickDelay * (1000 / tickRate), tickDelay);
+
     for (let x = 0; x < gameData.users.length; x++) {
       const player = gameData.players[gameData.users[x]];
       const currentWeapon = gameData.weapons[player.guns[player.state.activeWeaponIndex]];
@@ -647,8 +833,9 @@ function updateGame() {
         }
         gameData.shouldUpdateUI = true;
       }
-      updatePlayer(player, tickDelay, gameData.users[x]);
+      updatePlayer(player, gameData.lastTickDelay, gameData.users[x]);
     }
+    updateDamageAreas();
     for(let x = 0; x < gameData.users.length; x++) {
       io.to(gameData.users[x]).emit("world-update", {
         players: gameData.players,
@@ -679,17 +866,17 @@ function updateGame() {
 }
 
 var updateGameTimer = setInterval(updateGame, tickRate),
-updateObjectRenderLists = setInterval(function() {
-  for(let i = 0; i < gameData.users.length; i++) {
-    const player = gameData.players[gameData.users[i]];
-
-    player.state.objectRenderList = [];
-    const collisionList = Matter.Query.collides(Bodies.rectangle(player.state.position.x, player.state.position.y, 5000 + gameData.weapons[player.guns[player.state.activeWeaponIndex]].view ** 1.15, 3000 + gameData.weapons[player.guns[player.state.activeWeaponIndex]].view ** 1.15), imageBodyList);
+updateObjectRenderList = function(player) {
+  player.state.objectRenderList = {nonShootables: [], basic: []};
+  let types = ["nonShootables", "basic"];
+  
+  for(let v  = 0; v < types.length; v++) {
+    const collisionList = Matter.Query.collides(Bodies.rectangle(player.state.position.x, player.state.position.y, 5500 + gameData.weapons[player.guns[player.state.activeWeaponIndex]].view ** 1.15, 3500 + gameData.weapons[player.guns[player.state.activeWeaponIndex]].view ** 1.15), imageBodyList[types[v]]);
     for (let i = 0; i < collisionList.length; i++) {
-      player.state.objectRenderList.push(collisionList[i].bodyA.tag / 1);
+      player.state.objectRenderList[types[v]].push(collisionList[i].bodyA.tag / 1);
     }
   }
-}, 500);
+};
 
 io.sockets.on("connection", newConnection);
 
@@ -722,7 +909,7 @@ function newConnection(socket) {
             inertia: 1,
             density: 0.015,
             frictionAir: 0.25,
-            tag: JSON.stringify({colour: spawnpoint.team, id: socket.id, material: "metal"}) 
+            tag: JSON.stringify({colour: spawnpoint.team, id: socket.id, material: "robot"}) 
           }),
           0,
           gameData.loadouts["assault"],
@@ -787,6 +974,8 @@ function newConnection(socket) {
             const player = gameData.players[socket.id];
             if(player.health > 0) {
               if(data.index != player.state.activeWeaponIndex) {
+                let shouldUpdate = false;
+                if(gameData.weapons[player.guns[player.state.activeWeaponIndex]].view != gameData.weapons[player.guns[data.index]].view) shouldUpdate = true;
                 player.state.activeWeaponIndex = data.index;
                 player.state.isReloading = false;
                 player.state.reloadProgress = 0;
@@ -794,6 +983,10 @@ function newConnection(socket) {
                 if(player.state.mag[data.index] < 1 && !player.state.isReloading && gameData.weapons[player.guns[player.state.activeWeaponIndex]].type != "grenade") {
                   player.state.isReloading = true;
                   gameData.queuedSounds.push({path: gameData.weapons[player.guns[player.state.activeWeaponIndex]].sounds.reload, origin: player.state.position});
+                }
+                if(shouldUpdate) {
+                  updateObjectRenderList(player);
+                  player.state.objectRenderListUpdateTicker = 0;
                 }
               }
               gameData.shouldUpdateUI = true;
@@ -812,7 +1005,7 @@ function newConnection(socket) {
         socket.on("spawn", (data) => {
           try {
             let player = gameData.players[socket.id];
-            if(!player.state.hasStarted || gameData.players[socket.id].health < 0) {
+            if(!player.state.hasStarted || gameData.players[socket.id].health <= 0) {
               player.guns = gameData.loadouts[data.class];
               player.state.mag[0] = gameData.weapons[player.guns[0]].magSize;
               player.state.mag[1] = gameData.weapons[player.guns[1]].magSize;
@@ -831,11 +1024,7 @@ function newConnection(socket) {
 
               gameData.shouldUpdateUI = true;
 
-              player.state.objectRenderList = [];
-              const collisionList = Matter.Query.collides(Bodies.rectangle(player.state.position.x, player.state.position.y, 5000 + gameData.weapons[player.guns[player.state.activeWeaponIndex]].view ** 1.15, 3000 + gameData.weapons[player.guns[player.state.activeWeaponIndex]].view ** 1.15), imageBodyList);
-              for (let i = 0; i < collisionList.length; i++) {
-                player.state.objectRenderList.push(collisionList[i].bodyA.tag / 1);
-              }
+              updateObjectRenderList(player);
             }
           }
           catch { }
