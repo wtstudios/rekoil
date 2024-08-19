@@ -22,6 +22,7 @@
         "fire": "/assets/audio/guns/scar_fire.mp3",
         "reload": "/assets/audio/guns/scar_reload.mp3"
       },
+      "dual": false,
       "recoilImpulse": [
         {
           "x": 0,
@@ -60,6 +61,7 @@
         "fire": "/assets/audio/guns/mk18_fire.mp3",
         "reload": "/assets/audio/guns/mk18_reload.mp3"
       },
+      "dual": false,
       "recoilImpulse": [
         {
           "x": 0,
@@ -98,6 +100,7 @@
         "fire": "/assets/audio/guns/vector_fire.mp3",
         "reload": "/assets/audio/guns/vector_reload.mp3"
       },
+      "dual": false,
       "recoilImpulse": [
         {
           "x": 0,
@@ -136,6 +139,7 @@
         "fire": "/assets/audio/guns/ballista_fire.mp3",
         "reload": "/assets/audio/guns/ballista_reload.mp3"
       },
+      "dual": false,
       "recoilImpulse": [
         {
           "x": 0,
@@ -174,6 +178,7 @@
         "fire": "/assets/audio/guns/slp_fire.mp3",
         "reload": "/assets/audio/guns/slp_reload.mp3"
       },
+      "dual": false,
       "recoilImpulse": [
         {
           "x": 0,
@@ -212,6 +217,7 @@
         "fire": "/assets/audio/guns/509_fire.mp3",
         "reload": "/assets/audio/guns/509_reload.mp3"
       },
+      "dual": false,
       "recoilImpulse": [
         {
           "x": 0,
@@ -250,6 +256,7 @@
         "fire": "/assets/audio/guns/fnx_fire.mp3",
         "reload": "/assets/audio/guns/509_reload.mp3"
       },
+      "dual": false,
       "recoilImpulse": [
         {
           "x": 0,
@@ -288,6 +295,7 @@
         "fire": "/assets/audio/guns/deagle_fire.mp3",
         "reload": "/assets/audio/guns/deagle_reload.mp3"
       },
+      "dual": false,
       "recoilImpulse": [
         {
           "x": 0,
@@ -327,6 +335,7 @@
         "fire": "/assets/audio/guns/whoosh.mp3",
         "reload": "/assets/audio/guns/509_reload.mp3"
       },
+      "dual": false,
       "recoilImpulse": [
         {
           "x": -10,
@@ -349,7 +358,7 @@
       "view": 0,
       "fireDelay": 7,
       "fireMode": "semi",
-      "damage": 45,
+      "damage": 32,
       "damageArea": {
         "position": {
           "x": 0,
@@ -366,6 +375,7 @@
         "fire": "/assets/audio/guns/whoosh.mp3",
         "reload": "/assets/audio/guns/509_reload.mp3"
       },
+      "dual": false,
       "recoilImpulse": [
         {
           "x": -10,
@@ -385,21 +395,21 @@
     {
       "name": "Smokescreen",
       "type": "grenade",
-      "magSize": 2,
+      "magSize": 1,
       "view": 0,
-      "fireDelay": 0,
+      "fireDelay": 20,
       "fireMode": "semi",
       "spread": {
-        "standing": 0,
+        "standing": 0.5,
         "moving": 4
       },
-      "damage": 0,
+      "damage": 5,
       "damageArea": {
         "position": {
           "x": 0,
           "y": 0
         },
-        "radius": 500
+        "radius": 200
       },
       "bulletsPerShot": 1,
       "particleType": "smoke",
@@ -414,6 +424,7 @@
         "fire": "/assets/audio/guns/whoosh.mp3",
         "reload": "/assets/audio/guns/509_reload.mp3"
       },
+      "dual": false,
       "recoilImpulse": [
         {
           "x": 0,
@@ -433,21 +444,21 @@
     {
       "name": "Frag",
       "type": "grenade",
-      "magSize": 3,
+      "magSize": 2,
       "view": 0,
-      "fireDelay": 0,
+      "fireDelay": 15,
       "fireMode": "semi",
       "spread": {
-        "standing": 0,
+        "standing": 0.5,
         "moving": 4
       },
-      "damage": 20,
+      "damage": 90,
       "damageArea": {
         "position": {
           "x": 0,
           "y": 0
         },
-        "radius": 1000
+        "radius": 700
       },
       "bulletsPerShot": 1,
       "particleType": "explo",
@@ -462,6 +473,7 @@
         "fire": "/assets/audio/guns/whoosh.mp3",
         "reload": "/assets/audio/guns/509_reload.mp3"
       },
+      "dual": false,
       "recoilImpulse": [
         {
           "x": 0,

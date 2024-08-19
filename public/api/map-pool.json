@@ -1,5 +1,6 @@
 {
     "pool": [
-        "dm_dunes"
+        "dm_dunes",
+        "dm_rust"
     ]
 }

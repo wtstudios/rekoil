@@ -46,49 +46,57 @@
                 }
             ]
         },
-        "frag": {
+        "explo": {
             "burstLength": 500,
-            "sound": "/assets/audio/guns/smoke_burst.mp3",
+            "sound": "/assets/audio/guns/frag_burst.mp3",
             "particleList": [
                 {
                     "shape": "circle",
-                    "radius": 500,
-                    "travelDist": 0,
-                    "colour": "#7d7d7d",
-                    "lifetime": 15000,
-                    "angle": 0
+                    "radius": 90,
+                    "travelDist": 230,
+                    "colour": "#ffa216",
+                    "lifetime": 200,
+                    "angle": 350
                 },
                 {
                     "shape": "circle",
-                    "radius": 250,
-                    "travelDist": 410,
-                    "colour": "#999999",
-                    "lifetime": 14600,
-                    "angle": 90
+                    "radius": 80,
+                    "travelDist": 240,
+                    "colour": "#ffa216",
+                    "lifetime": 300,
+                    "angle": 140
                 },
                 {
                     "shape": "circle",
-                    "radius": 190,
-                    "travelDist": 540,
-                    "colour": "#696969",
-                    "lifetime": 14000,
-                    "angle": 270
-                },
-                {
-                    "shape": "circle",
-                    "radius": 155,
-                    "travelDist": 650,
-                    "colour": "#999999",
-                    "lifetime": 13500,
-                    "angle": 300
-                },
-                {
-                    "shape": "circle",
-                    "radius": 130,
-                    "travelDist": 650,
-                    "colour": "#696969",
-                    "lifetime": 13200,
+                    "radius": 150,
+                    "travelDist": 200,
+                    "colour": "#ff8316",
+                    "lifetime": 400,
                     "angle": 45
+                },
+                {
+                    "shape": "circle",
+                    "radius": 150,
+                    "travelDist": 170,
+                    "colour": "#ff8316",
+                    "lifetime": 500,
+                    "angle": 225
+                },
+                {
+                    "shape": "circle",
+                    "radius": 170,
+                    "travelDist": 200,
+                    "colour": "#ff6416",
+                    "lifetime": 600,
+                    "angle": 50
+                },
+                {
+                    "shape": "circle",
+                    "radius": 220,
+                    "travelDist": 0,
+                    "colour": "#ff6416",
+                    "lifetime": 700,
+                    "angle": 220
                 }
             ]
         }

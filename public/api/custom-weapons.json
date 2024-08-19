@@ -1,0 +1,287 @@
+{
+    "weapons": [
+        {
+            "name": "AK-47",
+            "type": "gun",
+            "magSize": 30,
+            "view": 0,
+            "fireDelay": 4,
+            "fireMode": "auto",
+            "spread": {
+              "standing": 2,
+              "moving": 14
+            },
+            "damage": 27,
+            "bulletsPerShot": 1,
+            "handPositions": [{ "x": -25, "y": -220 }, { "x": 25, "y": -120 }],
+            "images": { "topdownSRC": "/assets/weapons/ak47_topdown.svg", "lootSRC": "/assets/weapons/ak47_loot.svg", "offset": { "x": 0, "y": -270 } },
+            "reloadLength": 100,
+            "roundsPerReload": "all",
+            "playerDensity": 0.02,
+            "sounds": {
+              "fire": "/assets/audio/guns/ak47_fire.mp3",
+              "reload": "/assets/audio/guns/scar_reload.mp3"
+            },
+            "dual": false,
+            "recoilImpulse": [
+              {
+                "x": 0,
+                "y": 80
+              },
+              {
+                "x": 0,
+                "y": 80
+              },
+              {
+                "x": 0,
+                "y": 80
+              }
+            ],
+            "lifeTime": 35
+          },
+          {
+            "name": "Dual AK-47",
+            "type": "gun",
+            "magSize": 30,
+            "view": 0,
+            "fireDelay": 4,
+            "fireMode": "auto",
+            "spread": {
+              "standing": 4,
+              "moving": 28
+            },
+            "damage": 27,
+            "bulletsPerShot": 1,
+            "handPositions": [{ "x": -60, "y": -115 }, { "x": 60, "y": -115 }],
+            "images": { "topdownSRC": "/assets/weapons/ak47_topdown.svg", "lootSRC": "/assets/weapons/dual_ak47_loot.svg", "offset": { "x": 0, "y": -270 } },
+            "reloadLength": 100,
+            "roundsPerReload": "all",
+            "playerDensity": 0.02,
+            "sounds": {
+              "fire": "/assets/audio/guns/ak47_fire.mp3",
+              "reload": "/assets/audio/guns/scar_reload.mp3"
+            },
+            "dual": true,
+            "recoilImpulse": [
+              {
+                "x": 0,
+                "y": 80
+              },
+              {
+                "x": 0,
+                "y": 80
+              },
+              {
+                "x": 0,
+                "y": 80
+              }
+            ],
+            "lifeTime": 35
+          },
+          {
+            "name": "M4A1-S",
+            "type": "gun",
+            "magSize": 20,
+            "view": 0,
+            "fireDelay": 4,
+            "fireMode": "auto",
+            "spread": {
+              "standing": 1.5,
+              "moving": 18
+            },
+            "damage": 25,
+            "bulletsPerShot": 1,
+            "handPositions": [{ "x": -25, "y": -220 }, { "x": 25, "y": -120 }],
+            "images": { "topdownSRC": "/assets/weapons/m4a1-s_topdown.svg", "lootSRC": "/assets/weapons/m4a1-s_loot.svg", "offset": { "x": 0, "y": -310 } },
+            "reloadLength": 100,
+            "roundsPerReload": "all",
+            "playerDensity": 0.02,
+            "sounds": {
+              "fire": "/assets/audio/guns/m4a1-s_fire.mp3",
+              "reload": "/assets/audio/guns/scar_reload.mp3"
+            },
+            "dual": false,
+            "recoilImpulse": [
+              {
+                "x": 0,
+                "y": 30
+              },
+              {
+                "x": 0,
+                "y": 30
+              },
+              {
+                "x": 0,
+                "y": 30
+              }
+            ],
+            "lifeTime": 15
+          },
+          {
+            "name": "Throwable Desert Eagle",
+            "type": "grenade",
+            "magSize": 7,
+            "view": 0,
+            "fireDelay": 7,
+            "fireMode": "semi",
+            "spread": {
+              "standing": 0.5,
+              "moving": 4
+            },
+            "damage": 90,
+            "damageArea": {
+              "position": {
+                "x": 0,
+                "y": 0
+              },
+              "radius": 700
+            },
+            "bulletsPerShot": 1,
+            "particleType": "explo",
+            "projectileSRC": "/assets/weapons/deagle_topdown.svg",
+            "throwLength": 2000,
+            "handPositions": [{ "x": -30, "y": -115 }, { "x": 25, "y": -120 }],
+            "images": { "topdownSRC": "/assets/weapons/deagle_topdown.svg", "lootSRC": "/assets/weapons/deagle_loot.svg", "offset": { "x": 0, "y": -285 } },
+            "reloadLength": 85,
+            "roundsPerReload": "all",
+            "playerDensity": 0.02,          
+            "sounds": {
+              "fire": "/assets/audio/guns/whoosh.mp3",
+              "reload": "/assets/audio/guns/deagle_reload.mp3"
+            },
+            "dual": false,
+            "recoilImpulse": [
+              {
+                "x": 0,
+                "y": 50
+              },
+              {
+                "x": 0,
+                "y": 50
+              },
+              {
+                "x": 0,
+                "y": 50
+              }
+            ],
+            "lifeTime": 40
+          },
+          {
+            "name": "Dual T509",
+            "type": "gun",
+            "magSize": 12,
+            "view": 0,
+            "fireDelay": 7,
+            "fireMode": "semi",
+            "spread": {
+              "standing": 2,
+              "moving": 10
+            },
+            "damage": 24,
+            "bulletsPerShot": 1,
+            "handPositions": [{ "x": -70, "y": -100 }, { "x": 70, "y": -100 }],
+            "images": { "topdownSRC": "/assets/weapons/509_topdown.svg", "lootSRC": "/assets/weapons/dual_509_loot.svg", "offset": { "x": 0, "y": -335 } },
+            "reloadLength": 160,
+            "roundsPerReload": "all",
+            "playerDensity": 0.018,          
+            "sounds": {
+              "fire": "/assets/audio/guns/509_fire.mp3",
+              "reload": "/assets/audio/guns/dual_509_reload.mp3"
+            },
+            "dual": true,
+            "recoilImpulse": [
+              {
+                "x": 0,
+                "y": 25
+              },
+              {
+                "x": 0,
+                "y": 25
+              },
+              {
+                "x": 0,
+                "y": 25
+              }
+            ],
+            "lifeTime": 20
+          },
+          {
+            "name": "Dual FNX45",
+            "type": "gun",
+            "magSize": 17,
+            "view": 0,
+            "fireDelay": 4,
+            "fireMode": "auto",
+            "spread": {
+              "standing": 6,
+              "moving": 14
+            },
+            "damage": 10,
+            "bulletsPerShot": 1,
+            "handPositions": [{ "x": -70, "y": -100 }, { "x": 70, "y": -100 }],
+            "images": { "topdownSRC": "/assets/weapons/fnx_topdown.svg", "lootSRC": "/assets/weapons/dual_fnx_loot.svg", "offset": { "x": 0, "y": -290 } },
+            "reloadLength": 160,
+            "roundsPerReload": "all",
+            "playerDensity": 0.018,          
+            "sounds": {
+              "fire": "/assets/audio/guns/fnx_fire.mp3",
+              "reload": "/assets/audio/guns/dual_509_reload.mp3"
+            },
+            "dual": true,
+            "recoilImpulse": [
+              {
+                "x": 0,
+                "y": 35
+              },
+              {
+                "x": 0,
+                "y": 35
+              },
+              {
+                "x": 0,
+                "y": 35
+              }
+            ],
+            "lifeTime": 30
+          },
+          {
+            "name": "Dual Desert Eagle",
+            "type": "gun",
+            "magSize": 7,
+            "view": 0,
+            "fireDelay": 7,
+            "fireMode": "semi",
+            "spread": {
+              "standing": 4,
+              "moving": 25
+            },
+            "damage": 35,
+            "bulletsPerShot": 1,
+            "handPositions": [{ "x": -70, "y": -100 }, { "x": 70, "y": -100 }],
+            "images": { "topdownSRC": "/assets/weapons/deagle_topdown.svg", "lootSRC": "/assets/weapons/dual_deagle_loot.svg", "offset": { "x": 0, "y": -285 } },
+            "reloadLength": 150,
+            "roundsPerReload": "all",
+            "playerDensity": 0.02,          
+            "sounds": {
+              "fire": "/assets/audio/guns/deagle_fire.mp3",
+              "reload": "/assets/audio/guns/dual_deagle_reload.mp3"
+            },
+            "dual": true,
+            "recoilImpulse": [
+              {
+                "x": 0,
+                "y": 50
+              },
+              {
+                "x": 0,
+                "y": 50
+              },
+              {
+                "x": 0,
+                "y": 50
+              }
+            ],
+            "lifeTime": 40
+          }
+    ]
+}

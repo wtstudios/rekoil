@@ -1,0 +1,9 @@
+{
+    "loadouts": {
+        "assault": ["SCAR-L", "T509", "Survival Knife", "Frag"],
+        "breach": ["SLP", "Dual Desert Eagle", "Survival Knife", "Frag"],
+        "recon": ["VKR", "Desert Eagle", "Survival Knife", "Smokescreen"],
+        "scout": ["Mk18", "FNX45", "Survival Knife", "Frag"],
+        "sniper": ["Ballista", "FNX45", "Survival Knife", "Smokescreen"]
+      }
+}
