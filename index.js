@@ -18,7 +18,9 @@ const app = express();
 
 const PORT = process.env.PORT || 3000;
 
-if(process.env.RENDER) console.log("Service ID: " + process.env.RENDER_SERVICE_ID);
+if(process.env.RENDER) {
+  console.log("Service ID: " + process.env.RENDER_SERVICE_ID + "\nInstance ID: " + process.env.RENDER_INSTANCE_ID);
+}
 
 const server = app.listen(PORT);
 
