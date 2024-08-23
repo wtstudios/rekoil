@@ -18,6 +18,8 @@ const app = express();
 
 const PORT = process.env.PORT || 3000;
 
+if(process.env.RENDER) console.log("Service ID: " + process.env.RENDER_SERVICE_ID);
+
 const server = app.listen(PORT);
 
 app.use(express.static("public"));
