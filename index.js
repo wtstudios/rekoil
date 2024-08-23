@@ -498,7 +498,7 @@ function updatePlayer(player, delay, id) {
       gameData.queuedSounds.push({path: "/assets/audio/footsteps/step" + (Math.round(Math.random() * 7) + 1) + ".mp3", origin: player.state.position});
       player.state.stepSoundTicker = 0;
     }
-    if(player.state.objectRenderListUpdateTicker >= 18) {
+    if(player.state.objectRenderListUpdateTicker >= 14) {
       updateObjectRenderList(player);
       player.state.objectRenderListUpdateTicker = 0;
     }
