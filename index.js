@@ -483,12 +483,12 @@ function updatePlayer(player, delay, id) {
   if(w || s) {
     Body.setVelocity(body, {
       x: body.velocity.x,
-      y: +(w ^ s) && (((a ^ d) ? 0.7071 : 1) * [-1, 1][+w] * base * 3.25 / (body.density / 0.15))
+      y: +(w ^ s) && (((a ^ d) ? 0.7071 : 1) * [-1, 1][+w] * base * 3.75 / (body.density / 0.15))
     });
   }
   if(a || d) {
     Body.setVelocity(body, {
-      x: +(a ^ d) && (((w ^ s) ? 0.7071 : 1) * [-1, 1][+d] * base * 3.25 / (body.density / 0.15)),
+      x: +(a ^ d) && (((w ^ s) ? 0.7071 : 1) * [-1, 1][+d] * base * 3.75 / (body.density / 0.15)),
       y: body.velocity.y
     });
   }
